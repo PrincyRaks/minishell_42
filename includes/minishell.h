@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/21 16:49:08 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/10/21 17:55:22 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
+#include "../libft/libft.h"
 
 
 void shell_loop(void);

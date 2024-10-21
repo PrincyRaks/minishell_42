@@ -1,21 +1,22 @@
-CFLAGS= -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
-SRCS=	mandatory/main.c \
-		mandatory/shell_loop.c
+SRCS = mandatory/main.c \
+       mandatory/shell_loop.c
 
-OBJS= $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
-INC= -I./includes
+INC = -I./includes
 
-NAME= minishell
+NAME = minishell
+LIBFT = libft/libft.a
 
-all: $(NAME)
+all: libft $(NAME)
 
-%.o:%.c
+%.o: %.c
 	cc $(CFLAGS) $(INC) -c $< -o $@
 
-$(NAME): $(OBJS)
-	cc $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
+$(NAME): $(OBJS) $(LIBFT)
+	cc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
 clean:
 	rm -f $(OBJS)
@@ -24,6 +25,7 @@ libft:
 	make -C libft/
 
 fclean: clean
+	 make -C libft fclean
 	rm -f $(NAME)
 
 re: fclean all
