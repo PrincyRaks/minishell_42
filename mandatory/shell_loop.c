@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/21 16:49:08 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/10/21 16:58:17 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <dirent.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <sys/ioctl.h>
+void shell_loop(void)
+{
+    char * input;
 
-
-void shell_loop(void);
-
-#endif
+    while (1)
+    {
+        input = readline(" 👽 > ");
+        free(input);
+    }
+}

@@ -1,6 +1,7 @@
 CFLAGS= -Wall -Werror -Wextra
 
-SRCS=	./mandatory/main.c \
+SRCS=	mandatory/main.c \
+		mandatory/shell_loop.c
 
 OBJS= $(SRCS:.c=.o)
 
@@ -11,10 +12,10 @@ NAME= minishell
 all: $(NAME)
 
 %.o:%.c
-	gcc $(CFLAGS) $(INC) -c $< -o $@
+	cc $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS)
-	gcc $(CFLAGS) $(OBJS) -o $(NAME)
+	cc $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
 
 clean:
 	rm -f $(OBJS)
