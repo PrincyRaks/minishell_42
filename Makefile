@@ -4,22 +4,27 @@ SRCS=	./mandatory/main.c \
 
 OBJS= $(SRCS:.c=.o)
 
+INC= -I./includes
+
 NAME= minishell
 
 all: $(NAME)
 
 %.o:%.c
-	cc $(CFLAGS) -c $< -o $@
+	gcc $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS)
-	cc $(CFLAGS) $(OBJS) -o $(NAME)
+	gcc $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
+
+libft:
+	make -C libft/
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean libft all re

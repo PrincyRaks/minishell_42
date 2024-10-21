@@ -1,0 +1,19 @@
+cut -d , -f 1 data.csv > eleve.txt
+cut -d, -f 1 data.csv >> eleve.txt
+cut -d, -f 1 file_not_exist.csv > eleve.txt
+**cut -d, -f 1 file_not_exist.csv > eleve.txt 2> error.log
+**cut -d, -f 1 file_not_exist.csv > eleve.txt 2>&1
+cat < data.csv
+sort -n << FIN
+wc -m << STOP (combien de carateres dans cette phrase ?)
+sort -n << FIN > nb_range.txt
+cut -d, -f 1 notes.csv | sort > name_range.txt
+du | sort -nr | head
+du | sort -nr | less
+grep log -lr /var/log | cut -d : -f 1 | sort | uniq
+w
+ps -ef
+ps -u
+jobs
+at "HH:MM"
+at> touch file_create_by_cmd_at.txt

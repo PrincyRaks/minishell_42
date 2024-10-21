@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "minishell.h": "c",
+        "history.h": "c",
+        "stdio.h": "c",
+        "readline.h": "c",
+        "dirent.h": "c",
+        "types.h": "c",
+        "ioctl.h": "c",
+        "unistd.h": "c"
+    }
+}
