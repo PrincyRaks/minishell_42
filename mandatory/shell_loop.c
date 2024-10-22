@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/22 09:01:31 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:05:07 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,10 @@ void shell_loop(char **envp)
                     exit(EXIT_FAILURE);
                 }
                 else
-                {
                     wait(NULL);
-                }
             }
             else
-            {
                 printf("%s: command not found\n", args[0]);
-            }
-
             free_array(args);
             free(executable);
         }
