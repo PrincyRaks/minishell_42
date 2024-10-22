@@ -1,7 +1,8 @@
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = mandatory/main.c \
-       mandatory/shell_loop.c
+       mandatory/shell_loop.c \
+	   mandatory/executor.c \
 
 OBJS = $(SRCS:.c=.o)
 

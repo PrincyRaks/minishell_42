@@ -6,24 +6,32 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/21 18:37:22 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:01:31 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	ft_strcmp(char *s1, char *s2)
+void free_array(char **array)
 {
-	int i;
+    int i = 0;
 
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
+    if (!array)
+        return;
+    while (array[i])
+    {
+        free(array[i]);
+        i++;
+    }
+    free(array);
 }
-void shell_loop(void)
+
+void shell_loop(char **envp)
 {
-    char * input;
+    char *input;
+    char **args;
+    char **paths = get_path(envp);
+    char *executable;
 
     while (1)
     {
@@ -34,16 +42,39 @@ void shell_loop(void)
             printf("exit\n");
             break;
         }
+
         if (*input)
         {
             add_history(input);
-            if (ft_strcmp(input, "exit") == 0)
+            args = ft_split(input, ' ');
+            executable = find_executable(args[0], paths);
+
+            if (executable)
             {
-                free(input);
-                printf("exit\n");
-                break;
+                if (fork() == 0)
+                {
+                    execve(executable, args, envp);
+                    perror("execve");
+                    exit(EXIT_FAILURE);
+                }
+                else
+                {
+                    wait(NULL);
+                }
             }
+            else
+            {
+                printf("%s: command not found\n", args[0]);
+            }
+
+            free_array(args);
+            free(executable);
         }
+
         free(input);
     }
+
+    free_array(paths);
 }
+
+

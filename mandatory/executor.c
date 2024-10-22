@@ -6,49 +6,58 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/21 18:34:00 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/10/22 08:58:11 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int is_executable(char *path)
-{
-    return access(path, X_OK) == 0;
-}
+#include "minishell.h"
 
-char *find_executable(char *command, char **envp)
+char **get_path(char **envp)
 {
-    char *path_env;
-    char **paths;
-    char *full_path;
-    int i;
+    int i = 0;
+    char *path_value = NULL;
 
-    path_env = getenv("PATH");
-    if (command[0] == '/' || command[0] == '.')
+    while (envp[i])
     {
-        if (is_executable(command))
-            return (ft_strdup(command));
-        else    return (NULL);
-    }
-    
-    paths = ft_split(path_env, ':');
-    if (!paths)
-        return (NULL);
-    
-    i = 0;
-    while (paths[i])
-    {
-        full_path = ft_strjoin(paths[i], '/');
-        full_path = ft_strjoin(full_path, command);
-        
-        if (is_executable(full_path))
+        if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-            free_array(paths);
-            return (full_path);
+            path_value = envp[i] + 5;
+            break;
         }
         i++;
     }
-    free_array(paths);
-    return (NULL);
+    if (path_value)
+        return ft_split(path_value, ':');
+
+    return NULL;
 }
+
+char *find_executable(char *command, char **paths)
+{
+    char *full_path;
+    int i = 0;
+
+    if (command[0] == '/' || command[0] == '.')
+    {
+        if (access(command, X_OK) == 0)
+            return ft_strdup(command);
+        else
+            return NULL;
+    }
+
+    while (paths && paths[i])
+    {
+        full_path = ft_strjoin(paths[i], "/");
+        full_path = ft_strjoin(full_path, command);
+
+        if (access(full_path, X_OK) == 0)
+            return full_path;
+
+        free(full_path);
+        i++;
+    }
+    return NULL;
+}
+
