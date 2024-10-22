@@ -19,14 +19,15 @@ all: libft $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
 	cc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
-clean:
-	rm -f $(OBJS)
-
 libft:
 	make -C libft/
 
+clean:
+	make clean -C libft/
+	rm -f $(OBJS)
+
 fclean: clean
-	 make -C libft fclean
+	rm -f $(LIBFT)
 	rm -f $(NAME)
 
 re: fclean all
