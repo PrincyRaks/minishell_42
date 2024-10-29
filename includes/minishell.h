@@ -6,13 +6,14 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/24 11:24:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:43:12 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <dirent.h>
 # include <stdio.h>
 # include <string.h>
 # include <readline/readline.h>
@@ -20,7 +21,6 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
-# include <dirent.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>

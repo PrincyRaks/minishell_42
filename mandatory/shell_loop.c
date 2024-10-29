@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/22 17:12:30 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:31:08 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void	shell_loop(char **envp)
 	char	**paths;
 	char	*executable;
 
+	// retourne tous les tables de path executable 
 	paths = get_path(envp);
 	while (1)
 	{
-		input = readline(" 🚀> ");
+		input = readline("👾⇒ ");
 		if (!input)
 		{
 			printf("exit\n");
@@ -43,6 +44,7 @@ void	shell_loop(char **envp)
 		if (*input)
 		{
 			add_history(input);
+		// anjarako ny eto !!!
 			args = ft_split(input, ' ');
 			executable = find_executable(args[0], paths);
 			if (executable)
@@ -59,7 +61,7 @@ void	shell_loop(char **envp)
 					wait(NULL);
 			}
 			else
-				printf("%s: command not found\n", args[0]);
+				printf("command not found: %s\n", args[0]);
 			free_array(args);
 			free(executable);
 		}
