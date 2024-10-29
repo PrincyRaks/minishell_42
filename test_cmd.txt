@@ -17,3 +17,7 @@ ps -u
 jobs
 at "HH:MM"
 at> touch file_create_by_cmd_at.txt
+var="echo $HOME"
+"var"
+var="cho $HOME"
+e$var
