@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/29 11:43:12 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:47:00 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,9 @@ void shell_loop(char **envp);
 // Executor
 char **get_path(char **envp);
 char *find_executable(char *command, char **envp);
+
+// Parser
+char    *handle_quotes(char *input);
+void    free_table(void **tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/29 16:31:08 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:40:28 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	shell_loop(char **envp)
 		{
 			add_history(input);
 		// anjarako ny eto !!!
+			handle_quotes(input);
 			args = ft_split(input, ' ');
 			executable = find_executable(args[0], paths);
 			if (executable)
