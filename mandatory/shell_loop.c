@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/30 15:40:28 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:06:24 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	shell_loop(char **envp)
 	char	**paths;
 	char	*executable;
 
-	// retourne tous les tables de path executable 
 	paths = get_path(envp);
 	while (1)
 	{
@@ -44,8 +43,14 @@ void	shell_loop(char **envp)
 		if (*input)
 		{
 			add_history(input);
-		// anjarako ny eto !!!
-			handle_quotes(input);
+		// quotes --------------------------------
+			input = handle_quotes(input);
+			if (!input)
+			{
+				printf("Error enclosed quotes\n");
+				exit(EXIT_FAILURE);
+			}
+		// ----------------------------------------
 			args = ft_split(input, ' ');
 			executable = find_executable(args[0], paths);
 			if (executable)
@@ -53,10 +58,10 @@ void	shell_loop(char **envp)
 				if (fork() == 0)
 				{
 					if (execve(executable, args, envp) == -1)
-                    {
-					    perror("execve");
-					    exit(EXIT_FAILURE);
-                    }
+					{
+						perror("execve");
+						exit(EXIT_FAILURE);
+					}
 				}
 				else
 					wait(NULL);
@@ -66,7 +71,7 @@ void	shell_loop(char **envp)
 			free_array(args);
 			free(executable);
 		}
-		// free(input);
+		free(input);
 	}
 	free_array(paths);
 }

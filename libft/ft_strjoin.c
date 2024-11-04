@@ -19,7 +19,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t len;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
-	new_s = ft_calloc((len + 1), 1);
+	new_s = ft_calloc((len + 1), sizeof(char));
 	if (!new_s)
 	{
 		free((char*)s1);

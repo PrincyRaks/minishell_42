@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:16:03 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/01 16:19:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:41:23 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 int	count_char(char *str, int c)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+int	count_tab(char **tab)
+{
 	int i;
 
 	i = 0;
-	while (*str)
-	{
-		if (*str == c)
-			i++;
-		str++;
-	}
+	while (tab[i] != NULL)
+		i++;
 	return (i);
-}
-
-int count_tab(char **tab)
-{
-    int i;
-    
-    i = 0;
-    while (tab[i] != NULL)
-        i++;
-    return (i);
 }

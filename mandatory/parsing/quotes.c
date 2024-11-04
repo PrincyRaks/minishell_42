@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:18:50 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/01 18:05:16 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:11:07 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,106 @@ char	*concat(char *s1, char *s2)
 	return (new_s - len);
 }
 
-char	*trim_doubquotes(char *str)
+char	*remove_doubquotes(char **start_quotes)
 {
 	int		is_close;
+	char	*result;
+	int		len;
+	char	*start;
+
+	len = 0;
+	is_close = 0;
+	start = *start_quotes;
+	while (**start_quotes && is_close < 2)
+	{
+		if (**start_quotes == '"')
+			is_close++;
+		if (**start_quotes != '"')
+			len++;
+		(*start_quotes)++;
+	}
+	if (is_close < 2)
+		return (NULL);
+	if (len == 0)
+		return (ft_strdup(""));
+	result = ft_substr(start, 1, len);
+	return (result);
+}
+
+char	*remove_onequotes(char **start_quotes)
+{
+	int		is_close;
+	char	*result;
+	int		len;
+	char	*start;
+
+	len = 0;
+	is_close = 0;
+	start = *start_quotes;
+	while (**start_quotes && is_close < 2)
+	{
+		if (**start_quotes == '\'')
+			is_close++;
+		if (**start_quotes != '\'')
+			len++;
+		(*start_quotes)++;
+	}
+	if (is_close < 2)
+		return (NULL);
+	if (len == 0)
+		return (ft_strdup(""));
+	result = ft_substr(start, 1, len);
+	return (result);
+}
+
+char	*trim_quotes(char *str)
+{
 	char	*start;
 	size_t	len;
-    char    *result;
+	char	*result;
+	char	*trim;
 
-	is_close = 0;
 	len = 0;
 	start = str;
-	while (*str && is_close < 2)
+	result = ft_calloc(1, sizeof(char));
+	while (*str)
 	{
+		if (*str != '"' && *str != '\'' && *str != '\0')
+		{
+			trim = ft_substr(str, len, 1);
+			result = ft_strjoin(result, trim);
+			free(trim);
+			str++;
+		}
 		if (*str == '"')
 		{
-			// if (is_close == 0 && *(str + 1) != '"')
-			//     start = str;
-			is_close++;
+			trim = remove_doubquotes(&str);
+			if (!trim)
+			{
+				free(trim);
+				free(start);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			free(trim);
 		}
-		if (*str != '"')
-			len++;
-		str++;
+		if (*str == '\'')
+		{
+			trim = remove_onequotes(&str);
+			if (!trim)
+			{
+				free(trim);
+				free(start);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			free(trim);
+		}
 	}
-	if (len == 0)
-        return (ft_strdup(""));
-    result = ft_strchr(ft_substr(start, 1, len));
-    if(result != NULL)
-        trim_doubquotes()
-	printf("inqotes: %s\n", ft_substr(start, 1, len));
-	return (NULL);
+	free(start);
+	return (result);
 }
 
 char	*handle_quotes(char *input)
@@ -71,11 +142,8 @@ char	*handle_quotes(char *input)
 	int		i;
 	char	**cmd;
 	char	*instrc;
+	char	*trim;
 
-	// if ((count_char(input, '\'') % 2) == 1 && (count_char(input, '"')
-	// 		% 2) == 1)
-	if ((count_char(input, '"') % 2) == 1)
-		return (input);
 	cmd = ft_split(input, ' ');
 	if (!cmd)
 		return (input);
@@ -83,8 +151,14 @@ char	*handle_quotes(char *input)
 	instrc = ft_calloc(1, sizeof(char));
 	while (cmd[++i] != NULL)
 	{
-		instrc = concat(instrc, trim_doubquotes(cmd[i]));
+		trim = trim_quotes(cmd[i]);
+		if (!trim)
+		{
+			free(instrc);
+			return (NULL);
+		}
+		instrc = concat(instrc, trim);
 	}
-	// printf("Valiny: %s\n", instrc);
-	return (input);
+	free(cmd);
+	return (instrc);
 }
