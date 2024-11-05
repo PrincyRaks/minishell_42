@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:18:50 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/04 18:11:07 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:49:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,16 @@ char	*remove_onequotes(char **start_quotes)
 char	*trim_quotes(char *str)
 {
 	char	*start;
-	size_t	len;
 	char	*result;
 	char	*trim;
 
-	len = 0;
 	start = str;
 	result = ft_calloc(1, sizeof(char));
 	while (*str)
 	{
 		if (*str != '"' && *str != '\'' && *str != '\0')
 		{
-			trim = ft_substr(str, len, 1);
+			trim = ft_substr(str, 0, 1);
 			result = ft_strjoin(result, trim);
 			free(trim);
 			str++;
@@ -134,6 +132,7 @@ char	*trim_quotes(char *str)
 		}
 	}
 	free(start);
+	printf("result %zu\n", ft_strlen(result));
 	return (result);
 }
 
