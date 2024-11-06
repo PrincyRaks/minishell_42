@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/04 18:08:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:58:56 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,32 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-void	shell_loop(char **envp);
+typedef struct s_query
+{
+	char			*cmd;
+	char			**args;
+	int				is_cmd;
+	struct s_query	*next;
+}					t_query;
+
+void				shell_loop(char **envp);
 
 // Executor
-char	**get_path(char **envp);
-void	free_array(char **array);
-char	*find_executable(char *command, char **envp);
-
+char				**get_path(char **envp);
+void				free_array(char **array);
+char				*find_executable(char *command, char **envp);
 
 // Parser
 // quotes
-char	*concat(char *s1, char *s2);
-int	what_quotes(char *str);
-char	*trim_simplequotes(char *str);
-char	*trim_doubquotes(char *str);
-char	*handle_quotes(char *input);
+char				*concat(char *s1, char *s2);
+int					what_quotes(char *str);
+char				*trim_simplequotes(char *str);
+char				*trim_doubquotes(char *str);
+char				*handle_quotes(char *input);
 
 // utils
-void	free_table(void **tab);
-int		count_char(char *str, int c);
-int		count_tab(char **tab);
+void				free_table(void **tab);
+int					count_char(char *str, int c);
+int					count_tab(char **tab);
 
 #endif
