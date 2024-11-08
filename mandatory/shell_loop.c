@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/08 13:24:22 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/08 13:34:47 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ void	shell_loop(char **envp)
 		if (*input)
 		{
 			add_history(input);
-		// quotes --------------------------------
+			// quotes --------------------------------
 			input = handle_quotes(input);
 			if (!input)
+			{
 				printf("Error unclosed quotes\n");
-		// ----------------------------------------
+				break ;
+			}
+			// ----------------------------------------
 			args = ft_split(input, ' ');
 			executable = find_executable(args[0], paths);
 			if (executable)

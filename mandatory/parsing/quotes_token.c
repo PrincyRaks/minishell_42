@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   quotes_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 17:18:50 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 13:55:18 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/08 17:01:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*concat(char *s1, char *s2)
-{
-	char	*new_s;
-	char	*tmp_s1;
-	size_t	len;
-
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if (*s1 && *s2)
-		len++;
-	new_s = ft_calloc((len + 1), 1);
-	if (!new_s)
-		return (free(s1), NULL);
-	tmp_s1 = s1;
-	while (*tmp_s1)
-		*(new_s++) = *(tmp_s1++);
-	if (*s1 && *s2)
-		*(new_s++) = 32;
-	while (*s2)
-		*(new_s++) = *(s2++);
-	free(s1);
-	return (new_s - len);
-}
 
 char	*remove_doubquotes(char **start_quotes)
 {
@@ -87,43 +64,42 @@ char	*remove_onequotes(char **start_quotes)
 	return (result);
 }
 
-char	*trim_quotes(char *str)
+char	*trim_quotes(char **start_quotes)
 {
-	char	*start;
-	char	*result;
-	char	*trim;
+	char *result;
+	char *trim;
+    int is_close;
 
-	start = str;
 	result = ft_calloc(1, sizeof(char));
-	while (*str)
+    is_close = 0;
+	while (**start_quotes != ' ' && is_close != 0)
 	{
-		if (*str != '"' && *str != '\'' && *str != '\0')
+		if (**start_quotes != '"' && **start_quotes != '\''
+			&& **start_quotes != '\0')
 		{
-			trim = ft_substr(str, 0, 1);
+			trim = ft_substr(*start_quotes, 0, 1);
 			result = ft_strjoin(result, trim);
 			free(trim);
-			str++;
+			(*start_quotes)++;
 		}
-		if (*str == '"')
+		else if (**start_quotes == '"')
 		{
-			trim = remove_doubquotes(&str);
+			trim = remove_doubquotes(start_quotes);
 			if (!trim)
 			{
 				free(trim);
-				free(start);
 				free(result);
 				return (NULL);
 			}
 			result = ft_strjoin(result, trim);
 			free(trim);
 		}
-		if (*str == '\'')
+		else if (**start_quotes == '\'')
 		{
-			trim = remove_onequotes(&str);
+			trim = remove_onequotes(start_quotes);
 			if (!trim)
 			{
 				free(trim);
-				free(start);
 				free(result);
 				return (NULL);
 			}
@@ -131,32 +107,5 @@ char	*trim_quotes(char *str)
 			free(trim);
 		}
 	}
-	free(start);
 	return (result);
-}
-
-char	*handle_quotes(char *input)
-{
-	int		i;
-	char	**cmd;
-	char	*instrc;
-	char	*trim;
-
-	cmd = ft_split(input, ' ');
-	if (!cmd)
-		return (input);
-	i = -1;
-	instrc = ft_calloc(1, sizeof(char));
-	while (cmd[++i] != NULL)
-	{
-		trim = trim_quotes(cmd[i]);
-		if (!trim)
-		{
-			free(instrc);
-			return (NULL);
-		}
-		instrc = concat(instrc, trim);
-	}
-	free(cmd);
-	return (instrc);
 }
