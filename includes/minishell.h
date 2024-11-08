@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/07 12:26:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:21:57 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_tokens
 {
 	t_cmd	token_c;
 	t_args	token_a;
-	t_operator token_o
+	t_operator token_o;
 }			t_tokens;
 
 void		shell_loop(char **envp);
