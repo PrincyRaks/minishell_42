@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/10/22 16:02:17 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:26:05 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*find_executable(char *command, char **paths)
 {
 	char	*full_path;
 	int		i;
+	char	*path_tmp;
 
 	i = 0;
 	if (command[0] == '/' || command[0] == '.')
@@ -48,7 +49,8 @@ char	*find_executable(char *command, char **paths)
 	}
 	while (paths && paths[i])
 	{
-		full_path = ft_strjoin(paths[i], "/");
+		path_tmp = ft_strdup(paths[i]);
+		full_path = ft_strjoin(path_tmp, "/");
 		full_path = ft_strjoin(full_path, command);
 		if (access(full_path, X_OK) == 0)
 			return (full_path);

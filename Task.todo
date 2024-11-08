@@ -1,2 +1,15 @@
-☐ Understand all external functions
-☐ 
+Parsing:
+    ☐ Understand all external functions
+    ☐ Token check pipe
+    ☐ append & heredoc
+    ☐ ENV variable
+
+☐ Afficher un prompt lorsqu'il attend une nouvelle commande
+☐ Implémenter un historique des commandes
+☐ Gérer les guillemets (quotes) : les simples et les doubles
+☐ Implémenter les redirections : <, >, <<, >>
+☐ Implémenter les pipes : |
+☐ Manipuler les variables d'environnement ($)
+☐ Gérer les $? et les états de sortie
+☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\
+☐ Gérer des built-ins : echo (avec -n), cd (seulement avec chemin relatif ou absolu), pwd (sans option), export (sans option), unset (sans option), env (sans option, ni argument), exit (sans option)
