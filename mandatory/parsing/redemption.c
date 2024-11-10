@@ -12,6 +12,61 @@
 
 #include "minishell.h"
 
+char	*trim_quotes(char **start_quotes)
+{
+	char *result;
+	char *trim;
+    int is_close;
+	char	quote;
+
+
+	result = ft_calloc(1, sizeof(char));
+    is_close = 0;
+	while (**start_quotes != ' ' && is_close = 2)
+	{
+		if (**start_quotes != '"' && **start_quotes != '\''
+			&& **start_quotes != '\0')
+		{
+			trim = ft_substr(*start_quotes, 0, 1);
+			result = ft_strjoin(result, trim);
+			free(trim);
+			(*start_quotes)++;
+		}
+		else if (is_close == 1 && (**start_quotes != quote || **start_quotes == ' '))
+		{
+			//unclosed quotes 
+			return (NULL);
+		}
+		else if (**start_quotes == '"')
+		{
+			trim = remove_doubquotes(start_quotes);
+			if (!trim)
+			{
+				free(trim);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			free(trim);
+			quote = '"';
+		}
+		else if (**start_quotes == '\'')
+		{
+			trim = remove_onequotes(start_quotes);
+			if (!trim)
+			{
+				free(trim);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			free(trim);
+			quote = '\'';
+		}
+	}
+	return (result);
+}
+
 void	store_token(char *input)
 {
 	int			i;
