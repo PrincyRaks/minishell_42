@@ -8,7 +8,6 @@ SRCS = mandatory/main.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 
-
 OBJS = $(SRCS:.c=.o)
 
 INC = -I./includes
