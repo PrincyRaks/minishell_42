@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:18:50 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 13:24:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:56:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*remove_onequotes(char **start_quotes)
 	if (len == 0)
 		return (ft_strdup(""));
 	result = ft_substr(start, 1, len);
-	concat return (result);
+	return (result);
 }
 
 char	*trim_quotes(char *str)

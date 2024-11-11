@@ -6,6 +6,9 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/quotes.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
+	   mandatory/builtins/ft_cd.c \
+	   mandatory/builtins/ft_pwd.c \
+	   mandatory/builtins/ft_exit.c
 
 OBJS = $(SRCS:.c=.o)
 

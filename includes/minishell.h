@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 13:23:33 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:15:36 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,15 @@ char	*handle_quotes(char *input);
 void	free_table(void **tab);
 int		count_char(char *str, int c);
 int		count_tab(char **tab);
+
+// Builtins
+int ft_cd(char **args);
+int ft_pwd(void);
+int ft_exit(char **args);
+
+// Builtin utils
+int is_numeric(const char *str);
+int	ft_strcmp(char *s1, char *s2);
+void execute_builtin(char **args);
 
 #endif
