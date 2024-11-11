@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 17:18:50 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 13:55:18 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:55:20 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*concat(char *s1, char *s2)
 	free(s1);
 	return (new_s - len);
 }
+
 
 char	*remove_doubquotes(char **start_quotes)
 {

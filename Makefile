@@ -3,9 +3,11 @@ CFLAGS = -Wall -Werror -Wextra
 SRCS = mandatory/main.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
-	   mandatory/parsing/quotes.c \
+	   mandatory/parsing/quotes_token.c \
+	   mandatory/parsing/redemption.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
+
 
 OBJS = $(SRCS:.c=.o)
 

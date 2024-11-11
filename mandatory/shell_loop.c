@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/08 13:34:47 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:06:44 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	shell_loop(char **envp)
 		{
 			add_history(input);
 			// quotes --------------------------------
-			input = handle_quotes(input);
-			if (!input)
-			{
-				printf("Error unclosed quotes\n");
-				break ;
-			}
+			store_token(input);
+			// input = handle_quotes(input);
+			// if (!input)
+			// {
+			// 	printf("Error unclosed quotes\n");
+			// 	break ;
+			// }
 			// ----------------------------------------
 			args = ft_split(input, ' ');
 			executable = find_executable(args[0], paths);
