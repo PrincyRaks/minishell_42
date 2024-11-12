@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 16:20:22 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/12 17:33:49 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+
+
 typedef struct s_cmd
 {
 	char			*cmd_str;
@@ -35,13 +37,16 @@ typedef struct s_cmd
 
 typedef struct s_arg
 {
-	char *arg_cmd; // -options and argument of cmd
+	char	*arg_cmd; // -options and argument of cmd
+	int		is_expand; // if 0 not expand if 1 is expandable -> chage value of arg_cmd if 1
 	struct s_arg	*next_arg;
 }					t_arg;
 
 // typedef struct s_operator
 // {
-// 	char	*operator;
+// 	// enum type
+// 	int		order;
+	
 // }			t_operator;
 
 typedef struct s_tokens
