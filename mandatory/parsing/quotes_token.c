@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/11 15:48:45 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:22:20 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,44 @@ char	*trim_quotes(char **start_quotes)
 
 	result = ft_calloc(1, sizeof(char));
 	is_close = 0;
-	if (**start_quotes == '"')
+	while (**start_quotes != ' ' && **start_quotes != '\0'
+		&& **start_quotes != '|')
 	{
-		trim = remove_doubquotes(start_quotes);
-		if (!trim)
+		if (**start_quotes == '"')
 		{
+			trim = remove_doubquotes(start_quotes);
+			if (!trim)
+			{
+				free(trim);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			// printf("in doubquotes: %s\n", result);
 			free(trim);
-			free(result);
-			return (NULL);
 		}
-		result = ft_strjoin(result, trim);
-		free(trim);
-	}
-	if (**start_quotes == '\'')
-	{
-		trim = remove_onequotes(start_quotes);
-		if (!trim)
+		if (**start_quotes == '\'')
 		{
+			trim = remove_onequotes(start_quotes);
+			if (!trim)
+			{
+				free(trim);
+				free(result);
+				return (NULL);
+			}
+			result = ft_strjoin(result, trim);
+			// printf("in onequotes: %s\n", result);
 			free(trim);
-			free(result);
-			return (NULL);
 		}
-		result = ft_strjoin(result, trim);
-		free(trim);
+		if (**start_quotes != '"' && **start_quotes != '\''
+			&& **start_quotes != '\0' && **start_quotes != ' ')
+		{
+			trim = ft_substr(*start_quotes, 0, 1);
+			result = ft_strjoin(result, trim);
+			free(trim);
+			// printf("without: %s\n", result);
+			(*start_quotes)++;
+		}
 	}
 	return (result);
 }

@@ -7,6 +7,9 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/redemption.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
+	   mandatory/token/ft_args.c \
+	   mandatory/token/init_token.c \
+	   mandatory/token/token_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 

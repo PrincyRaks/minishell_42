@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/11 15:49:55 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/12 14:29:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_arg	*last_arg(t_arg *arg)
+static t_arg	*last_arg(t_arg *arg)
 {
 	while (arg)
 	{
@@ -30,17 +30,15 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 
 	if (first_arg)
 	{
+		arg.arg_cmd = str_arg;
+		arg.next_arg = NULL;
 		if (!*first_arg)
-		{
-			arg.arg_cmd = str_arg;
-			arg.next_arg = NULL;
-			*first_arg = arg;
-		}
+			*first_arg = &arg;
 		else
 		{
 			end = last_arg(*first_arg);
 			if (end)
-				end->next_arg = arg;
+				end->next_arg = &arg;
 		}
 	}
 }
