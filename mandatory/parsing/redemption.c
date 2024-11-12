@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:40:52 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 16:19:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:22:38 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tokens	*store_token(char *input)
 	node = create_node();
 	first_node = node;
 	if (!node)
-		return ;
+		return (NULL);
 	while (*input)
 	{
 		if (*input == ' ')
@@ -48,7 +48,7 @@ t_tokens	*store_token(char *input)
 		{
 			node = create_node();
 			if (!node)
-				return ;
+				return (NULL);
 			addback_token(&first_node, node);
 			input++;
 		}
