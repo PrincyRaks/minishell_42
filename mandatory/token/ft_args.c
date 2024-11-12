@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token.c                                       :+:      :+:    :+:   */
+/*   ft_args.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 15:59:16 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 16:45:14 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/12 14:29:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	*create_node(void)
+static t_arg	*last_arg(t_arg *arg)
 {
-	t_tokens	*instr;
+	while (arg)
+	{
+		if (!arg->next_arg)
+			return (arg);
+		arg = arg->next_arg;
+	}
+	return (NULL);
+}
 
-	instr = malloc(sizeof(t_tokens));
-	if (!instr)
-		return (NULL);
-	// cmd
-	instr->token_cmd = NULL;
-	// arguments
-	instr->token_arg = NULL;
-	return (instr);
+void	addback_arg(t_arg **first_arg, char *str_arg)
+{
+	t_arg	arg;
+	t_arg	*end;
+
+	if (first_arg)
+	{
+		arg.arg_cmd = str_arg;
+		arg.next_arg = NULL;
+		if (!*first_arg)
+			*first_arg = &arg;
+		else
+		{
+			end = last_arg(*first_arg);
+			if (end)
+				end->next_arg = &arg;
+		}
+	}
 }

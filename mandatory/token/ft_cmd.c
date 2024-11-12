@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token.c                                       :+:      :+:    :+:   */
+/*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 15:59:16 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 16:45:14 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/08 16:35:58 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/08 16:45:04 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	*create_node(void)
+// init instr->token_cmd.is_cmd
+int	check_cmd(t_cmd cmd)
 {
-	t_tokens	*instr;
-
-	instr = malloc(sizeof(t_tokens));
-	if (!instr)
-		return (NULL);
-	// cmd
-	instr->token_cmd = NULL;
-	// arguments
-	instr->token_arg = NULL;
-	return (instr);
+	// return 0 or -1
 }
