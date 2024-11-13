@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-void	free_array(char **array)
-{
-	int	i;
-
-	i = -1;
-	if (!array)
-		return ;
-	while (array[++i])
-		free(array[i]);
-	free(array);
-}
-
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
@@ -48,10 +36,8 @@ void	shell_loop(char **envp)
 {
 	char	*input;
 	char	**args;
-	char	**paths;
 	char	*executable;
 
-	paths = get_path(envp);
 	while (1)
 	{
 		input = readline("👾⇒ ");
@@ -63,15 +49,14 @@ void	shell_loop(char **envp)
 		if (*input)
 		{
 			add_history(input);
+			// store_token(input);
 			args = ft_split(input, ' ');
 			if (ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "pwd") == 0
 				|| ft_strcmp(args[0], "exit") == 0)
-			{
 				execute_builtin(args);
-			}
 			else
 			{
-				executable = find_executable(args[0], paths);
+				executable = find_executable(args[0]);
 				if (executable)
 				{
 					if (fork() == 0)
@@ -93,5 +78,4 @@ void	shell_loop(char **envp)
 		}
 		free(input);
 	}
-	free_array(paths);
 }

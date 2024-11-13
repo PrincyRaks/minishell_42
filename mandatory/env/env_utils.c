@@ -79,11 +79,12 @@ void	clean_env(t_data_env **lst)
 {
 	t_data_env	*tmp;
 
-	while ((*lst)->next != NULL)
+	while (*lst != NULL)
 	{
 		free((*lst)->key);
 		free((*lst)->value);
 		tmp = (*lst)->next;
 		free(*lst);
+		*lst = tmp;
 	}
 }

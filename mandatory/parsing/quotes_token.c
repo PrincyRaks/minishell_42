@@ -68,10 +68,8 @@ char	*trim_quotes(char **start_quotes)
 {
 	char	*result;
 	char	*trim;
-	int		is_close;
 
 	result = ft_calloc(1, sizeof(char));
-	is_close = 0;
 	while (**start_quotes != ' ' && **start_quotes != '\0'
 		&& **start_quotes != '|')
 	{

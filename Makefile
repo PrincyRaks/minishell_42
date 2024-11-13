@@ -15,7 +15,8 @@ SRCS = mandatory/main.c \
 	   mandatory/token/token_utils.c \
 	   mandatory/builtins/ft_cd.c \
 	   mandatory/builtins/ft_pwd.c \
-	   mandatory/builtins/ft_exit.c
+	   mandatory/builtins/ft_exit.c \
+	   mandatory/builtins/ft_env.c \
 
 OBJS = $(SRCS:.c=.o)
 

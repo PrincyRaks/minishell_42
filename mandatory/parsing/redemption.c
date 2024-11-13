@@ -14,13 +14,11 @@
 
 t_tokens	*store_token(char *input)
 {
-	int			i;
 	int			is_cmd;
 	t_tokens	*node;
 	t_tokens	*first_node;
 	t_cmd		node_cmd;
 
-	i = -1;
 	is_cmd = 0;
 	node = create_node();
 	first_node = node;
@@ -53,7 +51,7 @@ t_tokens	*store_token(char *input)
 			input++;
 		}
 	}
-	// printf("cmd: %s\n", node->token_cmd->cmd_str);
+	printf("cmd: %s\n", node->token_cmd->cmd_str);
 	// printf("number of node: %d\n", count_token(first_node));
 	// printf("arg: %s\n", first_node->token_arg->arg_cmd);
 	return (first_node);

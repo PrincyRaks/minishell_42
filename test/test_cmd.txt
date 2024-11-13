@@ -21,3 +21,4 @@ var="echo $HOME"
 "var"
 var="cho $HOME"
 e$var
+unset HOME | cd

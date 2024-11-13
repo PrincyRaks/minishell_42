@@ -12,32 +12,13 @@
 
 #include "minishell.h"
 
-char	**get_path(char **envp)
+char	*find_executable(char *command)
 {
-	int		i;
-	char	*path_value;
-
-	i = 0;
-	path_value = NULL;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			path_value = envp[i] + 5;
-			break ;
-		}
-		i++;
-	}
-	if (path_value != NULL)
-		return (ft_split(path_value, ':'));
-	return (NULL);
-}
-
-char	*find_executable(char *command, char **paths)
-{
-	char	*full_path;
-	int		i;
-	char	*path_tmp;
+	char		*full_path;
+	int			i;
+	char		*path_tmp;
+	char		**paths;
+	t_data_env	*path_exec;
 
 	i = 0;
 	if (command[0] == '/' || command[0] == '.')
@@ -47,6 +28,9 @@ char	*find_executable(char *command, char **paths)
 		else
 			return (NULL);
 	}
+	path_exec = ft_getenv("PATH");
+	if (path_exec != NULL)
+		paths = ft_split(path_exec->value, ':');
 	while (paths && paths[i])
 	{
 		path_tmp = ft_strdup(paths[i]);
@@ -57,5 +41,6 @@ char	*find_executable(char *command, char **paths)
 		free(full_path);
 		i++;
 	}
+	free_array(paths);
 	return (NULL);
 }

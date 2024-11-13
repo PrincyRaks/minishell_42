@@ -14,17 +14,17 @@
 
 int	ft_cd(char **args)
 {
-	const char	*home;
-
+	t_data_env	*home;
+	
 	if (!args[1])
 	{
-		home = getenv("HOME");
+		home = ft_getenv("HOME");
 		if (!home)
 		{
 			printf("cd: HOME not set\n");
 			return (1);
 		}
-		if (chdir(home) != 0)
+		if (chdir(home->value) != 0)
 		{
 			perror("cd");
 			return (1);

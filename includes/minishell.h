@@ -62,12 +62,11 @@ typedef struct s_tokens
 	struct s_tokens *next; // cmd next of | (pipes)
 }						t_tokens;
 
-void					shell_loop(char **envp);
+void	shell_loop(char **envp);
 
 // Executor
-char					**get_path(char **envp);
 void					free_array(char **array);
-char					*find_executable(char *command, char **envp);
+char					*find_executable(char *command);
 
 // Parser
 // quotes
@@ -96,6 +95,7 @@ t_data_env	*ft_getenv(char *var);
 int						ft_cd(char **args);
 int						ft_pwd(void);
 int						ft_exit(char **args);
+void    ft_env(void);
 
 // Builtin utils
 int						is_numeric(const char *str);

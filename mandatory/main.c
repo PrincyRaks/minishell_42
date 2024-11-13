@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
     (void)argv;
 
     dup_env(envp);
+    // ft_env();
     // printf("%s\n", getenv("HOME"));
     // printf("key: %s et value: %s\n", (*get_data_env())->key, (*get_data_env())->value);
     // char *s = "$HOME";

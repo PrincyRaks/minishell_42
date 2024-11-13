@@ -12,12 +12,14 @@
 
 #include "minishell.h"
 
-void    free_table(void **tab)
+void	free_array(char **array)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (tab[++i] != NULL)
-        free(tab[i]);
-    free(tab);
+	i = -1;
+	if (!array)
+		return ;
+	while (array[++i])
+		free(array[i]);
+	free(array);
 }
