@@ -1,8 +1,9 @@
 Parsing:
     ☐ Understand all external functions
-    ☐ Token check pipe
+    ✔ Token check pipe @done(24-11-13 12:58)
     ☐ append & heredoc
     ☐ ENV variable
+    ☐ expand ($) afaka atao POO
 
 ☐ Afficher un prompt lorsqu'il attend une nouvelle commande
 ☐ Implémenter un historique des commandes
@@ -12,4 +13,11 @@ Parsing:
 ☐ Manipuler les variables d'environnement ($)
 ☐ Gérer les $? et les états de sortie
 ☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\
-☐ Gérer des built-ins : echo (avec -n), cd (seulement avec chemin relatif ou absolu), pwd (sans option), export (sans option), unset (sans option), env (sans option, ni argument), exit (sans option)
+☐ Gérer des built-ins : 
+    ☐ echo (avec -n)
+    ☐ cd (seulement avec chemin relatif ou absolu)
+    ☐ pwd (sans option)
+    ☐ export (sans option)
+    ☐ unset (sans option)
+    ☐ env (sans option, ni argument)
+    ☐ exit (sans option)

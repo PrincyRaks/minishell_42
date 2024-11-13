@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   getset_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/13 17:35:11 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/13 16:09:29 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/13 17:26:58 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+static t_data_env	**static_data_env(void)
 {
-    (void)argc;
-    (void)argv;
+	static t_data_env	*cst = NULL;
 
-    dup_env(envp);
-    // printf("%s\n", getenv("HOME"));
-    // printf("key: %s et value: %s\n", (*get_data_env())->key, (*get_data_env())->value);
-    // char *s = "$HOME";
-    // if (ft_getenv(s) != NULL)
-        // printf("key: %s et value: %s\n", ft_getenv(s)->key, ft_getenv(s)->value);
-    shell_loop(envp);
-    return (0);
+	return (&cst);
+}
+
+t_data_env	*get_data_env(void)
+{
+	return (*static_data_env());
+}
+
+void	set_data_env(t_data_env *value)
+{
+	*static_data_env() = value;
 }

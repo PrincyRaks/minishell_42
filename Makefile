@@ -7,11 +7,12 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/redemption.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
-
+	   mandatory/env/ft_getenv.c \
+	   mandatory/env/env_utils.c \
+	   mandatory/env/getset_env.c \
 	   mandatory/token/ft_args.c \
 	   mandatory/token/init_token.c \
 	   mandatory/token/token_utils.c \
-
 	   mandatory/builtins/ft_cd.c \
 	   mandatory/builtins/ft_pwd.c \
 	   mandatory/builtins/ft_exit.c

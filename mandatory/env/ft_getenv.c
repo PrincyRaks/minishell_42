@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/13 17:35:11 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/13 13:13:43 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/13 17:34:07 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+// zvtra efa expandable no atao anaty ty fonction ty
+t_data_env	*ft_getenv(char *var)
 {
-    (void)argc;
-    (void)argv;
+	t_data_env	*env;
 
-    dup_env(envp);
-    // printf("%s\n", getenv("HOME"));
-    // printf("key: %s et value: %s\n", (*get_data_env())->key, (*get_data_env())->value);
-    // char *s = "$HOME";
-    // if (ft_getenv(s) != NULL)
-        // printf("key: %s et value: %s\n", ft_getenv(s)->key, ft_getenv(s)->value);
-    shell_loop(envp);
-    return (0);
+	if (!var)
+		return (NULL);
+	// if (*var != '$')
+	// 	return (NULL);
+	env = get_data_env();
+	while (env != NULL)
+	{
+		if (ft_strcmp(var, env->key) == 0)
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
 }
