@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/04 15:26:05 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:42:47 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*find_executable(char *command)
 		else
 			return (NULL);
 	}
+	paths = NULL;
 	path_exec = ft_getenv("PATH");
 	if (path_exec != NULL)
 		paths = ft_split(path_exec->value, ':');

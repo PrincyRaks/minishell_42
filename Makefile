@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
        mandatory/shell_loop.c \
@@ -11,7 +11,8 @@ SRCS = mandatory/main.c \
 	   mandatory/env/env_utils.c \
 	   mandatory/env/getset_env.c \
 	   mandatory/token/ft_args.c \
-	   mandatory/token/init_token.c \
+	   mandatory/token/ft_cmd.c \
+	   mandatory/token/ft_token.c \
 	   mandatory/token/token_utils.c \
 	   mandatory/builtins/ft_cd.c \
 	   mandatory/builtins/ft_pwd.c \

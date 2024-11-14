@@ -6,13 +6,56 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:40:52 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 16:22:38 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:20:02 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	*store_token(char *input)
+char	*give_me(char *start, int *len_str, char *start_dollar, int len_dollar)
+{
+	char	*result;
+	char	*var_env;
+
+	int	begin_substr = start_dollar - start;
+	result = ft_substr(start, begin_substr + 1,len_str);
+	var_env = ft_substr(start, , len_dollar);
+	result = ft_strjoin(result, expand())
+	
+}
+
+char	*remove_doubquotes(char **start_quotes)
+{
+	int		is_close;
+	char	*result;
+	int		len;
+	char	*start;
+
+	len = 0;
+	is_close = 0;
+	start = *start_quotes;
+	result = ft_calloc(1, sizeof(char));
+	while (is_close < 2)
+	{
+		if (**start_quotes == '"')
+			is_close++;
+		if (**start_quotes != '"' && **start_quotes != '$')
+			len++;
+		if (**start_quotes == '$')
+		{
+			// substratc + expand + join
+		}
+		if (is_close == 1 && **start_quotes == '\0')
+			return (NULL);
+		(*start_quotes)++;
+	}
+	if (len == 0)
+		return (ft_strdup(""));
+	result = ft_substr(start, 1, len);
+	return (result);
+}
+
+t_tokens	**store_token(char *input)
 {
 	int			is_cmd;
 	t_tokens	*node;
@@ -20,7 +63,7 @@ t_tokens	*store_token(char *input)
 	t_cmd		node_cmd;
 
 	is_cmd = 0;
-	node = create_node();
+	node = new_token();
 	first_node = node;
 	if (!node)
 		return (NULL);
@@ -44,7 +87,7 @@ t_tokens	*store_token(char *input)
 		}
 		if (*input == '|')
 		{
-			node = create_node();
+			node = new_token();
 			if (!node)
 				return (NULL);
 			addback_token(&first_node, node);
@@ -54,5 +97,6 @@ t_tokens	*store_token(char *input)
 	printf("cmd: %s\n", node->token_cmd->cmd_str);
 	// printf("number of node: %d\n", count_token(first_node));
 	// printf("arg: %s\n", first_node->token_arg->arg_cmd);
-	return (first_node);
+	// printf("arg2: %s\n", first_node->token_arg->next_arg->arg_cmd);
+	return (&first_node);
 }
