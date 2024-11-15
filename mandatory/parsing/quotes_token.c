@@ -6,37 +6,37 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 14:53:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:51:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*remove_doubquotes(char **start_quotes)
-{
-	int		is_close;
-	char	*result;
-	int		len;
-	char	*start;
+// char	*remove_doubquotes(char **start_quotes)
+// {
+// 	int		is_close;
+// 	char	*result;
+// 	int		len;
+// 	char	*start;
 
-	len = 0;
-	is_close = 0;
-	start = *start_quotes;
-	while (is_close < 2)
-	{
-		if (**start_quotes == '"')
-			is_close++;
-		if (**start_quotes != '"')
-			len++;
-		if (is_close == 1 && **start_quotes == '\0')
-			return (NULL);
-		(*start_quotes)++;
-	}
-	if (len == 0)
-		return (ft_strdup(""));
-	result = ft_substr(start, 1, len);
-	return (result);
-}
+// 	len = 0;
+// 	is_close = 0;
+// 	start = *start_quotes;
+// 	while (is_close < 2)
+// 	{
+// 		if (**start_quotes == '"')
+// 			is_close++;
+// 		if (**start_quotes != '"')
+// 			len++;
+// 		if (is_close == 1 && **start_quotes == '\0')
+// 			return (NULL);
+// 		(*start_quotes)++;
+// 	}
+// 	if (len == 0)
+// 		return (ft_strdup(""));
+// 	result = ft_substr(start, 1, len);
+// 	return (result);
+// }
 
 char	*remove_onequotes(char **start_quotes)
 {
@@ -100,7 +100,8 @@ char	*trim_quotes(char **start_quotes)
 			free(trim);
 		}
 		if (**start_quotes != '"' && **start_quotes != '\''
-			&& **start_quotes != '\0' && **start_quotes != ' ' && **start_quotes != '$')
+			&& **start_quotes != '\0' && **start_quotes != ' '
+			&& **start_quotes != '$')
 		{
 			trim = ft_substr(*start_quotes, 0, 1);
 			result = ft_strjoin(result, trim);
@@ -109,7 +110,12 @@ char	*trim_quotes(char **start_quotes)
 			(*start_quotes)++;
 		}
 		if (**start_quotes == '$')
-			result = ft_strjoin(result, expand(start_quotes));
+		{
+			if (*(*start_quotes + 1) == '"')
+				(*start_quotes)++;
+			else
+				result = ft_strjoin(result, expand(start_quotes));
+		}
 	}
 	return (result);
 }

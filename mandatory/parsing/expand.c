@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:41:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 15:55:04 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:16:22 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	*expand(char **var)
 	if (**var != '$')
 		return (start);
 	(*var)++;
-	if (*var != NULL && **var != ' ' && **var != '\0')
+	if (*var != NULL && **var != ' ' && **var != '\0' && **var != '"')
 	{
-		while (**var != ' ' && **var != '\0' **var != '"')
+		while (**var != ' ' && **var != '\0' && **var != '"')
 			(*var)++;
 		result = ft_substr(start, 1, (*var - start) - 1);
 		data = ft_getenv(result);
-        free(result);
+		free(result);
 		if (!data)
 			return (ft_strdup(""));
 		return (data->value);

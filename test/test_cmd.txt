@@ -23,3 +23,5 @@ var="cho $HOME"
 e$var
 unset HOME | cd
 echo hehe$HOMEhuhu | echo hehe$HOME huhu
+"hhe"$'HOME'
+"hhe""$'HOME'"

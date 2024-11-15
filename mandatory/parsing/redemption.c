@@ -6,18 +6,19 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:40:52 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 16:20:02 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:48:50 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*give_me(char *start, int *len_str, char **start_dollar)
+static char	*function(char *start, int *len_str, char **start_dollar)
 {
 	char	*str;
 
-	str = ft_substr(start, 1, len_str);
+	str = ft_substr(start, 0, *len_str);
 	str = ft_strjoin(str, expand(start_dollar));
+	*len_str = 0;
 	return (str);
 }
 
@@ -30,7 +31,8 @@ char	*remove_doubquotes(char **start_quotes)
 
 	len = 0;
 	is_close = 0;
-	start = *start_quotes;
+	if (**start_quotes == '"')
+		start = *start_quotes + 1;
 	result = ft_calloc(1, sizeof(char));
 	while (is_close < 2)
 	{
@@ -40,15 +42,18 @@ char	*remove_doubquotes(char **start_quotes)
 			len++;
 		if (**start_quotes == '$')
 		{
-			// substratc + expand + join
+			result = ft_strjoin(result, function(start, &len, start_quotes));
+			start = *start_quotes;
+			// printf("zvtr azo: %c\n", *start);
 		}
 		if (is_close == 1 && **start_quotes == '\0')
 			return (NULL);
 		(*start_quotes)++;
 	}
-	if (len == 0)
+	if (len == 0 && ft_strlen(result) == 0)
 		return (ft_strdup(""));
-	// result = ft_substr(start, 1, len);
+	if (len > 0)
+		result = ft_strjoin(result, ft_substr(start, 0, len + 1));
 	return (result);
 }
 
@@ -60,7 +65,7 @@ t_tokens	**store_token(char *input)
 	t_cmd		node_cmd;
 
 	is_cmd = 0;
-	first_node = malloc(sizeof(t_tokens*));
+	first_node = malloc(sizeof(t_tokens *));
 	if (!first_node)
 		return (NULL);
 	node = new_token();
