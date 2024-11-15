@@ -12,27 +12,26 @@
 
 #include "minishell.h"
 
-char	*expand(char *var)
+char	*expand(char **var)
 {
-	int			i;
 	char		*result;
 	t_data_env	*data;
+	char		*start;
 
-	i = 0;
-	if (*var != '$')
-		return (var);
-	i++;
-	if (var != NULL && var[i] != ' ' && var[i] != '\0')
+	start = *var;
+	if (**var != '$')
+		return (start);
+	(*var)++;
+	if (*var != NULL && **var != ' ' && **var != '\0')
 	{
-		while (var[i] != ' ')
-			i++;
-		result = ft_substr(var, 1, i - 1);
-        printf("Variable: %s\n", result);
+		while (**var != ' ' && **var != '\0' **var != '"')
+			(*var)++;
+		result = ft_substr(start, 1, (*var - start) - 1);
 		data = ft_getenv(result);
         free(result);
 		if (!data)
 			return (ft_strdup(""));
 		return (data->value);
 	}
-	return (var);
+	return (start);
 }

@@ -30,8 +30,8 @@ void	clean_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
-// init instr->token_cmd.is_cmd
-int	check_cmd(t_cmd cmd)
-{
-	// return 0 or -1
-}
+// // init instr->token_cmd.is_cmd
+// int	check_cmd(t_cmd cmd)
+// {
+// 	// return 0 or -1
+// }

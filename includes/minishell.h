@@ -81,7 +81,7 @@ void					addback_token(t_tokens **first_token, t_tokens *token);
 int						count_token(t_tokens *lst);
 t_arg					*new_arg(void);
 t_cmd	*new_cmd(void);
-char	*expand(char *var);
+char	*expand(char **var);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

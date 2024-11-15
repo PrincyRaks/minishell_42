@@ -1,0 +1,1 @@
+cut: fichiernotexist.csv: No such file or directory

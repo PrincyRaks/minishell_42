@@ -100,7 +100,7 @@ char	*trim_quotes(char **start_quotes)
 			free(trim);
 		}
 		if (**start_quotes != '"' && **start_quotes != '\''
-			&& **start_quotes != '\0' && **start_quotes != ' ')
+			&& **start_quotes != '\0' && **start_quotes != ' ' && **start_quotes != '$')
 		{
 			trim = ft_substr(*start_quotes, 0, 1);
 			result = ft_strjoin(result, trim);
@@ -108,6 +108,8 @@ char	*trim_quotes(char **start_quotes)
 			// printf("without: %s\n", result);
 			(*start_quotes)++;
 		}
+		if (**start_quotes == '$')
+			result = ft_strjoin(result, expand(start_quotes));
 	}
 	return (result);
 }

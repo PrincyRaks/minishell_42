@@ -5,6 +5,7 @@ SRCS = mandatory/main.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \
 	   mandatory/parsing/redemption.c \
+	   mandatory/parsing/expand.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 	   mandatory/env/ft_getenv.c \

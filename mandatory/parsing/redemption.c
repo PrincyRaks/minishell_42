@@ -12,16 +12,13 @@
 
 #include "minishell.h"
 
-char	*give_me(char *start, int *len_str, char *start_dollar, int len_dollar)
+char	*give_me(char *start, int *len_str, char **start_dollar)
 {
-	char	*result;
-	char	*var_env;
+	char	*str;
 
-	int	begin_substr = start_dollar - start;
-	result = ft_substr(start, begin_substr + 1,len_str);
-	var_env = ft_substr(start, , len_dollar);
-	result = ft_strjoin(result, expand())
-	
+	str = ft_substr(start, 1, len_str);
+	str = ft_strjoin(str, expand(start_dollar));
+	return (str);
 }
 
 char	*remove_doubquotes(char **start_quotes)
@@ -51,7 +48,7 @@ char	*remove_doubquotes(char **start_quotes)
 	}
 	if (len == 0)
 		return (ft_strdup(""));
-	result = ft_substr(start, 1, len);
+	// result = ft_substr(start, 1, len);
 	return (result);
 }
 
@@ -59,12 +56,15 @@ t_tokens	**store_token(char *input)
 {
 	int			is_cmd;
 	t_tokens	*node;
-	t_tokens	*first_node;
+	t_tokens	**first_node;
 	t_cmd		node_cmd;
 
 	is_cmd = 0;
+	first_node = malloc(sizeof(t_tokens*));
+	if (!first_node)
+		return (NULL);
 	node = new_token();
-	first_node = node;
+	*first_node = node;
 	if (!node)
 		return (NULL);
 	while (*input)
@@ -90,7 +90,7 @@ t_tokens	**store_token(char *input)
 			node = new_token();
 			if (!node)
 				return (NULL);
-			addback_token(&first_node, node);
+			addback_token(first_node, node);
 			input++;
 		}
 	}
@@ -98,5 +98,5 @@ t_tokens	**store_token(char *input)
 	// printf("number of node: %d\n", count_token(first_node));
 	// printf("arg: %s\n", first_node->token_arg->arg_cmd);
 	// printf("arg2: %s\n", first_node->token_arg->next_arg->arg_cmd);
-	return (&first_node);
+	return (first_node);
 }

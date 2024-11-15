@@ -12,15 +12,12 @@
 
 #include "minishell.h"
 
-// zvtra efa expandable no atao anaty ty fonction ty
 t_data_env	*ft_getenv(char *var)
 {
 	t_data_env	*env;
 
 	if (!var)
 		return (NULL);
-	// if (*var != '$')
-	// 	return (NULL);
 	env = get_data_env();
 	while (env != NULL)
 	{
