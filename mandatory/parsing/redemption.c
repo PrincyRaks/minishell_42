@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:40:52 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/15 16:48:50 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:38:23 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 static char	*function(char *start, int *len_str, char **start_dollar)
 {
 	char	*str;
+	char	*value_env;
 
 	str = ft_substr(start, 0, *len_str);
-	str = ft_strjoin(str, expand(start_dollar));
+	value_env = expand(start_dollar);
+	str = ft_strjoin(str, value_env);
 	*len_str = 0;
+	free(value_env);
 	return (str);
 }
 
@@ -36,16 +39,16 @@ char	*remove_doubquotes(char **start_quotes)
 	result = ft_calloc(1, sizeof(char));
 	while (is_close < 2)
 	{
+		if (**start_quotes == '$')
+		{
+			if (ft_isdigit(*(*start_quotes + 1)))
+			result = ft_strjoin(result, function(start, &len, start_quotes));
+			start = *start_quotes;
+		}
 		if (**start_quotes == '"')
 			is_close++;
 		if (**start_quotes != '"' && **start_quotes != '$')
 			len++;
-		if (**start_quotes == '$')
-		{
-			result = ft_strjoin(result, function(start, &len, start_quotes));
-			start = *start_quotes;
-			// printf("zvtr azo: %c\n", *start);
-		}
 		if (is_close == 1 && **start_quotes == '\0')
 			return (NULL);
 		(*start_quotes)++;
@@ -53,7 +56,7 @@ char	*remove_doubquotes(char **start_quotes)
 	if (len == 0 && ft_strlen(result) == 0)
 		return (ft_strdup(""));
 	if (len > 0)
-		result = ft_strjoin(result, ft_substr(start, 0, len + 1));
+		result = ft_strjoin(result, ft_substr(start, 0, len));
 	return (result);
 }
 

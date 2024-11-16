@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 15:51:08 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:11:43 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_cmd
 typedef struct s_arg
 {
 	char *arg_cmd; // -options and argument of cmd
-	int is_expand; // if 0 not expand if 1 is expandable 	->chage value of arg_cmd if 1
 	struct s_arg		*next_arg;
 }						t_arg;
 
@@ -85,12 +84,13 @@ char	*expand(char **var);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
-t_data_env				*hash_env(char *data);
 void					dup_env(char **env);
 void					clean_env(t_data_env **lst);
 void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
+int						count_data_env(t_data_env *node);
+char					**get_tabenv(void);
 
 // utils
 

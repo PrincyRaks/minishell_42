@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 10:45:33 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:25:06 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
     (void)argc;
     (void)argv;
 
+    // aza fafana ty !
     dup_env(envp);
     // ft_env();
     // printf("%s\n", getenv("HOME"));

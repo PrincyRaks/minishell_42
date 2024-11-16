@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/15 16:51:27 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:42:10 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*trim_quotes(char **start_quotes)
 		}
 		if (**start_quotes == '$')
 		{
-			if (*(*start_quotes + 1) == '"')
+			if (*(*start_quotes + 1) == '"' || *(*start_quotes + 1) == '\'')
 				(*start_quotes)++;
 			else
 				result = ft_strjoin(result, expand(start_quotes));

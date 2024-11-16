@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:45:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/13 17:04:56 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:49:43 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	addback_env(t_data_env **lst, t_data_env *node)
 	}
 }
 
-t_data_env	*hash_env(char *data)
+static t_data_env	*hash_env(char *data)
 {
 	int			i;
 	int			j;

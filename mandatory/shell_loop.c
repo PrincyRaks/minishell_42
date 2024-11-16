@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/14 11:00:45 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:23:12 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	shell_loop(char **envp)
 			// 	{
 			// 		if (fork() == 0)
 			// 		{
-			// 			if (execve(executable, args, envp) == -1)
+			// 			if (execve(executable, args, get_tabenv()) == -1)
 			// 			{
 			// 				perror("execve");
 			// 				exit(EXIT_FAILURE);

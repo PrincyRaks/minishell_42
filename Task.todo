@@ -1,9 +1,10 @@
 Parsing:
     ☐ Understand all external functions
     ✔ Token check pipe @done(24-11-13 12:58)
+    ✔ update env execve @done(24-11-16 16:23)
     ☐ append & heredoc
-    ☐ ENV variable
-    ☐ expand ($) afaka atao POO
+    ✔ ENV variable @done(24-11-16 15:16)
+    ☐ expand ($)
 
 ☐ Afficher un prompt lorsqu'il attend une nouvelle commande
 ☐ Implémenter un historique des commandes
