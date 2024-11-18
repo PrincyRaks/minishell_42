@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 14:40:52 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/16 16:38:23 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/18 17:40:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*remove_doubquotes(char **start_quotes)
 	{
 		if (**start_quotes == '$')
 		{
-			if (ft_isdigit(*(*start_quotes + 1)))
 			result = ft_strjoin(result, function(start, &len, start_quotes));
 			start = *start_quotes;
 		}

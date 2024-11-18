@@ -17,11 +17,18 @@ ps -u
 jobs
 at "HH:MM"
 at> touch file_create_by_cmd_at.txt
+
+----------------------- variable --------------------------
+$$HOME$USER
+"hhe"$'HOME'
+"hhe""$'HOME'"
+"'$HOME'"
+$HOME#
+$HOME!
+$HOMEE
 var="echo $HOME"
 "var"
 var="cho $HOME"
 e$var
 unset HOME | cd
 echo hehe$HOMEhuhu | echo hehe$HOME huhu
-"hhe"$'HOME'
-"hhe""$'HOME'"
