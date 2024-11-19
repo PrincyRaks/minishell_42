@@ -4,21 +4,21 @@ Parsing:
     ✔ update env execve @done(24-11-16 16:23)
     ☐ append & heredoc
     ✔ ENV variable @done(24-11-16 15:16)
-    ☐ expand ($)
+    ✔ expand ($) @done(24-11-19 16:20)
 
-☐ Afficher un prompt lorsqu'il attend une nouvelle commande
-☐ Implémenter un historique des commandes
-☐ Gérer les guillemets (quotes) : les simples et les doubles
+✔ Afficher un prompt lorsqu'il attend une nouvelle commande @done(24-11-19 15:50)
+✔ Implémenter un historique des commandes @done(24-11-19 15:50)
+✔ Gérer les guillemets (quotes) : les simples et les doubles @done(24-11-19 15:50)
 ☐ Implémenter les redirections : <, >, <<, >>
 ☐ Implémenter les pipes : |
 ☐ Manipuler les variables d'environnement ($)
 ☐ Gérer les $? et les états de sortie
 ☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\
-☐ Gérer des built-ins : 
+☐ Gérer des built-ins :
     ☐ echo (avec -n)
-    ☐ cd (seulement avec chemin relatif ou absolu)
-    ☐ pwd (sans option)
+    ✔ cd (seulement avec chemin relatif ou absolu) @done(24-11-19 15:50)
+    ✔ pwd (sans option) @done(24-11-19 15:50)
     ☐ export (sans option)
     ☐ unset (sans option)
-    ☐ env (sans option, ni argument)
-    ☐ exit (sans option)
+    ✔ env (sans option, ni argument) @done(24-11-19 15:51)
+    ✔ exit (sans option) @done(24-11-19 15:50)

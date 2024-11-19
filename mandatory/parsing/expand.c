@@ -6,24 +6,54 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:41:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/18 18:01:31 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:18:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// // apres le premier $
-// static int	is_var(char c)
-// {
-// 	if (c != '#' && c != '*' && c != '@' && c != '!' && !ft_isdigit(c))
-// 		return (1);
-// 	return (0);
-// }
+static int	count_dollar(char *dollar)
+{
+	int	i;
 
-// static int check_prevvar(char *var)
-// {
+	i = 0;
+	while (dollar[i] == '$')
+		i++;
+	return (i);
+}
 
-// }
+static char	*dupnd_dollar(int nb_dollar)
+{
+	char	*str;
+
+	str = ft_calloc(sizeof(char), 1);
+	while (nb_dollar > 0)
+	{
+		str = ft_strjoin(str, "$");
+		nb_dollar--;
+	}
+	return (str);
+}
+
+char	*handle_dollar(char **var)
+{
+	char	*result;
+	int		nb_dollar;
+
+	if (**var != '$')
+		return (*var);
+	nb_dollar = count_dollar(*var);
+	if ((nb_dollar % 2) == 0)
+	{
+		result = dupnd_dollar(nb_dollar);
+		*var = *var + nb_dollar;
+		return (result);
+	}
+	result = dupnd_dollar(nb_dollar - 1);
+	*var = *var + (nb_dollar);
+	result = ft_strjoin(result, expand(var));
+	return (result);
+}
 
 char	*expand(char **var)
 {
@@ -31,10 +61,7 @@ char	*expand(char **var)
 	int			size;
 	t_data_env	*data;
 
-	if (**var != '$')
-		return (*var);
-	(*var)++;
-	if (*var == NULL || **var == ' ' || **var == '\0')
+	if (*var == NULL || **var == ' ' || **var == '\0' || **var == '"')
 		return (ft_strdup("$"));
 	result = ft_calloc(sizeof(char), 1);
 	size = 0;
@@ -48,55 +75,15 @@ char	*expand(char **var)
 		data = ft_getenv(ft_substr((*var) - size, 0, size));
 		if (data != NULL)
 			result = ft_strjoin(result, data->value);
-		size = 0;
+		return (result);
 	}
-	while (**var == '$')
+	result = ft_strjoin(result, "$");
+	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
+		&& **var != '\'' && **var != '"')
 	{
-		result = ft_strjoin(result, "$");
+		size++;
 		(*var)++;
 	}
-	if (**var == '\0' || **var == '"')
-		return (ft_strjoin(result, "$"));
-	size = 0;
-	if (!ft_isalpha(**var) && **var != '_' && **var != '?' && **var != '"'
-		&& **var != '\0')
-	{
-		result = ft_strjoin(result, "$");
-		while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0')
-		{
-			size++;
-			(*var)++;
-		}
-		result = ft_strjoin(result, ft_substr((*var) - size, 0, size));
-	}
-	if (**var == '$')
-		return (ft_strjoin(result, expand(var)));
+	result = ft_strjoin(result, ft_substr((*var) - size, 0, size));
 	return (result);
 }
-
-// char	*expand(char **var)
-// {
-// 	char		*result;
-// 	t_data_env	*data;
-// 	char		*start;
-
-// 	start = *var;
-// 	if (**var != '$')
-// 		return (start);
-// 	(*var)++;
-// 	if (*var != NULL && **var != ' ' && **var != '\0')
-// 	{
-// 		while (**var != ' ' && **var != '\0' && **var != '"' && **var != '\''
-// 			&& **var != '$')
-// 			(*var)++;
-// 		result = ft_substr(start, 1, (*var - start) - 1);
-// 		data = ft_getenv(result);
-// 		free(result);
-// 		if (!data)
-// 			return (ft_strdup(""));
-// 		if (**var == '$')
-// 			return (ft_strjoin(ft_strdup(data->value), expand(var)));
-// 		return (ft_strdup(data->value));
-// 	}
-// 	return (ft_strdup("$"));
-// }

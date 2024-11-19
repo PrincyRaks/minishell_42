@@ -4,7 +4,7 @@ SRCS = mandatory/main.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \
-	   mandatory/parsing/redemption.c \
+	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/16 16:11:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:16:03 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char					*find_executable(char *command);
 
 // Parser
 // quotes
-// char		*concat(char *s1, char *s2);
 t_tokens				**store_token(char *input);
 char					*trim_quotes(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
@@ -79,8 +78,9 @@ t_tokens				*new_token(void);
 void					addback_token(t_tokens **first_token, t_tokens *token);
 int						count_token(t_tokens *lst);
 t_arg					*new_arg(void);
-t_cmd	*new_cmd(void);
-char	*expand(char **var);
+t_cmd					*new_cmd(void);
+char					*handle_dollar(char **var);
+char					*expand(char **var);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
@@ -93,6 +93,7 @@ int						count_data_env(t_data_env *node);
 char					**get_tabenv(void);
 
 // utils
+// char		*concat(char *s1, char *s2);
 
 // Builtins
 int						ft_cd(char **args);

@@ -6,13 +6,8 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 16:27:06 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/29 16:27:57 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:05:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char    **(char *input)
-{
-    
-}

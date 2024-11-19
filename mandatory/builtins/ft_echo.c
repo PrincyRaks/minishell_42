@@ -6,13 +6,12 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:42:37 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 16:44:17 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:23:58 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_echo(char *var, char *arg)
+void    ft_echo(t_tokens *tokens)
 {
-    // print value in term
 }
