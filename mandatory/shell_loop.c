@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/16 16:23:12 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:42:02 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	execute_builtin(char **args)
 		ft_exit(args);
 }
 
-void	shell_loop(char **envp)
+void	shell_loop()
 {
-	(void)envp;
-	char	*input;
+	char		*input;
+	t_tokens	**data_cmd;
 	// char	**args;
 	// char	*executable;
 
@@ -50,8 +50,7 @@ void	shell_loop(char **envp)
 		if (*input)
 		{
 			add_history(input);
-			store_token(input);
-			// args = ft_split(input, ' ');
+			data_cmd = store_token(input);
 			// if (ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "pwd") == 0
 			// 	|| ft_strcmp(args[0], "exit") == 0)
 			// 	execute_builtin(args);

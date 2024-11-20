@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:35:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 14:20:33 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:42:51 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cmd	*new_cmd(void)
 	if (!cmd)
 		return (NULL);
 	cmd->cmd_str = NULL;
-	cmd->is_cmd = 0;
+	cmd->errnum = DEFAULT;
 	return (cmd);
 }
 

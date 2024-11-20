@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/19 13:16:03 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:42:20 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+typedef enum e_errnum
+{
+	DEFAULT = 0,
+	NOTCMD = -1,
+	UNQUOTES = -2
+}						t_errnum;
+
 typedef struct s_data_env
 {
 	char				*key;
@@ -37,12 +44,13 @@ typedef struct s_data_env
 typedef struct s_cmd
 {
 	char				*cmd_str;
-	int is_cmd; //  0 is true & -1 is false
+	int					errnum;
 }						t_cmd;
 
 typedef struct s_arg
 {
 	char *arg_cmd; // -options and argument of cmd
+	int					errnum;
 	struct s_arg		*next_arg;
 }						t_arg;
 
@@ -61,7 +69,7 @@ typedef struct s_tokens
 	struct s_tokens *next; // cmd next of | (pipes)
 }						t_tokens;
 
-void					shell_loop(char **envp);
+void					shell_loop(void);
 
 // Executor
 void					free_array(char **array);
@@ -81,6 +89,9 @@ t_arg					*new_arg(void);
 t_cmd					*new_cmd(void);
 char					*handle_dollar(char **var);
 char					*expand(char **var);
+void					clean_cmd(t_cmd *cmd);
+void					clean_args(t_arg **lst);
+void					clean_tokens(t_tokens **lst);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

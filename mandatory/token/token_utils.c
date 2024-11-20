@@ -6,7 +6,8 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:33:25 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 14:22:05 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:30:32 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"

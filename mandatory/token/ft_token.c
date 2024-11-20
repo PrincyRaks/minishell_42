@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:59:16 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 14:22:26 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:12:14 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,18 @@ int	count_token(t_tokens *lst)
 		i++;
 	}
 	return (i);
+}
+
+void	clean_tokens(t_tokens **lst)
+{
+	t_tokens *tmp;
+
+	while (*lst != NULL)
+	{
+		clean_cmd((*lst)->token_cmd);
+		clean_args(&(*lst)->token_arg);
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
+	}
 }

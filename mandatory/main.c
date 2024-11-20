@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/16 16:25:06 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:35:51 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	main(int argc, char **argv, char **envp)
     // char *s = "$HOME";
     // if (ft_getenv(s) != NULL)
         // printf("key: %s et value: %s\n", ft_getenv(s)->key, ft_getenv(s)->value);
-    shell_loop(envp);
+    shell_loop();
     return (0);
 }

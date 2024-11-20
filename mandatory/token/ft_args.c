@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/14 14:09:28 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:49:45 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_arg	*new_arg(void)
 	if (!arg)
 		return (NULL);
 	arg->arg_cmd = NULL;
+	arg->errnum = DEFAULT;
 	arg->next_arg = NULL;
 	return (arg);
 }
@@ -42,12 +43,11 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 
 	if (first_arg)
 	{
-		if (str_arg != NULL)
-		{
-			arg = new_arg();
-			arg->arg_cmd = str_arg;
-			arg->next_arg = NULL;
-		}
+		if (str_arg == NULL)
+			arg->errnum = UNQUOTES;
+		arg = new_arg();
+		arg->arg_cmd = str_arg;
+		arg->next_arg = NULL;
 		if (!*first_arg)
 			*first_arg = arg;
 		else
