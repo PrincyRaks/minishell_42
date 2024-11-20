@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 13:42:20 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:34:00 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void					shell_loop(void);
 // Executor
 void					free_array(char **array);
 char					*find_executable(char *command);
+// fanampiana
+char	**get_tabargv(t_tokens *token);
+
 
 // Parser
 // quotes
@@ -92,6 +95,7 @@ char					*expand(char **var);
 void					clean_cmd(t_cmd *cmd);
 void					clean_args(t_arg **lst);
 void					clean_tokens(t_tokens **lst);
+int						count_arg(t_arg *node);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

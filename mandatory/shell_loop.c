@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/20 12:42:02 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:37:57 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	shell_loop()
 	char		*input;
 	t_tokens	**data_cmd;
 	// char	**args;
-	// char	*executable;
+	char	*executable;
 
 	while (1)
 	{
@@ -51,30 +51,34 @@ void	shell_loop()
 		{
 			add_history(input);
 			data_cmd = store_token(input);
+			// test une seule commande
+			if (data_cmd != NULL)
+			{
 			// if (ft_strcmp(args[0], "cd") == 0 || ft_strcmp(args[0], "pwd") == 0
 			// 	|| ft_strcmp(args[0], "exit") == 0)
 			// 	execute_builtin(args);
 			// else
 			// {
-			// 	executable = find_executable(args[0]);
-			// 	if (executable)
-			// 	{
-			// 		if (fork() == 0)
-			// 		{
-			// 			if (execve(executable, args, get_tabenv()) == -1)
-			// 			{
-			// 				perror("execve");
-			// 				exit(EXIT_FAILURE);
-			// 			}
-			// 		}
-			// 		else
-			// 			wait(NULL);
-			// 		free(executable);
-			// 	}
-			// 	else
-			// 		printf("command not found: %s\n", args[0]);
-			// }
+				executable = find_executable((*data_cmd)->token_cmd->cmd_str);
+				if (executable)
+				{
+					if (fork() == 0)
+					{
+						if (execve(executable, get_tabargv(*data_cmd), get_tabenv()) == -1)
+						{
+							perror("execve");
+							exit(EXIT_FAILURE);
+						}
+					}
+					else
+						wait(NULL);
+					free(executable);
+				}
+				else
+					printf("command not found: %s\n", (*data_cmd)->token_cmd->cmd_str);
+			}
 			// free_array(args);
+			// }
 		}
 		// free(input);
 	}

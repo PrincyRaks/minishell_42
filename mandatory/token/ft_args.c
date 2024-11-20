@@ -6,11 +6,24 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 13:49:45 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/20 17:40:35 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_arg(t_arg *node)
+{
+	int	i;
+
+	i = 0;
+	while (node != NULL)
+	{
+		i++;
+		node = node->next_arg;
+	}
+	return (i);
+}
 
 t_arg	*new_arg(void)
 {
@@ -43,6 +56,7 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 
 	if (first_arg)
 	{
+		arg = new_arg();
 		if (str_arg == NULL)
 			arg->errnum = UNQUOTES;
 		arg = new_arg();
@@ -61,7 +75,7 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 
 void	clean_args(t_arg **lst)
 {
-	t_arg *tmp;
+	t_arg	*tmp;
 
 	while (*lst != NULL)
 	{
@@ -70,4 +84,5 @@ void	clean_args(t_arg **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+	free(lst);
 }
