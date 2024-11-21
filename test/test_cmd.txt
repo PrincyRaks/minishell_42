@@ -32,3 +32,18 @@ var="cho $HOME"
 e$var
 unset HOME | cd
 echo hehe$HOMEhuhu | echo hehe$HOME huhu
+
+----------------------- echo ------------------------------
+echo "-nnnnnn" "Hello" world
+echo - n hey
+echo - "hello"
+echo -n "hello"
+echo -n -nn "Hello"
+echo ---n hey
+echo hey -n
+
+------------------------- cd -----------------------------
+cd
+cd includes
+cd includes/minishell.h libft/
+cd includes/minishell.h

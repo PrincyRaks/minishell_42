@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 17:15:35 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 17:34:38 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:12:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 char	**get_tabargv(t_tokens *token)
 {
+	int		i;
 	char	**argv;
 	int		len_arg;
-	int		i;
+	t_arg	*tmp;
 
 	len_arg = count_arg(token->token_arg);
-	argv = malloc(sizeof(char *) * (len_arg + 2));
+	len_arg += 2;
+	argv = malloc(sizeof(char *) * len_arg);
 	if (!argv)
 		return (NULL);
 	i = 0;
 	argv[i] = token->token_cmd->cmd_str;
 	i++;
-	while (token != NULL && i < len_arg)
+	tmp = token->token_arg;
+	while (tmp != NULL && i < len_arg)
 	{
-		argv[i] = token->token_arg->arg_cmd;
+		argv[i] = tmp->arg_str;
+		tmp = tmp->next_arg;
 		i++;
 	}
 	argv[i] = NULL;

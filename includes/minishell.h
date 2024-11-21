@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 17:34:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:14:21 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_cmd
 
 typedef struct s_arg
 {
-	char *arg_cmd; // -options and argument of cmd
+	char *arg_str; // -options and argument of cmd
 	int					errnum;
 	struct s_arg		*next_arg;
 }						t_arg;
@@ -111,14 +111,14 @@ char					**get_tabenv(void);
 // char		*concat(char *s1, char *s2);
 
 // Builtins
-int						ft_cd(char **args);
+int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
-int						ft_exit(char **args);
+int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
 
 // Builtin utils
 int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
-void					execute_builtin(char **args);
+void					execute_builtin(t_tokens *tokens);
 
 #endif

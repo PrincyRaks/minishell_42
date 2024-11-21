@@ -3,25 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/11 14:22:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:27:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cd(char **args)
+int	ft_cd(t_tokens *tokens)
 {
 	t_data_env	*home;
-	
-	if (!args[1])
+	int			len_arg;
+	char		*error;
+
+	len_arg = 0;
+	// if (!tokens)
+	// 	return (1);
+	len_arg = count_arg(tokens->token_arg);
+	if (len_arg > 1)
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return (1);
+	}
+	else if (len_arg < 1)
 	{
 		home = ft_getenv("HOME");
 		if (!home)
 		{
-			printf("cd: HOME not set\n");
+			ft_putstr_fd("cd: HOME not set\n", 2);
 			return (1);
 		}
 		if (chdir(home->value) != 0)
@@ -32,9 +43,11 @@ int	ft_cd(char **args)
 	}
 	else
 	{
-		if (chdir(args[1]) != 0)
+		if (chdir(tokens->token_arg->arg_str) != 0)
 		{
-			perror("cd");
+			error = ft_strjoin(ft_strdup("cd: "), tokens->token_arg->arg_str);
+			perror(error);
+			free(error);
 			return (1);
 		}
 	}
