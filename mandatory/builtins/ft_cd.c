@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/21 15:27:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:34:24 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_cd(t_tokens *tokens)
 	int			len_arg;
 	char		*error;
 
-	len_arg = 0;
+	// handle - ~
 	// if (!tokens)
 	// 	return (1);
 	len_arg = count_arg(tokens->token_arg);

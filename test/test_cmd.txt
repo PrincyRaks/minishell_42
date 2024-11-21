@@ -44,6 +44,20 @@ echo hey -n
 
 ------------------------- cd -----------------------------
 cd
+cd /
 cd includes
 cd includes/minishell.h libft/
 cd includes/minishell.h
+cd -
+
+--------------------------- exit -------------------------
+exit 8
+exit +
+exit -4
+exit -u
+exit --4
+exit ++8
+exit 545446464646646665
+exit 545 dfeefw
+
+--------------------------

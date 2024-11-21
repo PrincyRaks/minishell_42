@@ -9,7 +9,8 @@
         "ioctl.h": "c",
         "unistd.h": "c",
         "libft.h": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "limits.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
