@@ -59,5 +59,6 @@ exit --4
 exit ++8
 exit 545446464646646665
 exit 545 dfeefw
+exit exit
 
 --------------------------

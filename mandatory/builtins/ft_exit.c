@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/21 17:38:36 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:17:44 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,63 +27,56 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-static long long	ft_atoll(const char *nptr)
+static int	check_range(const char *str, long long *res)
 {
-	int			neg;
-	long long	i;
-	long long	nb;
+	int	i;
+	int	negative;
 
-	i = 0;
-	nb = 0;
-	neg = 1;
-	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if (nptr[i] == '-')
-		neg = neg * -1;
-	if (nptr[i] == '-' || nptr[i] == '+')
-		i++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	negative = str[0] == '-';
+	i = str[0] == '-' || str[0] == '+';
+	while (str[i] != '\0')
 	{
-		nb = (10 * nb) + (nptr[i] - '0');
+		if (*res > 922337203685477580)
+			return (*res = 0);
+		else if (!negative && *res == 922337203685477580 && (str[i] - '0')
+			% 10 > 7)
+			return (*res = 0);
+		else if (negative && *res == 922337203685477580 && (str[i] - '0')
+			% 10 > 8)
+			return (*res = 0);
+		*res = *res * 10 + (str[i] - '0');
 		i++;
 	}
-	return (nb * neg);
+	return (1);
 }
 
 int	ft_exit(t_tokens *tokens)
 {
-	int		exit_code;
-	int		len_arg;
-	char	*str_arg;
+	int			len_arg;
+	char		*str_arg;
+	long long	exit_code;
 
 	exit_code = 0;
-	len_arg = count_arg(tokens->token_arg);
+	str_arg = NULL;
 	printf("exit\n");
+	len_arg = count_arg(tokens->token_arg);
 	if (len_arg > 0)
 		str_arg = tokens->token_arg->arg_str;
-	if (len_arg > 0 && is_numeric(str_arg))
+	if (len_arg > 1 && is_numeric(str_arg))
 	{
 		printf("exit: too many arguments\n");
 		return (1);
 	}
-	else if (len_arg == 1 && is_numeric(str_arg))
+	else
 	{
-		if (LLONG_MAX > ft_atoll(str_arg))
+		if (len_arg == 1 && is_numeric(str_arg) && check_range(str_arg,
+				&exit_code))
+			exit(exit_code % 256);
+		else
 		{
 			printf("exit: %s: numeric argument required\n", str_arg);
-			// ts aiko oe mi-exit inon ty
 			exit(2);
-			return (2);
 		}
-		exit_code = ft_atoi(str_arg);
-		exit(exit_code % 256);
-	}
-	else if (len_arg > 0 && !is_numeric(str_arg))
-	{
-		printf("exit: %s: numeric argument required\n", str_arg);
-		// ts aiko oe mi-exit inon ty
-		exit(2);
-		return (2);
 	}
 	exit(exit_code);
 }
