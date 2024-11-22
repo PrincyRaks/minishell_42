@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/21 17:34:24 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:29:06 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_cd(t_tokens *tokens)
 	t_data_env	*home;
 	int			len_arg;
 	char		*error;
+	char		*current_dir;
 
 	// handle - ~
 	// if (!tokens)
