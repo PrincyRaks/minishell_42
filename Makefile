@@ -1,20 +1,16 @@
 CFLAGS = -Wall -Werror -Wextra
 
 SRCS = mandatory/main.c \
-       mandatory/shell_loop.c \
-	   mandatory/executor.c \
-	   mandatory/parsing/quotes_token.c \
-	   mandatory/parsing/redemption.c \
-	   mandatory/utils/free_memory.c \
-	   mandatory/utils/counter.c \
+       mandatory/shell_loop/shell_loop.c \
+	   mandatory/shell_loop/loop_utils.c \
+       mandatory/executor.c \
+       mandatory/builtins/ft_cd.c \
+       mandatory/builtins/ft_pwd.c \
+       mandatory/builtins/ft_exit.c \
+	   mandatory/redirections/parse_redirections_utils.c \
+       mandatory/redirections/parse_redirections.c \
+       mandatory/redirections/redirections.c 
 
-	   mandatory/token/ft_args.c \
-	   mandatory/token/init_token.c \
-	   mandatory/token/token_utils.c \
-
-	   mandatory/builtins/ft_cd.c \
-	   mandatory/builtins/ft_pwd.c \
-	   mandatory/builtins/ft_exit.c
 
 OBJS = $(SRCS:.c=.o)
 

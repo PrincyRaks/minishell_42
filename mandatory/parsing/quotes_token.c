@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 15:22:20 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/22 08:55:33 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*remove_doubquotes(char **start_quotes)
 {
-	int		is_close;
+	//int		is_close;
 	char	*result;
 	int		len;
 	char	*start;
