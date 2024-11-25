@@ -48,7 +48,10 @@ cd /
 cd includes
 cd includes/minishell.h libft/
 cd includes/minishell.h
+cd ../../
 cd -
+cd --
+cd ~
 
 --------------------------- exit -------------------------
 exit 8
@@ -57,7 +60,8 @@ exit -4
 exit -u
 exit --4
 exit ++8
-exit 545446464646646665
+exit -9223372036854775808
+exit 9223372036854775807
 exit 545 dfeefw
 exit exit
 

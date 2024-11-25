@@ -55,21 +55,23 @@ int	ft_exit(t_tokens *tokens)
 	int			len_arg;
 	char		*str_arg;
 	long long	exit_code;
+	int			is_digit;
 
 	exit_code = 0;
 	str_arg = NULL;
+	is_digit = is_numeric(str_arg);
 	printf("exit\n");
 	len_arg = count_arg(tokens->token_arg);
 	if (len_arg > 0)
 		str_arg = tokens->token_arg->arg_str;
-	if (len_arg > 1 && is_numeric(str_arg))
+	if (len_arg > 1 && is_digit)
 	{
 		printf("exit: too many arguments\n");
 		return (1);
 	}
 	else
 	{
-		if (len_arg == 1 && is_numeric(str_arg) && check_range(str_arg,
+		if (len_arg == 1 && is_digit && check_range(str_arg,
 				&exit_code))
 			exit(exit_code % 256);
 		else

@@ -12,14 +12,47 @@
 
 #include "minishell.h"
 
-int	ft_cd(t_tokens *tokens)
+static int	dir_home()
 {
 	t_data_env	*home;
-	int			len_arg;
-	char		*error;
-	char		*current_dir;
 
-	// handle - ~
+	home = ft_getenv("HOME");
+	if (!home)
+	{
+		ft_putstr_fd("cd: HOME not set\n", 2);
+		return (1);
+	}
+	else if (chdir(home->value) != 0)
+	{
+		perror("cd");
+		return (1);
+	}
+	return (0);
+}
+
+static int	safe_chdir(char *dir)
+{
+	int	status;
+	char		*error;
+
+	status = chdir(dir)  == 0;
+	if (status)
+		return (0);
+	error = ft_strjoin(ft_strdup("cd: "), dir);
+	perror(error);
+	free(error);
+	return (1);
+}
+
+// static int safe_getcwd(){}
+
+int	ft_cd(t_tokens *tokens)
+{
+	int			len_arg;
+	char		cwd[PATH_MAX];
+	static char	*prev_dir = NULL;
+		
+
 	// if (!tokens)
 	// 	return (1);
 	len_arg = count_arg(tokens->token_arg);
@@ -29,27 +62,21 @@ int	ft_cd(t_tokens *tokens)
 		return (1);
 	}
 	else if (len_arg < 1)
-	{
-		home = ft_getenv("HOME");
-		if (!home)
-		{
-			ft_putstr_fd("cd: HOME not set\n", 2);
-			return (1);
-		}
-		if (chdir(home->value) != 0)
-		{
-			perror("cd");
-			return (1);
-		}
-	}
+		return (dir_home());
 	else
 	{
-		if (chdir(tokens->token_arg->arg_str) != 0)
+		if (!ft_strcmp(tokens->token_arg->arg_str, "~") 
+			|| !ft_strcmp(tokens->token_arg->arg_str, "--"))
+			return (dir_home());
+		else if (!ft_strcmp(tokens->token_arg->arg_str, "-") && prev_dir != NULL)
 		{
-			error = ft_strjoin(ft_strdup("cd: "), tokens->token_arg->arg_str);
-			perror(error);
-			free(error);
-			return (1);
+			printf("%s\n", prev_dir);
+			return (safe_chdir(prev_dir));
+		}
+		else
+		{
+			prev_dir = getcwd(cwd, sizeof(cwd));
+			return (safe_chdir(tokens->token_arg->arg_str));
 		}
 	}
 	return (0);

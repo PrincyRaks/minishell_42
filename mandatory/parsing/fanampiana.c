@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	**get_tabargv(t_tokens *token)
+char	**array_tokens(t_tokens *token)
 {
 	int		i;
 	char	**argv;

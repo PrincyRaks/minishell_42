@@ -76,7 +76,7 @@ void					shell_loop(void);
 void					free_array(char **array);
 char					*find_executable(char *command);
 // fanampiana
-char	**get_tabargv(t_tokens *token);
+char	**array_tokens(t_tokens *token);
 
 
 // Parser

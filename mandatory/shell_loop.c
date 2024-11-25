@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 void	execute_builtin(t_tokens *tokens)
 {
 	char	*cmd;
@@ -68,7 +58,7 @@ void	shell_loop(void)
 				// 	{
 				// 		if (fork() == 0)
 				// 		{
-				// 			if (execve(executable, get_tabargv(*data_cmd), get_tabenv()) == -1)
+				// 			if (execve(executable, array_tokens(*data_cmd), get_tabenv()) == -1)
 				// 			{
 				// 				perror("execve");
 				// 				exit(EXIT_FAILURE);

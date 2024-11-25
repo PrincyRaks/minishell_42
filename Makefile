@@ -21,6 +21,8 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_pwd.c \
 	   mandatory/builtins/ft_exit.c \
 	   mandatory/builtins/ft_env.c \
+	   mandatory/utils/ft_utils.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
