@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/22 14:08:29 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/25 08:46:08 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ typedef enum e_redir_type
 	REDIR_INPUT, // "<"
 	REDIR_OUTPUT, // ">"
 	REDIR_APPEND, // ">>"
+	REDIR_HEREDOC // "<<"
 }	t_redir_type;
 
 typedef struct s_redir
 {
+	int heredoc_fd;
 	char *file_name;
 	t_redir_type type;
 	struct s_redir *next;
@@ -115,10 +117,17 @@ t_redir_type get_redirection_type(char *operator);
 
 // Redirections
 char **parse_redirections(char *input, t_redir **redirs);
+int open_redirection_file(t_redir *redir);
 int apply_redirection(t_redir *redir);
 t_redir *create_redir(char *file_name, t_redir_type type);
 void add_redir(t_redir **head, t_redir *new_redir);
 void free_redirs(t_redir *redirs);
 size_t ft_arraylen(char **array);
+
+// Heredoc
+t_redir *create_redir_from_fd(int fd, t_redir_type type);
+char *read_heredoc_line(void);
+void process_heredoc(int pipe_fd[2], char *delim);
+int handle_heredoc(char **args, int *i, t_redir **redirs);
 
 #endif
