@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/21 17:24:44 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:54:34 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
+void    ft_echo(t_tokens *tokens);
 
 // Builtin utils
 int						is_numeric(const char *str);

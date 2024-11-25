@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/21 15:18:17 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:54:51 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ void	execute_builtin(t_tokens *tokens)
 		ft_pwd();
 	else if (ft_strcmp(cmd, "exit") == 0)
 		ft_exit(tokens);
+	else if (ft_strcmp(cmd, "env") == 0)
+		ft_env();
+	else if (ft_strcmp(cmd, "echo") == 0)
+		ft_echo(tokens);
 }
 
 void	shell_loop(void)
@@ -49,7 +53,8 @@ void	shell_loop(void)
 			{
 				cmd = (*data_cmd)->token_cmd->cmd_str;
 				if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
-					|| ft_strcmp(cmd, "exit") == 0)
+					|| ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "env") == 0 
+					|| ft_strcmp(cmd, "echo") == 0)
 					execute_builtin(*data_cmd);
 				// else
 				// {
