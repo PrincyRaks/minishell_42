@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/25 11:57:24 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:12:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 			arg->errnum = UNQUOTES;
 		arg = new_arg();
 		arg->arg_str = str_arg;
+		arg->next_arg = NULL;
 		if (!*first_arg)
 			*first_arg = arg;
 		else

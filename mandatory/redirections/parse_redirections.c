@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fanampiana.c                                       :+:      :+:    :+:   */
+/*   parse_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 17:15:35 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 10:08:33 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/11/22 14:07:35 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/11/25 07:39:51 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**array_tokens(t_tokens *token)
+char	**parse_redirections(char *input, t_redir **redirs)
 {
-	int		i;
-	char	**argv;
-	int		len_arg;
-	t_arg	*tmp;
+	char	**args;
+	char	**filtered_args;
 
-	len_arg = count_arg(token->token_arg);
-	len_arg += 2;
-	argv = malloc(sizeof(char *) * len_arg);
-	if (!argv)
+	args = ft_split(input, ' ');
+	filtered_args = malloc(sizeof(char *) * (ft_arraylen(args) + 1));
+	if (!filtered_args)
 		return (NULL);
-	i = 0;
-	argv[i] = token->token_cmd->cmd_str;
-	i++;
-	tmp = token->token_arg;
-	while (tmp != NULL && i < len_arg)
-	{
-		argv[i] = tmp->arg_str;
-		tmp = tmp->next_arg;
-		i++;
-	}
-	argv[i] = NULL;
-	return (argv);
+	process_arguments(args, filtered_args, redirs);
+	free_array(args);
+	return (filtered_args);
 }

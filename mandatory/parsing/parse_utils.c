@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/21 15:12:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:38:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ t_tokens	**store_token(char *input)
 			input++;
 		}
 	}
-	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
-	// printf("number of node: %d\n", count_token(*first_node));
-	// printf("arg: %s\n", (*first_node)->token_arg->arg_str);
-	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
+	// printf("nbr first token: %d value: %c\n", count_arg((*first_node)->token_arg));
 	return (first_node);
 }
+
+

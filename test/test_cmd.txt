@@ -17,52 +17,7 @@ ps -u
 jobs
 at "HH:MM"
 at> touch file_create_by_cmd_at.txt
-
------------------------ variable --------------------------
-$$HOME$USER
-"hhe"$'HOME'
-"hhe""$'HOME'"
-"'$HOME'"
-$HOME#
-$HOME!
-$HOMEE
 var="echo $HOME"
 "var"
 var="cho $HOME"
 e$var
-unset HOME | cd
-echo hehe$HOMEhuhu | echo hehe$HOME huhu
-
------------------------ echo ------------------------------
-echo "-nnnnnn" "Hello     " world
-echo - n hey
-echo - "hello"
-echo -n "hello"
-echo -n -nn "Hello"
-echo ---n hey
-echo hey -n
-
-------------------------- cd -----------------------------
-cd
-cd /
-cd includes
-cd includes/minishell.h libft/
-cd includes/minishell.h
-cd ../../
-cd -
-cd --
-cd ~
-
---------------------------- exit -------------------------
-exit 8
-exit +
-exit -4
-exit -u
-exit --4
-exit ++8
-exit -9223372036854775808
-exit 9223372036854775807
-exit 545 dfeefw
-exit exit
-
---------------------------

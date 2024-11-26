@@ -1,6 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-
+#include "minishell.h"
 int main() 
 { 
     char s[100]; 
