@@ -10,7 +10,11 @@
         "unistd.h": "c",
         "libft.h": "c",
         "errno.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "*.tcc": "c",
+        "functional": "c",
+        "ranges": "c",
+        "streambuf": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

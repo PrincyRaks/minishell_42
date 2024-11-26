@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:42:37 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/25 13:36:29 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:17:29 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static int	check_option(char *str)
 {
 	str += (*str == '-');
+	if (*str == '\0')
+		return (0);
 	while (*str)
 	{
 		if (*str != 'n')
@@ -33,7 +35,7 @@ void	ft_echo(t_tokens *tokens)
 	//     return ;
 	// handle echo $? / $VAR_ENV
 	option = 0;
-    argt = tokens->token_arg;
+	argt = tokens->token_arg;
 	while (argt != NULL && check_option(argt->arg_str))
 	{
 		option = 1;

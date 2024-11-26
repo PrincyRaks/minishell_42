@@ -22,6 +22,7 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_exit.c \
 	   mandatory/builtins/ft_env.c \
 	   mandatory/builtins/ft_echo.c \
+	   mandatory/builtins/ft_export.c \
 	   mandatory/utils/ft_utils.c \
 
 
