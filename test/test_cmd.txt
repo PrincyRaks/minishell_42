@@ -67,12 +67,25 @@ exit 545 dfeefw
 exit exit
 
 -------------------------- export -----------------------
-
 export (check ")
 export
 export HAHA 
 export HAHA (x2)
 export haha haha
-export    
+export 2var
+export -
+export $var_notexist
+export =
+export test
+export test=
+export =test
+export test="variable"
+export $test="hehe"
+export var1="ff" var2=hhh
+export "" ''
+export = var2=test"=working"
+export export="here"
+export cmd="cho $HOME"
+e$cmd
 
-----------------------  ---------------------
+-------------------------- unset --------------------------

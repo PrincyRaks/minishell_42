@@ -67,8 +67,6 @@ void					shell_loop(void);
 // Executor
 void					free_array(char **array);
 char					*find_executable(char *command);
-// fanampiana
-char					**array_tokens(t_tokens *token);
 
 // Parser
 // quotes
@@ -88,6 +86,7 @@ void					clean_cmd(t_cmd *cmd);
 void					clean_args(t_arg **lst);
 void					clean_tokens(t_tokens **lst);
 int						count_arg(t_arg *node);
+char					**array_tokens(t_tokens *token);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
@@ -98,8 +97,10 @@ t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
 char					**get_tabenv(void);
-char					**get_envrange(void);
+void					get_envrange(void);
 char					**get_tabkeys(void);
+char					**get_data_export(void);
+void					set_data_export(char **value);
 
 // utils
 char					*join_onespace(char *s1, char *s2);

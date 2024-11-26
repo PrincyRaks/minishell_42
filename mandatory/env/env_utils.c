@@ -73,6 +73,7 @@ void	dup_env(char **env)
 	while (env[++i] != NULL)
 		addback_env(&fisrt_data, hash_env(env[i]));
 	set_data_env(fisrt_data);
+	get_envrange();
 }
 
 void	clean_env(t_data_env **lst)

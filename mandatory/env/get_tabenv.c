@@ -96,7 +96,7 @@ static void	add_prefix(char **keys)
 	}
 }
 
-char	**get_envrange(void)
+void	get_envrange(void)
 {
 	int		i;
 	int		j;
@@ -121,5 +121,5 @@ char	**get_envrange(void)
 		i++;
 	}
 	add_prefix(keys);
-	return (keys);
+	set_data_export(keys);
 }
