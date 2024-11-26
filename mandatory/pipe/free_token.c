@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fanampiana.c                                       :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/20 17:15:35 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 10:08:33 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/11/26 09:14:50 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/11/26 09:46:00 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**array_tokens(t_tokens *token)
+void	free_tokens(t_tokens **tokens)
 {
-	int		i;
-	char	**argv;
-	int		len_arg;
-	t_arg	*tmp;
+	t_tokens	*tmp;
+	t_arg		*tmp_arg;
 
-	len_arg = count_arg(token->token_arg);
-	len_arg += 2;
-	argv = malloc(sizeof(char *) * len_arg);
-	if (!argv)
-		return (NULL);
-	i = 0;
-	argv[i] = token->token_cmd->cmd_str;
-	i++;
-	tmp = token->token_arg;
-	while (tmp != NULL && i < len_arg)
+	while (*tokens)
 	{
-		argv[i] = tmp->arg_str;
-		tmp = tmp->next_arg;
-		i++;
+		tmp = *tokens;
+		*tokens = (*tokens)->next;
+		free(tmp->token_cmd->cmd_str);
+		free(tmp->token_cmd);
+		while (tmp->token_arg)
+		{
+			tmp_arg = tmp->token_arg;
+			tmp->token_arg = tmp->token_arg->next_arg;
+			free(tmp_arg->arg_str);
+			free(tmp_arg);
+		}
+		free(tmp);
 	}
-	argv[i] = NULL;
-	return (argv);
+	free(tokens);
 }

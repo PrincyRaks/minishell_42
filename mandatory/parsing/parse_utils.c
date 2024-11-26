@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 08:33:21 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:38:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ t_tokens	**store_token(char *input)
 			input++;
 		}
 	}
+	// printf("nbr first token: %d value: %c\n", count_arg((*first_node)->token_arg));
 	return (first_node);
 }
+
+

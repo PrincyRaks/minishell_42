@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 08:58:48 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:22:15 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <limits.h>
 #include <fcntl.h>
 
-// Redirections
+/* // Redirections
 typedef enum e_redir_type
 {
 	REDIR_INPUT, // "<"
@@ -45,7 +45,7 @@ typedef struct s_redir
 	char *file_name;
 	t_redir_type type;
 	struct s_redir *next;
-}	t_redir;
+}	t_redir; */
 
 typedef enum e_errnum
 {
@@ -141,7 +141,7 @@ int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens);
 
-// Redirections Utils
+/* // Redirections Utils
 void process_arguments(char **args, char **filtered_args, t_redir **redirs);
 int is_redirection_operator(char *arg);
 int handle_redirection(char **args, int *i, t_redir **redirs);
@@ -160,6 +160,11 @@ size_t ft_arraylen(char **array);
 t_redir *create_redir_from_fd(int fd, t_redir_type type);
 char *read_heredoc_line(void);
 void process_heredoc(int pipe_fd[2], char *delim);
-int handle_heredoc(char **args, int *i, t_redir **redirs);
+int handle_heredoc(char **args, int *i, t_redir **redirs); */
+
+// Pipe
+void execute_single_command(t_tokens *token);
+void execute_pipeline(t_tokens *tokens);
+void free_tokens(t_tokens **tokens);
 
 #endif

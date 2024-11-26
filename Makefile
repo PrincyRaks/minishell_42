@@ -22,10 +22,13 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_exit.c \
 	   mandatory/builtins/ft_env.c \
 	   mandatory/utils/ft_utils.c \
-	   mandatory/redirections/parse_redirections_utils.c \
-       mandatory/redirections/parse_redirections.c \
-       mandatory/redirections/redirections.c \
-	   mandatory/redirections/heredoc_utils.c
+	   mandatory/pipe/execute_pipeline.c \
+	   mandatory/pipe/execute_single_command.c \
+	   mandatory/pipe/free_token.c 
+	#    mandatory/redirections/parse_redirections.c \
+	#    mandatory/redirections/parse_redirections_utils.c \
+    #    mandatory/redirections/redirections.c \
+	#    mandatory/redirections/heredoc_utils.c \
 
 
 OBJS = $(SRCS:.c=.o)
