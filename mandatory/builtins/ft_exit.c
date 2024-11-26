@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/11 14:23:39 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:17:44 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,58 @@ int	is_numeric(const char *str)
 	return (1);
 }
 
-int	ft_exit(char **args)
+static int	check_range(const char *str, long long *res)
 {
-	int	exit_code;
+	int	i;
+	int	negative;
+
+	negative = str[0] == '-';
+	i = str[0] == '-' || str[0] == '+';
+	while (str[i] != '\0')
+	{
+		if (*res > 922337203685477580)
+			return (*res = 0);
+		else if (!negative && *res == 922337203685477580 && (str[i] - '0')
+			% 10 > 7)
+			return (*res = 0);
+		else if (negative && *res == 922337203685477580 && (str[i] - '0')
+			% 10 > 8)
+			return (*res = 0);
+		*res = *res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (1);
+}
+
+int	ft_exit(t_tokens *tokens)
+{
+	int			len_arg;
+	char		*str_arg;
+	long long	exit_code;
+	int			is_digit;
 
 	exit_code = 0;
+	str_arg = NULL;
+	is_digit = is_numeric(str_arg);
 	printf("exit\n");
-	if (args[1])
+	len_arg = count_arg(tokens->token_arg);
+	if (len_arg > 0)
+		str_arg = tokens->token_arg->arg_str;
+	if (len_arg > 1 && is_digit)
 	{
-		if (!is_numeric(args[1]))
+		printf("exit: too many arguments\n");
+		return (1);
+	}
+	else
+	{
+		if (len_arg == 1 && is_digit && check_range(str_arg,
+				&exit_code))
+			exit(exit_code % 256);
+		else
 		{
-			printf("exit: %s: numeric argument required\n", args[1]);
-			return (1);
+			printf("exit: %s: numeric argument required\n", str_arg);
+			exit(2);
 		}
-		exit_code = ft_atoi(args[1]);
-		if (args[2])
-		{
-			printf("exit: too many arguments\n");
-			return (1);
-		}
-		exit(exit_code % 256);
 	}
 	exit(exit_code);
 }

@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd.c                                           :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 16:35:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 17:12:59 by rrakotos         ###   ########.fr       */
+/*   Created: 2024/11/13 20:24:33 by rrakotos          #+#    #+#             */
+/*   Updated: 2024/11/13 20:24:34 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*new_cmd(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_cmd	*cmd;
+	int	i;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->cmd_str = NULL;
-	cmd->errnum = DEFAULT;
-	return (cmd);
-}
-
-void	clean_cmd(t_cmd *cmd)
-{
-	free(cmd->cmd_str);
-	free(cmd);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }

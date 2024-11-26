@@ -1,12 +1,27 @@
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
-       mandatory/shell_loop/shell_loop.c \
-	   mandatory/shell_loop/loop_utils.c \
-       mandatory/executor.c \
-       mandatory/builtins/ft_cd.c \
-       mandatory/builtins/ft_pwd.c \
-       mandatory/builtins/ft_exit.c \
+       mandatory/shell_loop.c \
+	   mandatory/executor.c \
+	   mandatory/parsing/fanampiana.c \
+	   mandatory/parsing/quotes_token.c \
+	   mandatory/parsing/parse_utils.c \
+	   mandatory/parsing/expand.c \
+	   mandatory/utils/free_memory.c \
+	   mandatory/utils/counter.c \
+	   mandatory/env/ft_getenv.c \
+	   mandatory/env/env_utils.c \
+	   mandatory/env/getset_env.c \
+	   mandatory/env/get_tabenv.c \
+	   mandatory/token/ft_args.c \
+	   mandatory/token/ft_cmd.c \
+	   mandatory/token/ft_token.c \
+	   mandatory/token/token_utils.c \
+	   mandatory/builtins/ft_cd.c \
+	   mandatory/builtins/ft_pwd.c \
+	   mandatory/builtins/ft_exit.c \
+	   mandatory/builtins/ft_env.c \
+	   mandatory/utils/ft_utils.c \
 	   mandatory/redirections/parse_redirections_utils.c \
        mandatory/redirections/parse_redirections.c \
        mandatory/redirections/redirections.c \
