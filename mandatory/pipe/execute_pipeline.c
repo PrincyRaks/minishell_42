@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 10:25:51 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:10:42 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	execute_pipeline(t_tokens *tokens)
 			executable = find_executable(tokens->token_cmd->cmd_str);
 			if (!executable)
 			{
-				fprintf(stderr, "command not found: %s\n",
+				printf("command not found: %s\n",
 					tokens->token_cmd->cmd_str);
 				exit(EXIT_FAILURE);
 			}

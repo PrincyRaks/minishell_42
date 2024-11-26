@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 10:22:15 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:06:40 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ typedef struct s_tokens
 	struct s_tokens *next; // cmd next of | (pipes)
 }						t_tokens;
 
+// Shell_loop
 void					shell_loop(void);
+void					handle_command(t_tokens *data_cmd);
 
 // Executor
 void					free_array(char **array);
@@ -135,6 +137,7 @@ int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
+int						is_builtin(char *cmd);
 
 // Builtin utils
 int						is_numeric(const char *str);
