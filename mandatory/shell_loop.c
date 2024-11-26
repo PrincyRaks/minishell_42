@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 14:05:20 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:18:39 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,30 @@ void	execute_builtin(t_tokens *tokens)
 	else if (ft_strcmp(cmd, "exit") == 0)
 		ft_exit(tokens);
 }
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
-    if (!cmd)
-        return (0);
-    return (ft_strcmp(cmd, "cd") == 0 ||
-            ft_strcmp(cmd, "pwd") == 0 ||
-            ft_strcmp(cmd, "exit") == 0);
+	if (!cmd)
+		return (0);
+	return (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
+		|| ft_strcmp(cmd, "exit") == 0);
+}
+
+int	is_pipe_without_command(t_tokens *data_cmd)
+{
+	t_tokens	*current;
+
+	current = data_cmd;
+	while (current != NULL)
+	{
+		if (ft_strcmp(current->token_cmd->cmd_str, "|") == 0)
+		{
+			if (current->next == NULL || (current->next != NULL
+					&& current->next->token_cmd->cmd_str == NULL))
+				return (1);
+		}
+		current = current->next;
+	}
+	return (0);
 }
 
 void	handle_command(t_tokens *data_cmd)
@@ -48,7 +65,8 @@ void	handle_command(t_tokens *data_cmd)
 		{
 			if (fork() == 0)
 			{
-				if (execve(executable, array_tokens(data_cmd), get_tabenv()) == -1)
+				if (execve(executable, array_tokens(data_cmd), get_tabenv()) ==
+					-1)
 				{
 					perror("execve");
 					exit(EXIT_FAILURE);
@@ -63,34 +81,38 @@ void	handle_command(t_tokens *data_cmd)
 	}
 }
 
-void	shell_loop(void)
+void shell_loop(void)
 {
-	char		*input;
-	t_tokens	**data_cmd;
+    char *input;
+    t_tokens **data_cmd;
 
-	while (1)
-	{
-		input = readline("👾⇒ ");
-		if (!input)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (*input)
-		{
-			add_history(input);
-			data_cmd = store_token(input);
-			if (data_cmd != NULL)
-			{
-				handle_command(*data_cmd);
-				free_tokens(data_cmd);
-			}
-		}
-		free(input);
-	}
+    while (1)
+    {
+        input = readline("👾⇒ ");
+        if (!input)
+        {
+            printf("exit\n");
+            break ;
+        }
+        if (*input)
+        {
+            add_history(input);
+            data_cmd = store_token(input);
+            if (data_cmd != NULL && *data_cmd != NULL)
+            {
+                if (is_pipe_without_command(*data_cmd))
+                {
+                    printf("> ");
+                    free(input);
+                    continue;
+                }
+                handle_command(*data_cmd);
+                free_tokens(data_cmd);
+            }
+            else
+                printf("minishell: syntax error near unexpected token `|`\n");
+        }
+        free(input);
+    }
 }
-
-
-
-
 

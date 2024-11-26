@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 11:38:52 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:55:15 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tokens	**store_token(char *input)
 	{
 		while (*input == ' ')
 			input++;
-		if (*input != ' ' && *input != '\0')
+		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
 			if (!is_cmd)
 			{
@@ -45,18 +45,30 @@ t_tokens	**store_token(char *input)
 			else
 				addback_arg(&node_token->token_arg, trim_quotes(&input));
 		}
-		if (*input == '|')
+		else if (*input == '|')
 		{
+			input++;
+			while (*input == ' ')
+				input++;
+			if (*input == '\0') // Cas où le pipe n'est suivi de rien
+			{
+				char *new_input;
+		
+				new_input = readline("> "); // Nouvelle saisie pour compléter.
+				if (!new_input)
+					return (free_tokens(first_node), NULL);
+				input = new_input; // Met à jour `input` avec la nouvelle chaîne.
+			}
 			node_token = new_token();
 			if (!node_token)
-				return (NULL);
+				return (free_tokens(first_node), NULL);
 			addback_token(first_node, node_token);
 			is_cmd = 0;
-			input++;
 		}
+
 	}
-	// printf("nbr first token: %d value: %c\n", count_arg((*first_node)->token_arg));
 	return (first_node);
 }
+
 
 

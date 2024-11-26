@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 14:06:40 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:44:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ typedef struct s_tokens
 }						t_tokens;
 
 // Shell_loop
-void					shell_loop(void);
 void					handle_command(t_tokens *data_cmd);
+int is_pipe_without_command(t_tokens *data_cmd);
+void					shell_loop(void);
 
 // Executor
 void					free_array(char **array);
@@ -168,6 +169,7 @@ int handle_heredoc(char **args, int *i, t_redir **redirs); */
 // Pipe
 void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
+void	free_args(t_arg *args);
 void free_tokens(t_tokens **tokens);
 
 #endif
