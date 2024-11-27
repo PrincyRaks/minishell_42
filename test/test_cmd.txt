@@ -74,7 +74,7 @@ export HAHA (x2)
 export haha haha
 export 2var
 export -
-export $var_notexist
+export $var_notexist **
 export =
 export test
 export test=
@@ -84,8 +84,10 @@ export $test="hehe"
 export var1="ff" var2=hhh
 export "" ''
 export = var2=test"=working"
+export $var2
 export export="here"
 export cmd="cho $HOME"
 e$cmd
+export 'USER'=evaluateur
 
 -------------------------- unset --------------------------
