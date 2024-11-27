@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 14:55:15 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:36:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_tokens	**store_token(char *input)
 	t_tokens	*node_token;
 	t_tokens	**first_node;
 	t_cmd		*node_cmd;
+	char *new_input;
 
 	is_cmd = 0;
 	first_node = malloc(sizeof(t_tokens *));
@@ -50,14 +51,12 @@ t_tokens	**store_token(char *input)
 			input++;
 			while (*input == ' ')
 				input++;
-			if (*input == '\0') // Cas où le pipe n'est suivi de rien
+			if (*input == '\0')
 			{
-				char *new_input;
-		
-				new_input = readline("> "); // Nouvelle saisie pour compléter.
+				new_input = readline("> ");
 				if (!new_input)
 					return (free_tokens(first_node), NULL);
-				input = new_input; // Met à jour `input` avec la nouvelle chaîne.
+				input = new_input;
 			}
 			node_token = new_token();
 			if (!node_token)
