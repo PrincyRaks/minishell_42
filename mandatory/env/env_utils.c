@@ -40,7 +40,7 @@ void	addback_env(t_data_env **lst, t_data_env *node)
 	}
 }
 
-static t_data_env	*hash_env(char *data)
+t_data_env	*hash_env(char *data)
 {
 	int			i;
 	int			j;
@@ -51,9 +51,14 @@ static t_data_env	*hash_env(char *data)
 		return (NULL);
 	node->next = NULL;
 	i = -1;
-	while (data[++i] != '=')
+	while (data[++i] != '=' && data[++i] != '\0')
 		;
 	node->key = ft_substr(data, 0, i);
+	if (data[i] == '\0')
+	{
+		node->value = NULL;
+		return(node);
+	}
 	if (data[i] == '=')
 		i++;
 	j = 0;
@@ -83,7 +88,8 @@ void	clean_env(t_data_env **lst)
 	while (*lst != NULL)
 	{
 		free((*lst)->key);
-		free((*lst)->value);
+		if ((*lst)->value != NULL)
+			free((*lst)->value);
 		tmp = (*lst)->next;
 		free(*lst);
 		*lst = tmp;

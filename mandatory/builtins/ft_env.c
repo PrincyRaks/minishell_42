@@ -19,7 +19,8 @@ void    ft_env(void)
     env = get_data_env();
     while (env != NULL)
     {
-        printf("%s=%s\n", env->key, env->value);
+        if (env->key != NULL && env->value != NULL)
+            printf("%s=%s\n", env->key, env->value);
         env = env->next;
     }
 }

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	*function(char *start, int *len_str, char **start_dollar)
+static char	*expand_dollar(char *start, int *len_str, char **start_dollar)
 {
 	char	*str;
 	char	*value_env;
@@ -41,7 +41,7 @@ char	*remove_doubquotes(char **start_quotes)
 	{
 		if (**start_quotes == '$')
 		{
-			result = ft_strjoin(result, function(start, &len, start_quotes));
+			result = ft_strjoin(result, expand_dollar(start, &len, start_quotes));
 			start = *start_quotes;
 		}
 		if (**start_quotes == '"')

@@ -23,22 +23,68 @@ static void	display_env(void)
 		env++;
 	}
 }
-// 1 sans valeur / negative is error / 2
+
 static int check_type_argv(char *arg_str)
 {
-	if (ft_isalpha())
-	while (*arg_str)
+	if (!ft_isalpha(*arg_str) && *arg_str != '_')
+		return (-1);
+	else if (*arg_str == '-' && *(arg_str + 1) != '\0')
+		return (-2);
+	while (*arg_str != '=' && *arg_str != '\0')
 	{
+		if (!ft_isalpha(*arg_str) && !ft_isdigit(*arg_str) && *arg_str == '_')
+			return (-1);
+		arg_str++;
 	}
+	return (0);
 }
 
-static void handle_arg(t_arg *argv, int len_arg)
+static int handle_arg(t_arg *argv)
 {
+	int			type_arg;
+	t_data_env	*node;
+	t_data_env	*env;
+	t_data_env		*var;
+	int		flag;
+
+	flag = 0;
     if (!argv)
-        return ;
+	{
+        display_env();
+		return (0);
+	}
     while (argv != NULL)
     {
+		type_arg = check_type_argv(argv->arg_str);
+		if (type_arg == -1)
+		{
+			flag = 1;
+			printf("export: `%s': not a valid identifier\n", argv->arg_str);
+			// return (1);
+		}
+		else if (type_arg == -2 && !flag)
+		{
+			printf("export: %s: invalid option", argv->arg_str);
+			break ;
+			// return (2);
+		}
+		else if (type_arg == 0)
+		{
+			flag = 1;
+			node = hash_env(argv->arg_str);
+			var = ft_getenv(node->key);
+			if (!var)
+			{
+				env = get_data_env();
+				addback_env(&env, node);
+			}
+			else
+				var->value = node->value;
+			get_envrange();
+		}
+		argv = argv->next_arg;
     }
+	return (0);
 }
 
 int	ft_export(t_tokens *tokens)
@@ -51,67 +97,5 @@ int	ft_export(t_tokens *tokens)
 		display_env();
 		return (0);
 	}
-	return (0);
-}
-
-static int	cmp_key(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && (s1[i] != '=' || s1[i] != '\0') && (s2[i] != '='
-			|| s2[i] != '\0'))
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-static void	range_data_export(char **env)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		j = i + 1;
-		while (env[j] != NULL)
-		{
-			if (cmp_key(env[i], env[j]) > 0)
-			{
-				tmp = env[i];
-				env[i] = env[j];
-				env[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-// rah key fotsiny
-void	add_var(char *var)
-{
-	char	**tabenv;
-	int		len_tab;
-	int		i;
-	char	**new_env;
-	char	*tmp;
-
-	tabenv = get_data_export();
-	len_tab = count_tab(tabenv);
-	i = 0;
-	new_env = malloc(sizeof(char *) * (len_tab + 2));
-	if (!new_env)
-		return ;
-	tmp = ft_strjoin(ft_strdup("declare -x "), var);
-	new_env[i] = tmp;
-	while (tabenv[i] != NULL)
-	{
-		new_env[i + 1] = tabenv[i];
-		i++;
-	}
-	new_env[i + 1] = NULL;
-	range_data_export(new_env);
-	set_data_export(new_env);
-	free(tabenv);
+	return (handle_arg(tokens->token_arg));
 }

@@ -87,10 +87,14 @@ static void	add_prefix(char **keys)
 	while (++i < len_tab)
 	{
 		value = ft_getenv(keys[i])->value;
-		tmp = ft_strjoin(keys[i], "=");
-		tmp = ft_strjoin(tmp, "\"");
-		tmp = ft_strjoin(tmp, value);
-		tmp = ft_strjoin(tmp, "\"");
+		tmp = keys[i];
+		if (value)
+		{
+			tmp = ft_strjoin(tmp, "=");
+			tmp = ft_strjoin(tmp, "\"");
+			tmp = ft_strjoin(tmp, value);
+			tmp = ft_strjoin(tmp, "\"");
+		}
 		keys[i] = ft_strjoin(ft_strdup("declare -x "), tmp);
 		free(tmp);
 	}

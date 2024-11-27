@@ -83,11 +83,17 @@ export test="variable"
 export $test="hehe"
 export var1="ff" var2=hhh
 export "" ''
+export var5=heool-$£%ù._-]=}
 export = var2=test"=working"
 export $var2
 export export="here"
 export cmd="cho $HOME"
 e$cmd
 export 'USER'=evaluateur
+export 'HOME'=HOME
+export -opt test
+echo $?
+export diso@ -opt
 
 -------------------------- unset --------------------------
+

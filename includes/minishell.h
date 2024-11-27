@@ -90,7 +90,7 @@ char					**array_tokens(t_tokens *token);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
-void					dup_env(char **env);
+void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
 void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
@@ -101,6 +101,7 @@ void					get_envrange(void);
 char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);
+t_data_env				*hash_env(char *data);
 
 // utils
 char					*join_onespace(char *s1, char *s2);
