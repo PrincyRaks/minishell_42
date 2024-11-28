@@ -18,10 +18,16 @@ static char	*expand_dollar(char *start, int *len_str, char **start_dollar)
 	char	*value_env;
 
 	str = ft_substr(start, 0, *len_str);
-	value_env = handle_dollar(start_dollar);
-	str = ft_strjoin(str, value_env);
 	*len_str = 0;
-	free(value_env);
+	while (**start_dollar == '$')
+	{
+		value_env = handle_dollar(start_dollar);
+		if (value_env)
+		{
+			str = ft_strjoin(str, value_env);
+			free(value_env);
+		}
+	}
 	return (str);
 }
 
@@ -31,6 +37,7 @@ char	*remove_doubquotes(char **start_quotes)
 	char	*result;
 	int		len;
 	char	*start;
+	char	*tmp;
 
 	len = 0;
 	is_close = 0;
@@ -41,8 +48,10 @@ char	*remove_doubquotes(char **start_quotes)
 	{
 		if (**start_quotes == '$')
 		{
-			result = ft_strjoin(result, expand_dollar(start, &len, start_quotes));
+			tmp = expand_dollar(start, &len, start_quotes);
+			result = ft_strjoin(result, tmp);
 			start = *start_quotes;
+			free(tmp);
 		}
 		if (**start_quotes == '"')
 			is_close++;
@@ -55,7 +64,11 @@ char	*remove_doubquotes(char **start_quotes)
 	if (len == 0 && ft_strlen(result) == 0)
 		return (ft_strdup(""));
 	if (len > 0)
-		result = ft_strjoin(result, ft_substr(start, 0, len));
+	{
+		tmp = ft_substr(start, 0, len);
+		result = ft_strjoin(result, tmp);
+		free(tmp);
+	}
 	return (result);
 }
 
@@ -135,7 +148,14 @@ char	*trim_quotes(char **start_quotes)
 			if (*(*start_quotes + 1) == '"' || *(*start_quotes + 1) == '\'')
 				(*start_quotes)++;
 			else
-				result = ft_strjoin(result, handle_dollar(start_quotes));
+			{
+				trim = handle_dollar(start_quotes);
+				if (trim != NULL)
+				{
+					result = ft_strjoin(result, trim);
+					free(trim);
+				}
+			}
 		}
 	}
 	return (result);

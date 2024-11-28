@@ -39,6 +39,7 @@ char	*handle_dollar(char **var)
 {
 	char	*result;
 	int		nb_dollar;
+	char	*extend;
 
 	if (**var != '$')
 		return (*var);
@@ -51,7 +52,14 @@ char	*handle_dollar(char **var)
 	}
 	result = dupnb_dollar(nb_dollar - 1);
 	*var = *var + nb_dollar;
-	result = ft_strjoin(result, expand(var));
+	extend = expand(var);
+	if (!extend)
+		result = NULL;
+	else
+	{
+		result = ft_strjoin(result, extend);
+		free(extend);
+	}
 	return (result);
 }
 
@@ -73,7 +81,9 @@ char	*expand(char **var)
 			(*var)++;
 		}
 		data = ft_getenv(ft_substr((*var) - size, 0, size));
-		if (data != NULL)
+		if (data == NULL)
+			result = NULL;
+		else
 			result = ft_strjoin(result, data->value);
 		return (result);
 	}

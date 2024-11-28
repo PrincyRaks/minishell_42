@@ -70,7 +70,6 @@ exit exit
 export (check ")
 export
 export HAHA 
-export HAHA (x2)
 export haha haha
 export 2var
 export -
@@ -81,6 +80,8 @@ export _42
 export test=
 export =test
 export test="variable"
+export test+=what
+export tesy+=+=s
 export $test="hehe"
 export var1="ff" var2=hhh
 export "" ''

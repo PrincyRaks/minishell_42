@@ -30,12 +30,16 @@ static int	check_type_argv(char *arg_str)
 		return (-1);
 	else if (*arg_str == '-' && *(arg_str + 1) != '\0')
 		return (-2);
-	while (*arg_str != '=' && *arg_str != '\0')
+	while (*arg_str != '+' && *arg_str != '=' && *arg_str != '\0')
 	{
 		if (!ft_isalpha(*arg_str) && !ft_isdigit(*arg_str) && *arg_str != '_')
 			return (-1);
 		arg_str++;
 	}
+	if (*arg_str == '+' && *(arg_str + 1) == '=')
+		return (1);
+	else if (*arg_str == '+' && *(arg_str + 1) != '=')
+		return (-1);
 	return (0);
 }
 
@@ -69,7 +73,7 @@ static int	handle_arg(t_arg *argv)
 			break ;
 			// return (2);
 		}
-		else if (type_arg == 0)
+		else if (type_arg >= 0)
 		{
 			flag = 1;
 			node = hash_env(argv->arg_str);
@@ -82,7 +86,11 @@ static int	handle_arg(t_arg *argv)
 			else if (var && node->value != NULL)
 			{
 				tmp = &var;
-				(*tmp)->value = node->value;
+				if (type_arg == 1)
+					(*tmp)->value = ft_strjoin((*tmp)->value, node->value);
+				else
+					(*tmp)->value = node->value;
+				free(node);
 			}
 			load_data_export();
 		}

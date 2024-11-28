@@ -53,7 +53,10 @@ t_data_env	*hash_env(char *data)
 	i = 0;
 	while (data[i] != '=' && data[i] != '\0')
 		i++;
-	node->key = ft_substr(data, 0, i);
+	j = i;
+	if (data[i - 1] == '+' && data[i] == '=')
+		j = i - 1;
+	node->key = ft_substr(data, 0, j);
 	if (data[i] == '\0')
 	{
 		node->value = NULL;

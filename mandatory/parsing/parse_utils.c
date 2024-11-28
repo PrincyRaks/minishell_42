@@ -55,7 +55,7 @@ t_tokens	**store_token(char *input)
 			input++;
 		}
 	}
-	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("arg: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
