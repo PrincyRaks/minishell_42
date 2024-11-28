@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 15:18:39 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:14:35 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,21 +98,11 @@ void shell_loop(void)
         {
             add_history(input);
             data_cmd = store_token(input);
-            if (data_cmd != NULL && *data_cmd != NULL)
-            {
-                if (is_pipe_without_command(*data_cmd))
-                {
-                    printf("> ");
-                    free(input);
-                    continue;
-                }
-                handle_command(*data_cmd);
-                free_tokens(data_cmd);
-            }
-            else
-                printf("minishell: syntax error near unexpected token `|`\n");
+            if (data_cmd)
+				handle_command(*data_cmd);
         }
         free(input);
     }
+	free_tokens(data_cmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/27 10:36:23 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:11:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_tokens	**store_token(char *input)
 			if (*input == '\0')
 			{
 				new_input = readline("> ");
+				while (new_input && *new_input == '\0')
+					new_input =  readline("> ");
 				if (!new_input)
 					return (free_tokens(first_node), NULL);
 				input = new_input;
