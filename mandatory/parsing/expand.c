@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:41:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/27 11:12:50 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:37:03 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*handle_dollar(char **var)
 		return (result);
 	}
 	result = dupnb_dollar(nb_dollar - 1);
-	*var = *var + (nb_dollar);
+	*var = *var + nb_dollar;
 	result = ft_strjoin(result, expand(var));
 	return (result);
 }
@@ -77,7 +77,6 @@ char	*expand(char **var)
 			result = ft_strjoin(result, data->value);
 		return (result);
 	}
-	// ovaina null rah tsy ireo fa tsy ito ambany ito
 	result = ft_strjoin(result, "$");
 	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
 		&& **var != '\'' && **var != '"')

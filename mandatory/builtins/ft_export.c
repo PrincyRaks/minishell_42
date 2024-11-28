@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/27 17:31:34 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:58:40 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	display_env(void)
 	}
 }
 
-static int check_type_argv(char *arg_str)
+static int	check_type_argv(char *arg_str)
 {
 	if (!ft_isalpha(*arg_str) && *arg_str != '_')
 		return (-1);
@@ -32,29 +32,30 @@ static int check_type_argv(char *arg_str)
 		return (-2);
 	while (*arg_str != '=' && *arg_str != '\0')
 	{
-		if (!ft_isalpha(*arg_str) && !ft_isdigit(*arg_str) && *arg_str == '_')
+		if (!ft_isalpha(*arg_str) && !ft_isdigit(*arg_str) && *arg_str != '_')
 			return (-1);
 		arg_str++;
 	}
 	return (0);
 }
 
-static int handle_arg(t_arg *argv)
+static int	handle_arg(t_arg *argv)
 {
+	int			flag;
 	int			type_arg;
 	t_data_env	*node;
 	t_data_env	*env;
-	t_data_env		*var;
-	int		flag;
+	t_data_env	*var;
+	t_data_env	**tmp;
 
 	flag = 0;
-    if (!argv)
+	if (!argv)
 	{
-        display_env();
+		display_env();
 		return (0);
 	}
-    while (argv != NULL)
-    {
+	while (argv != NULL)
+	{
 		type_arg = check_type_argv(argv->arg_str);
 		if (type_arg == -1)
 		{
@@ -64,7 +65,7 @@ static int handle_arg(t_arg *argv)
 		}
 		else if (type_arg == -2 && !flag)
 		{
-			printf("export: %s: invalid option", argv->arg_str);
+			printf("export: %s: invalid option\n", argv->arg_str);
 			break ;
 			// return (2);
 		}
@@ -78,12 +79,15 @@ static int handle_arg(t_arg *argv)
 				env = get_data_env();
 				addback_env(&env, node);
 			}
-			else
-				var->value = node->value;
-			get_envrange();
+			else if (var && node->value != NULL)
+			{
+				tmp = &var;
+				(*tmp)->value = node->value;
+			}
+			load_data_export();
 		}
 		argv = argv->next_arg;
-    }
+	}
 	return (0);
 }
 

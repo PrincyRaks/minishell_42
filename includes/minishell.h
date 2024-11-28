@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 15:56:15 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/28 09:59:50 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
 char					**get_tabenv(void);
-void					get_envrange(void);
+void					load_data_export(void);
 char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);

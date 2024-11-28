@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:45:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/16 15:49:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:36:41 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,16 @@ t_data_env	*hash_env(char *data)
 	if (!node)
 		return (NULL);
 	node->next = NULL;
-	i = -1;
-	while (data[++i] != '=' && data[++i] != '\0')
-		;
+	i = 0;
+	while (data[i] != '=' && data[i] != '\0')
+		i++;
 	node->key = ft_substr(data, 0, i);
 	if (data[i] == '\0')
 	{
 		node->value = NULL;
-		return(node);
+		return (node);
 	}
-	if (data[i] == '=')
-		i++;
+	i += (data[i] == '=');
 	j = 0;
 	while (data[i + j] != '\0')
 		j++;
@@ -78,7 +77,7 @@ void	dup_env(char **env)
 	while (env[++i] != NULL)
 		addback_env(&fisrt_data, hash_env(env[i]));
 	set_data_env(fisrt_data);
-	get_envrange();
+	load_data_export();
 }
 
 void	clean_env(t_data_env **lst)

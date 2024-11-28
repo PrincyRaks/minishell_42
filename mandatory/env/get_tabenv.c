@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:42:35 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 15:48:39 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/28 09:59:50 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static void	add_prefix(char **keys)
 	}
 }
 
-void	get_envrange(void)
+void	load_data_export(void)
 {
 	int		i;
 	int		j;
