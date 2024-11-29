@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 10:58:40 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:21:45 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	handle_arg(t_arg *argv)
 			else if (var && node->value != NULL)
 			{
 				tmp = &var;
-				if (type_arg == 1)
+				if (type_arg == 1 && (*tmp)->value != NULL)
 					(*tmp)->value = ft_strjoin((*tmp)->value, node->value);
 				else
 					(*tmp)->value = node->value;
