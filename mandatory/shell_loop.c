@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/28 18:14:35 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:01:43 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,6 @@ int	is_builtin(char *cmd)
 		return (0);
 	return (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
 		|| ft_strcmp(cmd, "exit") == 0);
-}
-
-int	is_pipe_without_command(t_tokens *data_cmd)
-{
-	t_tokens	*current;
-
-	current = data_cmd;
-	while (current != NULL)
-	{
-		if (ft_strcmp(current->token_cmd->cmd_str, "|") == 0)
-		{
-			if (current->next == NULL || (current->next != NULL
-					&& current->next->token_cmd->cmd_str == NULL))
-				return (1);
-		}
-		current = current->next;
-	}
-	return (0);
 }
 
 void	handle_command(t_tokens *data_cmd)
@@ -86,7 +68,7 @@ void shell_loop(void)
     char *input;
     t_tokens **data_cmd;
 
-    while (1)
+    while (1) 
     {
         input = readline("👾⇒ ");
         if (!input)
@@ -99,10 +81,11 @@ void shell_loop(void)
             add_history(input);
             data_cmd = store_token(input);
             if (data_cmd)
+			{
 				handle_command(*data_cmd);
+				clean_tokens(data_cmd);	
+			}
         }
         free(input);
     }
-	free_tokens(data_cmd);
 }
-

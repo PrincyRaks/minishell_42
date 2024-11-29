@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:35:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/20 17:12:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:51:50 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ t_cmd	*new_cmd(void)
 
 void	clean_cmd(t_cmd *cmd)
 {
-	free(cmd->cmd_str);
-	free(cmd);
+	if (cmd != NULL)
+	{
+		free(cmd->cmd_str);
+		free(cmd);
+	}
 }

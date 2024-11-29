@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 SRCS = mandatory/main.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
-	   mandatory/parsing/fanampiana.c \
+	   mandatory/parsing/array_tokens.c \
 	   mandatory/parsing/quotes_token.c \
 	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \
@@ -23,18 +23,12 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_env.c \
 	   mandatory/utils/ft_utils.c \
 	   mandatory/pipe/execute_pipeline.c \
-	   mandatory/pipe/execute_single_command.c \
-	   mandatory/pipe/free_token.c 
-	#    mandatory/redirections/parse_redirections.c \
-	#    mandatory/redirections/parse_redirections_utils.c \
-    #    mandatory/redirections/redirections.c \
-	#    mandatory/redirections/heredoc_utils.c \
-
+	   mandatory/pipe/execute_single_command.c
 
 OBJS = $(SRCS:.c=.o)
 
 INC = -I./includes
-
+	
 NAME = minishell
 LIBFT = libft/libft.a
 
