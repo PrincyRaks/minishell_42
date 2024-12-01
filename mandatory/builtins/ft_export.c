@@ -24,7 +24,7 @@ static void	display_env(void)
 	}
 }
 
-static int	check_type_argv(char *arg_str)
+static int	check_argv_export(char *arg_str)
 {
 	if (!ft_isalpha(*arg_str) && *arg_str != '_' && *arg_str != '-')
 		return (-1);
@@ -43,14 +43,14 @@ static int	check_type_argv(char *arg_str)
 	return (0);
 }
 
-static void	export_data(t_arg *argv, int type_argv)
+static void	export_to_env(char *value, int type_argv)
 {
 	t_data_env	*node;
 	t_data_env	*var;
 	t_data_env	*env;
 	t_data_env	**tmp;
 
-	node = hash_env(argv->arg_str);
+	node = hash_env(value);
 	var = ft_getenv(node->key);
 	if (!var)
 	{
@@ -69,53 +69,55 @@ static void	export_data(t_arg *argv, int type_argv)
 	load_data_export();
 }
 
-static int	handle_arg(t_arg *argv)
+static int	handle_arg_export(char *value, int type_arg)
 {
 	int	flag;
-	int	type_arg;
-	int	errnum;
+	int	nexit;
 
 	flag = 0;
-	errnum = 0;
-	if (!argv)
+	nexit = 0;
+	if (type_arg == -1)
 	{
-		display_env();
-		return (0);
+		flag = 1;
+		nexit = 1;
+		printf("export: `%s': not a valid identifier\n", value);
 	}
-	while (argv != NULL)
+	else if (type_arg == -2 && !flag)
 	{
-		type_arg = check_type_argv(argv->arg_str);
-		if (type_arg == -1)
-		{
-			flag = 1;
-			errnum = 1;
-			printf("export: `%s': not a valid identifier\n", argv->arg_str);
-		}
-		else if (type_arg == -2 && !flag)
-		{
-			printf("export: %c%c: invalid option\n", *(argv->arg_str),
-				*(argv->arg_str + 1));
-			return (2);
-		}
-		else if (type_arg >= 0)
-		{
-			flag = 1;
-			export_data(argv, type_arg);
-		}
-		argv = argv->next_arg;
+		printf("export: %c%c: invalid option\n", *(value),
+			*(value + 1));
+		return (2);
 	}
-	return (errnum);
+	else
+	{
+		flag = 1;
+		export_to_env(value, type_arg);
+	}
+	return (nexit);
 }
 
 int	ft_export(t_tokens *tokens)
 {
 	int	len_arg;
+	int	type_arg;
+	int	status;
+	t_arg	*argv;
 
-	len_arg = count_arg(tokens->token_arg);
+	status = 0;
+	argv = tokens->token_arg;
+	len_arg = count_arg(argv);
 	if (len_arg < 1)
 	{
 		display_env();
-		return (0);
+		return (status);
 	}
-	return (handle_arg(tokens->token_arg));
+	while (argv != NULL)
+	{
+		type_arg = check_argv_export(argv->arg_str);
+		status = handle_arg_export(argv->arg_str, type_arg);
+		if (status == 2)
+			return (status);
+		argv = argv->next_arg;
+	}
+	return (status);
 }

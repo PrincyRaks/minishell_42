@@ -19,7 +19,8 @@ at "HH:MM"
 at> touch file_create_by_cmd_at.txt
 
 ----------------------- variable --------------------------
-$$HOME$USER
+$$HOME$USER$HEHE
+$HOME$notexist$USER
 "hhe"$'HOME'
 "hhe""$'HOME'"
 "'$HOME'"
@@ -80,6 +81,7 @@ export _42
 export test=
 export =test
 export test="variable"
+export var1=="hey"
 export test+=what
 export tesy+=+=s
 export $test="hehe"
@@ -99,3 +101,11 @@ export diso@ -opt
 
 -------------------------- unset --------------------------
 
+export var1="hello" var2="world" var3
+unset var1 var2 var3
+unset var1var2var3
+unset var
+unset vaar1
+unset var1
+export var1="var2"
+unset $var1

@@ -35,6 +35,48 @@ static char	*dupnb_dollar(int nb_dollar)
 	return (str);
 }
 
+static char	*get_valuekey(char	**var, char *result)
+{
+	int			size;
+	char		*key;
+	t_data_env	*data;
+
+	size = 0;
+	while (ft_isalpha(**var) || ft_isdigit(**var) || **var == '_')
+	{
+		size++;
+		(*var)++;
+	}
+	key = ft_substr((*var) - size, 0, size);
+	data = ft_getenv(key);
+	if (!data || !data->value)
+		return (NULL);
+	free(key);
+	return (ft_strjoin(result, data->value));
+}
+
+static char	*expand(char **var)
+{
+	int			size;
+	char		*result;
+
+	if (*var == NULL || **var == ' ' || **var == '\0' || **var == '"')
+		return (ft_strdup("$"));
+	size = 0;
+	result = ft_calloc(sizeof(char), 1);
+	if (ft_isalpha(**var) || **var == '_')
+		return (get_valuekey(var, result));
+	result = ft_strjoin(result, "$");
+	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
+		&& **var != '\'' && **var != '"')
+	{
+		size++;
+		(*var)++;
+	}
+	result = concat_str(result, ft_substr((*var) - size, 0, size));
+	return (result);
+}
+
 char	*handle_dollar(char **var)
 {
 	char	*result;
@@ -54,46 +96,7 @@ char	*handle_dollar(char **var)
 	*var = *var + nb_dollar;
 	extend = expand(var);
 	if (!extend)
-		result = NULL;
-	else
-	{
-		result = ft_strjoin(result, extend);
-		free(extend);
-	}
-	return (result);
-}
-
-char	*expand(char **var)
-{
-	char		*result;
-	int			size;
-	t_data_env	*data;
-
-	if (*var == NULL || **var == ' ' || **var == '\0' || **var == '"')
-		return (ft_strdup("$"));
-	size = 0;
-	result = ft_calloc(sizeof(char), 1);
-	if (ft_isalpha(**var) || **var == '_')
-	{
-		while (ft_isalpha(**var) || ft_isdigit(**var) || **var == '_')
-		{
-			size++;
-			(*var)++;
-		}
-		data = ft_getenv(ft_substr((*var) - size, 0, size));
-		if (data == NULL)
-			result = NULL;
-		else
-			result = ft_strjoin(result, data->value);
-		return (result);
-	}
-	result = ft_strjoin(result, "$");
-	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
-		&& **var != '\'' && **var != '"')
-	{
-		size++;
-		(*var)++;
-	}
-	result = ft_strjoin(result, ft_substr((*var) - size, 0, size));
+		return (NULL);
+	result = concat_str(result, extend);
 	return (result);
 }

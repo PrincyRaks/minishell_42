@@ -12,151 +12,76 @@
 
 #include "minishell.h"
 
-static char	*expand_dollar(char *start, int *len_str, char **start_dollar)
+static char	*handle_onequotes(char **qts, char **result)
 {
-	char	*str;
-	char	*value_env;
-
-	str = ft_substr(start, 0, *len_str);
-	*len_str = 0;
-	while (**start_dollar == '$')
-	{
-		value_env = handle_dollar(start_dollar);
-		if (value_env)
-		{
-			str = ft_strjoin(str, value_env);
-			free(value_env);
-		}
-	}
-	return (str);
-}
-
-char	*remove_doubquotes(char **start_quotes)
-{
-	int		is_close;
-	char	*result;
-	int		len;
-	char	*start;
-	char	*tmp;
-
-	len = 0;
-	is_close = 0;
-	if (**start_quotes == '"')
-		start = *start_quotes + 1;
-	result = ft_calloc(1, sizeof(char));
-	while (is_close < 2)
-	{
-		if (**start_quotes == '$')
-		{
-			tmp = expand_dollar(start, &len, start_quotes);
-			result = ft_strjoin(result, tmp);
-			start = *start_quotes;
-			free(tmp);
-		}
-		if (**start_quotes == '"')
-			is_close++;
-		if (**start_quotes != '"' && **start_quotes != '$')
-			len++;
-		if (is_close == 1 && **start_quotes == '\0')
-			return (NULL);
-		(*start_quotes)++;
-	}
-	if (len == 0 && ft_strlen(result) == 0)
-		return (ft_strdup(""));
-	if (len > 0)
-	{
-		tmp = ft_substr(start, 0, len);
-		result = ft_strjoin(result, tmp);
-		free(tmp);
-	}
-	return (result);
-}
-
-char	*remove_onequotes(char **start_quotes)
-{
-	int		is_close;
-	char	*result;
-	int		len;
-	char	*start;
-
-	len = 0;
-	is_close = 0;
-	start = *start_quotes;
-	while (is_close < 2)
-	{
-		if (**start_quotes == '\'')
-			is_close++;
-		if (**start_quotes != '\'')
-			len++;
-		if (is_close == 1 && **start_quotes == '\0')
-			return (NULL);
-		(*start_quotes)++;
-	}
-	if (len == 0)
-		return (ft_strdup(""));
-	result = ft_substr(start, 1, len);
-	return (result);
-}
-
-char	*trim_quotes(char **start_quotes)
-{
-	char	*result;
 	char	*trim;
 
-	result = ft_calloc(1, sizeof(char));
-	while (**start_quotes != ' ' && **start_quotes != '\0'
-		&& **start_quotes != '|')
+	trim = remove_onequotes(qts);
+	// if error unclosed quotes 
+	if (!trim)
 	{
-		if (**start_quotes == '"')
+		free(trim);
+		free(*result);
+		return (NULL);
+	}
+	*result = concat_str(*result, trim);
+	return (*result);
+}
+
+static char	*handle_doubquotes(char **qts, char	**result)
+{
+	char	*trim;
+
+	trim = remove_doubquotes(qts);
+	// if error unclosed quotes 
+	if (!trim)
+	{
+		free(trim);
+		free(*result);
+		return (NULL);
+	}
+	*result = concat_str(*result, trim);
+	return (*result);
+}
+
+static char	*handle_var(char **input, char **result)
+{
+	char	*expand;
+
+	if (*(*input + 1) == '"' || *(*input + 1) == '\'')
+		(*input)++;
+	else
+	{
+		expand = handle_dollar(input);
+		// !!!eto le mi-verifier oe $variable ve NULL !!!!
+		// if (strlen(*result) == 0 && expand == NULL) de NULL le argument zay
+		if (expand != NULL)
+			*result = concat_str(*result, expand);
+	}
+	return (*result);
+}
+
+// ovaina tokens ny argument anty hihihi !
+char	*parse_input(char **input)
+{
+	char	*result;
+
+	result = ft_calloc(1, sizeof(char));
+	while (**input != ' ' && **input != '\0'
+		&& **input != '|')
+	{
+		if (**input == '"' && handle_doubquotes(input, &result) == NULL)
+			return (NULL);
+		if (**input == '\'' && handle_onequotes(input, &result) == NULL)
+			return (NULL);
+		if (**input != '"' && **input != '\'' && **input != '\0' 
+			&& **input != ' ' && **input != '$')
 		{
-			trim = remove_doubquotes(start_quotes);
-			if (!trim)
-			{
-				free(trim);
-				free(result);
-				return (NULL);
-			}
-			result = ft_strjoin(result, trim);
-			// printf("in doubquotes: %s\n", result);
-			free(trim);
+			result = concat_str(result, ft_substr(*input, 0, 1));
+			(*input)++;
 		}
-		if (**start_quotes == '\'')
-		{
-			trim = remove_onequotes(start_quotes);
-			if (!trim)
-			{
-				free(trim);
-				free(result);
-				return (NULL);
-			}
-			result = ft_strjoin(result, trim);
-			// printf("in onequotes: %s\n", result);
-			free(trim);
-		}
-		if (**start_quotes != '"' && **start_quotes != '\''
-			&& **start_quotes != '\0' && **start_quotes != ' '
-			&& **start_quotes != '$')
-		{
-			trim = ft_substr(*start_quotes, 0, 1);
-			result = ft_strjoin(result, trim);
-			free(trim);
-			// printf("without: %s\n", result);
-			(*start_quotes)++;
-		}
-		if (**start_quotes == '$')
-		{
-			if (*(*start_quotes + 1) == '"' || *(*start_quotes + 1) == '\'')
-				(*start_quotes)++;
-			else
-			{
-				trim = handle_dollar(start_quotes);
-				if (trim != NULL)
-				{
-					result = ft_strjoin(result, trim);
-					free(trim);
-				}
-			}
-		}
+		if (**input == '$' && handle_var(input, &result) == NULL)
+			return (NULL);
 	}
 	return (result);
 }

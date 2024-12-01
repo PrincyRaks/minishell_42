@@ -71,7 +71,7 @@ char					*find_executable(char *command);
 // Parser
 // quotes
 t_tokens				**store_token(char *input);
-char					*trim_quotes(char **start_quotes);
+char					*parse_input(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 void					addback_arg(t_arg **first_arg, char *str_arg);
@@ -81,12 +81,12 @@ int						count_token(t_tokens *lst);
 t_arg					*new_arg(void);
 t_cmd					*new_cmd(void);
 char					*handle_dollar(char **var);
-char					*expand(char **var);
 void					clean_cmd(t_cmd *cmd);
 void					clean_args(t_arg **lst);
 void					clean_tokens(t_tokens **lst);
 int						count_arg(t_arg *node);
 char					**array_tokens(t_tokens *token);
+char    *concat_str(char *prev_result, char *handle);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
@@ -102,6 +102,7 @@ char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);
 t_data_env				*hash_env(char *data);
+void	clean_node_env(t_data_env *node);
 
 // utils
 char					*join_onespace(char *s1, char *s2);
@@ -114,6 +115,7 @@ int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
 void					ft_echo(t_tokens *tokens);
 int						ft_export(t_tokens *tokens);
+int ft_unset(t_tokens *tokens);
 
 // Builtin utils
 int						is_numeric(const char *str);

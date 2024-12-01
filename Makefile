@@ -6,6 +6,7 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/quotes_token.c \
 	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \
+	   mandatory/parsing/handle_quotes.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 	   mandatory/env/ft_getenv.c \
@@ -23,6 +24,7 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_env.c \
 	   mandatory/builtins/ft_echo.c \
 	   mandatory/builtins/ft_export.c \
+	   mandatory/builtins/ft_unset.c \
 	   mandatory/utils/ft_utils.c \
 
 

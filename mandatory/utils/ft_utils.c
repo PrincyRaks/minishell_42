@@ -22,6 +22,15 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
+char    *concat_str(char *prev_result, char *handle)
+{
+    char    *str;
+
+    str = ft_strjoin(prev_result, handle);
+    free(handle);
+    return (str);
+}
+
 char	*join_onespace(char *s1, char *s2)
 {
 	char	*new_s;

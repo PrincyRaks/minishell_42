@@ -89,11 +89,23 @@ void	clean_env(t_data_env **lst)
 
 	while (*lst != NULL)
 	{
-		free((*lst)->key);
+		if ((*lst)->key != NULL)
+			free((*lst)->key);
 		if ((*lst)->value != NULL)
 			free((*lst)->value);
 		tmp = (*lst)->next;
 		free(*lst);
 		*lst = tmp;
 	}
+}
+
+void	clean_node_env(t_data_env *node)
+{
+	if (!node)
+		return ;
+	if (node->key != NULL)
+		free(node->key);
+	if (node->value != NULL)
+		free(node->value);
+	free(node);
 }

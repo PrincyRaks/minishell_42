@@ -36,14 +36,14 @@ t_tokens	**store_token(char *input)
 			if (!is_cmd)
 			{
 				node_cmd = new_cmd();
-				node_cmd->cmd_str = trim_quotes(&input);
+				node_cmd->cmd_str = parse_input(&input);
 				if (!node_cmd->cmd_str)
 					node_cmd->errnum = UNQUOTES;
 				node_token->token_cmd = node_cmd;
 				is_cmd = 1;
 			}
 			else
-				addback_arg(&node_token->token_arg, trim_quotes(&input));
+				addback_arg(&node_token->token_arg, parse_input(&input));
 		}
 		if (*input == '|')
 		{
