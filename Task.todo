@@ -6,7 +6,6 @@ Parsing:
     ✔ ENV variable @done(24-11-16 15:16)
     ✔ expand ($) @done(24-11-19 16:20)
     ✔ command pour ignorer les leaks readline @done(24-11-29 11:35)
-    ☐ config Makefile to add ignore leaks readline
 
 ✔ Afficher un prompt lorsqu'il attend une nouvelle commande @done(24-11-19 15:50)
 ✔ Implémenter un historique des commandes @done(24-11-19 15:50)
@@ -21,6 +20,6 @@ Parsing:
     ✔ cd (seulement avec chemin relatif ou absolu) @done(24-11-19 15:50)
     ✔ pwd (sans option) @done(24-11-19 15:50)
     ✔ export (sans option) @done(24-11-29 10:53)
-    ☐ unset (sans option)
+    ✔ unset (sans option) @done(24-12-02 11:52)
     ✔ env (sans option, ni argument) @done(24-11-19 15:51)
     ✔ exit (sans option) @done(24-11-19 15:50)

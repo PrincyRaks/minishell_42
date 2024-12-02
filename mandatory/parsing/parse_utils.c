@@ -6,18 +6,37 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 18:00:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:40:00 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	**store_token(char *input)
+static void	store_token(t_tokens *node_token, int *is_cmd, char *input)
+{
+	t_cmd	*node_cmd;
+
+	if (is_cmd)
+	{
+		addback_arg(&node_token->token_arg, parse_input(&input));
+		return ;
+	}
+	node_cmd = new_cmd();
+	node_cmd->cmd_str = parse_input(&input);
+	if(!node_cmd->cmd_str)
+		node_cmd->errnum = UNQUOTES;
+	node_token->token_cmd = node_cmd;
+	*is_cmd = 1;
+}
+
+// static void	store_new_token(t_tokens **first_node){}
+
+t_tokens	**store_instruction(char *input)
 {
 	int			is_cmd;
 	t_tokens	*node_token;
 	t_tokens	**first_node;
-	t_cmd		*node_cmd;
+	// t_cmd		*node_cmd;
 
 	is_cmd = 0;
 	first_node = malloc(sizeof(t_tokens *));
@@ -33,6 +52,7 @@ t_tokens	**store_token(char *input)
 			input++;
 		if (*input != ' ' && *input != '\0')
 		{
+			// store_token(node_token, &is_cmd, input);
 			if (!is_cmd)
 			{
 				node_cmd = new_cmd();
@@ -43,7 +63,7 @@ t_tokens	**store_token(char *input)
 				is_cmd = 1;
 			}
 			else
-				addback_arg(&node_token->token_arg, parse_input(&input));
+				addback_arg(&z->token_arg, parse_input(&input));
 		}
 		if (*input == '|')
 		{

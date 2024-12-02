@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 09:59:50 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:58:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char					*find_executable(char *command);
 
 // Parser
 // quotes
-t_tokens				**store_token(char *input);
+t_tokens				**store_instruction(char *input);
 char					*parse_input(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);

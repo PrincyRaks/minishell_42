@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 15:55:15 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:58:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	shell_loop(void)
 		if (*input)
 		{
 			add_history(input);
-			data_cmd = store_token(input);
+			data_cmd = store_instruction(input);
 			// test une seule commande fotsiny ty an !
 			if (data_cmd != NULL)
 			{
