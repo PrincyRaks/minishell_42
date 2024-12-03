@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 # include <errno.h>
+# include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -59,18 +60,11 @@ typedef struct s_arg
 	struct s_arg		*next_arg;
 }						t_arg;
 
-// typedef struct s_operator
-// {
-// 	// enum type
-// 	int		order;
-
-// }			t_operator;
-
 typedef struct s_tokens
 {
 	t_cmd				*token_cmd;
 	t_arg				*token_arg;
-	struct s_tokens *next;
+	struct s_tokens		*next;
 }						t_tokens;
 
 // Shell_loop
@@ -80,13 +74,11 @@ void					shell_loop(void);
 // Executor
 void					free_array(char **array);
 char					*find_executable(char *command);
-// fanampiana
-char	**array_tokens(t_tokens *token);
-
 
 // Parser
 // quotes
-char					*trim_quotes(char **start_quotes);
+t_tokens				**store_instruction(char *input);
+char					*parse_input(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 t_tokens				**store_token(char *input);
@@ -97,30 +89,41 @@ int						count_token(t_tokens *lst);
 t_arg					*new_arg(void);
 t_cmd					*new_cmd(void);
 char					*handle_dollar(char **var);
-char					*expand(char **var);
 void					clean_cmd(t_cmd *cmd);
 void					clean_args(t_arg **lst);
 void					clean_tokens(t_tokens **lst);
 int						count_arg(t_arg *node);
+char					**array_tokens(t_tokens *token);
+char    *concat_str(char *prev_result, char *handle);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
-void					dup_env(char **env);
+void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
 void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
 char					**get_tabenv(void);
+void					load_data_export(void);
+char					**get_tabkeys(void);
+char					**get_data_export(void);
+void					set_data_export(char **value);
+t_data_env				*hash_env(char *data);
+void	clean_node_env(t_data_env *node);
 
 // utils
-// char		*concat(char *s1, char *s2);
+char					*join_onespace(char *s1, char *s2);
+int						count_tab(char **tab);
 
 // Builtins
 int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
+void					ft_echo(t_tokens *tokens);
+int						ft_export(t_tokens *tokens);
+int ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
 // Builtin utils

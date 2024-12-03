@@ -2,14 +2,23 @@ Parsing:
     ☐ Understand all external functions
     ☐ Token check pipe
     ☐ append & heredoc
-    ☐ ENV variable
+    ✔ ENV variable @done(24-11-16 15:16)
+    ✔ expand ($) @done(24-11-19 16:20)
+    ✔ command pour ignorer les leaks readline @done(24-11-29 11:35)
 
 ☐ Afficher un prompt lorsqu'il attend une nouvelle commande
 ☐ Implémenter un historique des commandes
 ☐ Gérer les guillemets (quotes) : les simples et les doubles
 ☐ Implémenter les redirections : <, >, <<, >>
 ☐ Implémenter les pipes : |
-☐ Manipuler les variables d'environnement ($)
+✔ Manipuler les variables d'environnement ($) @done(24-11-29 11:45)
 ☐ Gérer les $? et les états de sortie
 ☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\
-☐ Gérer des built-ins : echo (avec -n), cd (seulement avec chemin relatif ou absolu), pwd (sans option), export (sans option), unset (sans option), env (sans option, ni argument), exit (sans option)
+☐ Gérer des built-ins :
+    ✔ echo (avec -n) @done(24-11-29 10:53)
+    ✔ cd (seulement avec chemin relatif ou absolu) @done(24-11-19 15:50)
+    ✔ pwd (sans option) @done(24-11-19 15:50)
+    ✔ export (sans option) @done(24-11-29 10:53)
+    ✔ unset (sans option) @done(24-12-02 11:52)
+    ✔ env (sans option, ni argument) @done(24-11-19 15:51)
+    ✔ exit (sans option) @done(24-11-19 15:50)
