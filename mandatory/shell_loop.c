@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/29 11:01:43 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:59:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ int	is_builtin(char *cmd)
 void	handle_command(t_tokens *data_cmd)
 {
 	char	*executable;
-
+	pid_t pid;
+	
+	if(!data_cmd || !data_cmd->token_cmd)
+		return; 
+	// if (handle_redirections(data_cmd->token_arg) == -1)
+	// 		return ; 
 	if (is_builtin(data_cmd->token_cmd->cmd_str))
 		execute_builtin(data_cmd);
 	else if (data_cmd->next)
@@ -45,7 +50,8 @@ void	handle_command(t_tokens *data_cmd)
 		executable = find_executable(data_cmd->token_cmd->cmd_str);
 		if (executable)
 		{
-			if (fork() == 0)
+			pid = fork();
+			if (pid == 0)
 			{
 				if (execve(executable, array_tokens(data_cmd), get_tabenv()) ==
 					-1)
@@ -54,7 +60,7 @@ void	handle_command(t_tokens *data_cmd)
 					exit(EXIT_FAILURE);
 				}
 			}
-			else
+			else if (pid > 0)
 				wait(NULL);
 			free(executable);
 		}

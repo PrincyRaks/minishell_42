@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/29 09:57:37 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:59:15 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <limits.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
-# define REDIR_IN "<"
-# define REDIR_OUT ">"
-# define REDIR_APPEND ">>"
+# define SYNTAX_ERROR 1
 
 typedef enum e_errnum
 {
@@ -88,10 +86,10 @@ char	**array_tokens(t_tokens *token);
 
 // Parser
 // quotes
-t_tokens				**store_token(char *input);
 char					*trim_quotes(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
+t_tokens				**store_token(char *input);
 void					addback_arg(t_arg **first_arg, char *str_arg);
 t_tokens				*new_token(void);
 void					addback_token(t_tokens **first_token, t_tokens *token);
@@ -133,5 +131,9 @@ void					execute_builtin(t_tokens *tokens);
 // Pipe
 void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
+
+//Redirections
+// char *parse_redirections(char *input, t_arg **args);
+// int handle_redirections(t_arg *args);
 
 #endif

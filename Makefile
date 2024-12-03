@@ -23,7 +23,7 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_env.c \
 	   mandatory/utils/ft_utils.c \
 	   mandatory/pipe/execute_pipeline.c \
-	   mandatory/pipe/execute_single_command.c
+	   mandatory/pipe/execute_single_command.c \
 
 OBJS = $(SRCS:.c=.o)
 

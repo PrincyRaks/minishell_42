@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/29 08:52:55 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 12:00:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_tokens	**store_token(char *input)
 	{
 		while (*input == ' ')
 			input++;
-		if (*input != ' ' && *input != '\0' && *input != '|')
+		 if (*input != ' ' && *input != '\0' && *input != '|')
 		{
 			if (!is_cmd)
 			{
@@ -59,14 +59,19 @@ t_tokens	**store_token(char *input)
 				if (!new_input)
 					return (clean_tokens(first_node), NULL);
 				input = new_input;
-			}
+			}	
 			node_token = new_token();
 			if (!node_token)
 				return (clean_tokens(first_node), NULL);
 			addback_token(first_node, node_token);
 			is_cmd = 0;
 		}
-
+		/* else if (*input == '>' || *input == '<')
+		{
+			input = parse_redirections(input, &node_token->token_arg);
+			if (!input)
+				return (clean_tokens(first_node), NULL);
+		} */
 	}
 	return (first_node);
 }
