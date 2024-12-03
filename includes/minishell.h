@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 12:33:26 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:49:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
 
 //Redirections
-// char *parse_redirections(char *input, t_arg **args);
-// int handle_redirections(t_arg *args);
+char *parse_redirections(char *input, t_arg **args);
+int handle_redirections(t_arg *args);
 
 #endif

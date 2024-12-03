@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/03 11:59:45 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:52:56 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	handle_command(t_tokens *data_cmd)
 	
 	if(!data_cmd || !data_cmd->token_cmd)
 		return; 
-	// if (handle_redirections(data_cmd->token_arg) == -1)
-	// 		return ; 
 	if (is_builtin(data_cmd->token_cmd->cmd_str))
 		execute_builtin(data_cmd);
 	else if (data_cmd->next)

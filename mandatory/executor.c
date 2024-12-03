@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/14 10:42:47 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:49:28 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*find_executable(char *command)
 	while (paths && paths[i])
 	{
 		path_tmp = ft_strdup(paths[i]);
-		full_path = ft_strjoin(path_tmp, "/");
+		full_path = ft_strjoin(paths[i], "/");
 		full_path = ft_strjoin(full_path, command);
 		if (access(full_path, X_OK) == 0)
 			return (full_path);
