@@ -3,7 +3,6 @@ CFLAGS = -Wall -Werror -Wextra -g
 SRCS = mandatory/main.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
-	   mandatory/parsing/array_tokens.c \
 	   mandatory/parsing/quotes_token.c \
 	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \

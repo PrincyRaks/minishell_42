@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 14:54:56 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:08:41 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void	execute_pipeline(t_tokens *tokens)
 			waitpid(pid, NULL, 0);
 		}
 		tokens = tokens->next;
+		// printf("next token: %s\n", tokens->token_cmd->cmd_str);
 	}
 }

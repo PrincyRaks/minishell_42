@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 11:59:15 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/03 12:33:26 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_tokens				**store_instruction(char *input);
 char					*parse_input(char **start_quotes);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
-t_tokens				**store_token(char *input);
+t_tokens				**store_instruction(char *input);
 void					addback_arg(t_arg **first_arg, char *str_arg);
 t_tokens				*new_token(void);
 void					addback_token(t_tokens **first_token, t_tokens *token);
