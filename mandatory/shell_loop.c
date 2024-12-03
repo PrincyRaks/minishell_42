@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/02 16:58:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:59:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,57 +32,74 @@ void	execute_builtin(t_tokens *tokens)
 	else
 		ft_unset(tokens);
 }
-
-void	shell_loop(void)
+int	is_builtin(char *cmd)
 {
-	char		*input;
-	t_tokens	**data_cmd;
-	char		*cmd;
-	// char		*executable;
+	if (!cmd)
+		return (0);
+	return (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
+		|| ft_strcmp(cmd, "exit") == 0);
+}
 
-	while (1)
+void	handle_command(t_tokens *data_cmd)
+{
+	char	*executable;
+	pid_t pid;
+	
+	if(!data_cmd || !data_cmd->token_cmd)
+		return; 
+	// if (handle_redirections(data_cmd->token_arg) == -1)
+	// 		return ; 
+	if (is_builtin(data_cmd->token_cmd->cmd_str))
+		execute_builtin(data_cmd);
+	else if (data_cmd->next)
+		execute_pipeline(data_cmd);
+	else
 	{
-		input = readline("👾⇒ ");
-		if (!input)
+		executable = find_executable(data_cmd->token_cmd->cmd_str);
+		if (executable)
 		{
-			printf("exit\n");
-			break ;
-		}
-		if (*input)
-		{
-			add_history(input);
-			data_cmd = store_instruction(input);
-			// test une seule commande fotsiny ty an !
-			if (data_cmd != NULL)
+			pid = fork();
+			if (pid == 0)
 			{
-				cmd = (*data_cmd)->token_cmd->cmd_str;
-				if (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
-					|| ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "env") == 0 
-					|| ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "export") == 0 || ft_strcmp(cmd, "unset") == 0)
-					execute_builtin(*data_cmd);
-				// else
-				// {
-				// 	executable = find_executable((*data_cmd)->token_cmd->cmd_str);
-				// 	if (executable)
-				// 	{
-				// 		if (fork() == 0)
-				// 		{
-				// 			if (execve(executable, array_tokens(*data_cmd), get_tabenv()) == -1)
-				// 			{
-				// 				perror("execve");
-				// 				exit(EXIT_FAILURE);
-				// 			}
-				// 		}
-				// 		else
-				// 			wait(NULL);
-				// 		free(executable);
-				// 	}
-				// 	else
-				// 		printf("command not found: %s\n",(*data_cmd)->token_cmd->cmd_str);
-				// }
-				// free_array(args);
+				if (execve(executable, array_tokens(data_cmd), get_tabenv()) ==
+					-1)
+				{
+					perror("execve");
+					exit(EXIT_FAILURE);
+				}
 			}
+			else if (pid > 0)
+				wait(NULL);
+			free(executable);
 		}
-		// free(input);
+		else
+			printf("command not found: %s\n", data_cmd->token_cmd->cmd_str);
 	}
+}
+
+void shell_loop(void)
+{
+    char *input;
+    t_tokens **data_cmd;
+
+    while (1) 
+    {
+        input = readline("👾⇒ ");
+        if (!input)
+        {
+            printf("exit\n");
+            break ;
+        }
+        if (*input)
+        {
+            add_history(input);
+            data_cmd = store_instruction(input);
+            if (data_cmd)
+			{
+				handle_command(*data_cmd);
+				clean_tokens(data_cmd);	
+			}
+        }
+        free(input);
+    }
 }

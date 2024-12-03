@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/25 11:57:24 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:50:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 			arg->errnum = UNQUOTES;
 		arg = new_arg();
 		arg->arg_str = str_arg;
+		arg->next_arg = NULL;
 		if (!*first_arg)
 			*first_arg = arg;
 		else
@@ -83,5 +84,5 @@ void	clean_args(t_arg **lst)
 		free(*lst);
 		*lst = tmp;
 	}
-	free(lst);
+	*lst = NULL;
 }

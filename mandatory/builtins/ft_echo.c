@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	check_option(char *str)
+static int check_option(char *str)
 {
 	str += (*str == '-');
 	if (*str == '\0')
@@ -26,11 +26,11 @@ static int	check_option(char *str)
 	return (1);
 }
 
-void	ft_echo(t_tokens *tokens)
+void    ft_echo(t_tokens *tokens)
 {
-	int		option;
-	t_arg	*argt;
-
+    int option;
+    t_arg   *argt;
+ 
 	// if (!tokens)
 	//     return ;
 	// handle echo $? / $VAR_ENV
