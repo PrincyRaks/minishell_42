@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:46:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 11:43:26 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:53:56 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*handle_var(char **input, char **result)
 }
 
 // ovaina tokens ny argument anty hihihi !
-char	*parse_input(char **input)
+t_tokens	*parse_input(t_tokens *token, char **input)
 {
 	char	*result;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 12:33:26 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:11:46 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@
 # include "../libft/libft.h"
 # include <dirent.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <stddef.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <limits.h>
-# include <fcntl.h>
 
 # define SYNTAX_ERROR 1
 
@@ -39,6 +38,15 @@ typedef enum e_errnum
 	NOTCMD = -1,
 	UNQUOTES = -2
 }						t_errnum;
+
+typedef enum e_operator
+{
+	NOTOP,
+	INPUT,
+	OUTPUT,
+	APPEND,
+	HEREDOC,
+}						t_operator;
 
 typedef struct s_data_env
 {
@@ -50,13 +58,15 @@ typedef struct s_data_env
 typedef struct s_cmd
 {
 	char				*cmd_str;
+	t_operator			operand;
 	int					errnum;
 }						t_cmd;
 
 typedef struct s_arg
 {
-	char *arg_str; // -options and argument of cmd
+	char				*arg_str;
 	int					errnum;
+	t_operator			operand;
 	struct s_arg		*next_arg;
 }						t_arg;
 
@@ -78,7 +88,8 @@ char					*find_executable(char *command);
 // Parser
 // quotes
 t_tokens				**store_instruction(char *input);
-char					*parse_input(char **start_quotes);
+// char					*parse_input(char **start_quotes);
+t_tokens				*parse_input(t_tokens *token, char **input);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 t_tokens				**store_instruction(char *input);
@@ -94,7 +105,7 @@ void					clean_args(t_arg **lst);
 void					clean_tokens(t_tokens **lst);
 int						count_arg(t_arg *node);
 char					**array_tokens(t_tokens *token);
-char    *concat_str(char *prev_result, char *handle);
+char					*concat_str(char *prev_result, char *handle);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
@@ -110,7 +121,7 @@ char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);
 t_data_env				*hash_env(char *data);
-void	clean_node_env(t_data_env *node);
+void					clean_node_env(t_data_env *node);
 
 // utils
 char					*join_onespace(char *s1, char *s2);
@@ -123,7 +134,7 @@ int						ft_exit(t_tokens *tokens);
 void					ft_env(void);
 void					ft_echo(t_tokens *tokens);
 int						ft_export(t_tokens *tokens);
-int ft_unset(t_tokens *tokens);
+int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
 // Builtin utils
@@ -132,10 +143,10 @@ int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens);
 
 // Pipe
-void execute_single_command(t_tokens *token);
-void execute_pipeline(t_tokens *tokens);
+void					execute_single_command(t_tokens *token);
+void					execute_pipeline(t_tokens *tokens);
 
-//Redirections
+// Redirections
 // char *parse_redirections(char *input, t_arg **args);
 // int handle_redirections(t_arg *args);
 

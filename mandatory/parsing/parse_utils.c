@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 13:47:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:44:57 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+
 
 static void	store_token(t_tokens *node_token, char **input)
 {
@@ -18,12 +18,12 @@ static void	store_token(t_tokens *node_token, char **input)
 
 	if (node_token->token_cmd != NULL)
 	{
+		addback_arg(&node_token->token_arg, parse_input(node_token, input));
 		// mila gerena ny clean
-		addback_arg(&node_token->token_arg, parse_input(input));
 		return ;
 	}
 	node_cmd = new_cmd();
-	node_cmd->cmd_str = parse_input(input);
+	node_cmd->cmd_str = parse_input(node_token, input);
 	if (!node_cmd->cmd_str)
 		node_cmd->errnum = UNQUOTES;
 	node_token->token_cmd = node_cmd;
@@ -36,7 +36,7 @@ static int	create_new_token(t_tokens **first_node, t_tokens **node_token)
 	*node_token = new_token();
 	if (!node_token)
 	{
-		// mila gerena ny clean
+		// mila gerer-na ny clean
 		clean_tokens(first_node);
 		return (0);
 	}
@@ -72,7 +72,7 @@ t_tokens	**store_instruction(char *input)
 			{
 				new_input = readline("> ");
 				while (new_input && *new_input == '\0')
-					new_input =  readline("> ");
+					new_input = readline("> ");
 				if (!new_input)
 					return (clean_tokens(first_node), NULL);
 				input = new_input;

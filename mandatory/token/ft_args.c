@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/29 08:50:03 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:07:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_arg	*new_arg(void)
 		return (NULL);
 	arg->arg_str = NULL;
 	arg->errnum = DEFAULT;
+	arg->operand = NOTOP;
 	arg->next_arg = NULL;
 	return (arg);
 }
