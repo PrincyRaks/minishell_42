@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
-
+// ovaina tanteraka fa tsy mety ty !!
 static void	store_token(t_tokens *node_token, char **input)
 {
 	t_cmd	*node_cmd;
