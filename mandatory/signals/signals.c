@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_memory.c                                      :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/09 09:35:36 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/12/09 17:50:00 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_array(char **array)
+void	handle_sigint(int signum)
 {
-	int	i;
+	(void)signum;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();             
+	rl_replace_line("", 0);       
+	rl_redisplay();               
+}
 
-	i = -1;
-	if (!array)
-		return ;
-	while (array[++i])
-		free(array[i]);
-	free(array);
+void	setup_signals(void)
+{
+	signal(SIGINT, handle_sigint);  
+	signal(SIGQUIT, SIG_IGN);        
+}
+
+void	check_eof(char *input)
+{
+	if (input == NULL)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
 }

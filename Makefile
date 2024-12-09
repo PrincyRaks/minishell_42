@@ -28,6 +28,7 @@ SRCS = mandatory/main.c \
 	   mandatory/utils/ft_utils.c \
 	   mandatory/pipe/execute_pipeline.c \
 	   mandatory/pipe/execute_single_command.c \
+	   mandatory/signals/signals.c
 
 OBJS = $(SRCS:.c=.o)
 

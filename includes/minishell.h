@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 17:49:03 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:09:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
+#include <signal.h>
+
 
 # define SYNTAX_ERROR 1
 
@@ -59,7 +61,6 @@ typedef struct s_arg
 	int					errnum;
 	struct s_arg		*next_arg;
 }						t_arg;
-
 typedef struct s_tokens
 {
 	t_cmd				*token_cmd;
@@ -135,8 +136,9 @@ void					execute_builtin(t_tokens *tokens);
 void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
 
-//Redirections
-char *parse_redirections(char *input, t_arg **args);
-int handle_redirections(t_arg *args);
+// Signals
+void	handle_sigint(int signum);
+void	setup_signals(void);
+void	check_eof(char *input);
 
 #endif

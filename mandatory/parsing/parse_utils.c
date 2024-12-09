@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/03 13:47:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 09:21:41 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,6 @@ t_tokens	**store_instruction(char *input)
 			if (!create_new_token(first_node, &node_token))
 				break ;
 		}
-		/* else if (*input == '>' || *input == '<')
-		{
-			input = parse_redirections(input, &node_token->token_arg);
-			if (!input)
-				return (clean_tokens(first_node), NULL);
-		} */
 	}
 	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("arg: %s\n", (*first_node)->token_arg->arg_str);

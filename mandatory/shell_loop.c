@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/03 17:52:56 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:26:11 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,24 @@ void shell_loop(void)
 
     while (1) 
     {
+        setup_signals();
         input = readline("👾⇒ ");
         if (!input)
         {
-            printf("exit\n");
-            break ;
+            write(STDOUT_FILENO, "exit\n", 5);
+            break;
         }
         if (*input)
         {
             add_history(input);
             data_cmd = store_instruction(input);
             if (data_cmd)
-			{
-				handle_command(*data_cmd);
-				clean_tokens(data_cmd);	
-			}
+            {
+                handle_command(*data_cmd);
+                clean_tokens(data_cmd);	
+            }
         }
         free(input);
     }
 }
+
