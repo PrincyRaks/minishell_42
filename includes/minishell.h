@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/09 16:11:46 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:16:59 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void					clean_tokens(t_tokens **lst);
 int						count_arg(t_arg *node);
 char					**array_tokens(t_tokens *token);
 char					*concat_str(char *prev_result, char *handle);
+t_arg					*last_arg(t_arg *arg);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

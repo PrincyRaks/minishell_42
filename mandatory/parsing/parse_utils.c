@@ -6,29 +6,29 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/09 17:44:57 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:32:53 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // ovaina tanteraka fa tsy mety ty !!
-static void	store_token(t_tokens *node_token, char **input)
-{
-	t_cmd	*node_cmd;
+// static void	store_token(t_tokens *node_token, char **input)
+// {
+// 	t_cmd	*node_cmd;
 
-	if (node_token->token_cmd != NULL)
-	{
-		addback_arg(&node_token->token_arg, parse_input(node_token, input));
-		// mila gerena ny clean
-		return ;
-	}
-	node_cmd = new_cmd();
-	node_cmd->cmd_str = parse_input(node_token, input);
-	if (!node_cmd->cmd_str)
-		node_cmd->errnum = UNQUOTES;
-	node_token->token_cmd = node_cmd;
-}
+// 	if (node_token->token_cmd != NULL)
+// 	{
+// 		addback_arg(&node_token->token_arg, parse_input(node_token, input));
+// 		// mila gerena ny clean
+// 		return ;
+// 	}
+// 	// node_cmd = new_cmd();
+// 	// node_cmd->cmd_str = parse_input(node_token, input);
+// 	// if (!node_cmd->cmd_str)
+// 	// 	node_cmd->errnum = UNQUOTES;
+// 	// node_token->token_cmd = node_cmd;
+// }
 
 static int	create_new_token(t_tokens **first_node, t_tokens **node_token)
 {

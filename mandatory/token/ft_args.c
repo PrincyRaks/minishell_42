@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/09 16:07:42 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:16:33 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_arg	*new_arg(void)
 	return (arg);
 }
 
-static t_arg	*last_arg(t_arg *arg)
+t_arg	*last_arg(t_arg *arg)
 {
 	while (arg)
 	{
