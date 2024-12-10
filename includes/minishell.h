@@ -59,13 +59,13 @@ typedef struct s_cmd
 {
 	char				*cmd_str;
 	t_operator			operand;
-	int					errnum;
+	t_errnum			errnum;
 }						t_cmd;
 
 typedef struct s_arg
 {
 	char				*arg_str;
-	int					errnum;
+	t_errnum			errnum;
 	t_operator			operand;
 	struct s_arg		*next_arg;
 }						t_arg;

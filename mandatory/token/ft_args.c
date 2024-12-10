@@ -58,8 +58,8 @@ void	addback_arg(t_arg **first_arg, char *str_arg)
 	if (first_arg)
 	{
 		arg = new_arg();
-		if (str_arg == NULL)
-			arg->errnum = UNQUOTES;
+		// if (str_arg == NULL)
+		// 	arg->errnum = UNQUOTES;
 		arg = new_arg();
 		arg->arg_str = str_arg;
 		arg->next_arg = NULL;

@@ -13,22 +13,24 @@
 #include "minishell.h"
 
 // ovaina tanteraka fa tsy mety ty !!
-// static void	store_token(t_tokens *node_token, char **input)
-// {
-// 	t_cmd	*node_cmd;
+static void	store_token(t_tokens *node_token, char **input)
+{
+	static int	mode_add = 0;
 
-// 	if (node_token->token_cmd != NULL)
-// 	{
-// 		addback_arg(&node_token->token_arg, parse_input(node_token, input));
-// 		// mila gerena ny clean
-// 		return ;
-// 	}
-// 	// node_cmd = new_cmd();
-// 	// node_cmd->cmd_str = parse_input(node_token, input);
-// 	// if (!node_cmd->cmd_str)
-// 	// 	node_cmd->errnum = UNQUOTES;
-// 	// node_token->token_cmd = node_cmd;
-// }
+	if (node_token->token_cmd != NULL && mode_add == 2)
+	{ 
+		addback_arg(&node_token->token_arg, parse_input(node_token, input, &mode_add));
+		// mila gerena ny clean
+		return ;
+	}
+	if (!node_token->token_cmd)
+	{
+		token->token_cmd = new_cmd();
+		mode_add = 1;
+	}
+	token->token_cmd->cmd_str = parse_input(node_token, input, &mode_add);
+	mode_add = 2;
+}
 
 static int	create_new_token(t_tokens **first_node, t_tokens **node_token)
 {

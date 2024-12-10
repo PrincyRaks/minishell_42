@@ -35,7 +35,7 @@ static void	add_parse_token(t_tokens *token, char *parse_input, int mode_add)
 	token->token_cmd->cmd_str = parse_input;
 }
 
-static t_tokens	*handle_onequotes(char **qts, char **result, t_tokens *token, int *option)
+static char	*handle_onequotes(char **qts, char **result, t_tokens *token, int *mode_add)
 {
 	char	*trim;
 
@@ -45,16 +45,14 @@ static t_tokens	*handle_onequotes(char **qts, char **result, t_tokens *token, in
 	{
 		free(trim);
 		free(*result);
-		if (!token->token_arg)
+		if (*mode_add == 1)
 			token->token_cmd->errnum = UNQUOTES;
 		else
 			last_arg(token->token_arg)->errnum = UNQUOTES;
-		return (token);
+		return (NULL);
 	}
-	// eto bola ovaina !
 	*result = concat_str(*result, trim);
-	add_parse_token();
-	return (token);
+	return (*result);
 }
 
 static char	*handle_doubquotes(char **qts, char **result)
@@ -90,20 +88,36 @@ static char	*handle_var(char **input, char **result, t_tokens *token)
 	return (*result);
 }
 
-// Pour 1 tokens ato izy no mi-ajouter cmd sy arguments drai
-t_tokens	*parse_input(t_tokens *token, char **input)
+t_errnum	check_errnum(t_tokens *token)
+{
+	t_arg	*arg_cmd;
+
+	if (token->token_cmd && token->token_cmd->errnum != DEFAULT)
+		return (token->token_cmd->errnum);
+	arg_cmd = token->token_arg;
+	while (arg_cmd != NULL)
+	{
+		if (arg_cmd->errnum != DEFAULT)
+			return (arg_cmd->errnum);
+		arg_cmd = arg_cmd->next_arg;
+	}
+	return (DEFAULT);
+}
+
+char	*store_parse_token(t_tokens *token, char **input, int *mode_add)
 {
 	char	*result;
 
 	if (!token)
 		return (NULL);
-	mode_add = 0;
 	result = ft_calloc(1, sizeof(char));
 	while (**input != ' ' && **input != '\0' && **input != '|')
 	{
-		if (**input == '"' && handle_doubquotes(input, &result, token) == NULL)
+		if (**input == '"' && handle_doubquotes(input, &result, token, mode_add) == NULL 
+			&& check_errnum(token) == UNQUOTES)
 			return (NULL);
-		if (**input == '\'' && handle_onequotes(input, &result, token) == NULL)
+		if (**input == '\'' && handle_onequotes(input, &result, token, mode_add) == NULL 
+			&& check_errnum(token) == UNQUOTES)
 			return (NULL);
 		if (**input != '"' && **input != '\'' && **input != '\0'
 			&& **input != ' ' && **input != '$')
@@ -115,53 +129,4 @@ t_tokens	*parse_input(t_tokens *token, char **input)
 			return (NULL);
 	}
 	return (result);
-}
-
-int	is_unclosequote(t_tokens *token)
-{
-	t_arg	*arg_cmd;
-
-	if (token->token_cmd && token->token_cmd->errnum == UNQUOTES)
-		return (1);
-	arg_cmd = token->token_arg;
-	while (arg_cmd != NULL)
-	{
-		if (arg_cmd->errnum == UNQUOTES)
-			return (1);
-		arg_cmd = arg_cmd->next_arg;
-	}
-	return (0);
-}
-
-t_tokens	*store_parse_token(t_tokens *token, char **input)
-{
-	char	*result;
-	int		mode_add;
-
-	if(!token)
-		return (NULL);
-	mode_add = 0;
-	result = ft_calloc(0, sizeof(char));
-	
-	// while (**input != '\0' && **input != '|')
-	// {
-	// 	/* code */
-	// }
-	
-		while (**input != ' ' && **input != '\0' && **input != '|')
-		{
-			if (**input == '"' && is_unclosequote(handle_onequotes(input, &result, token, mode_add)))
-				return (token);
-			if (**input != '"' && **input != '\'' && **input != '\0'
-				&& **input != ' ' && **input != '$')
-			{
-				add_parse_token(token, concat_str(result, ft_substr(*input, 0, 1)), &mode_add);
-				(*input)++;
-			}
-		}
-		if (mode_add == 2)
-			mode_add = 3;
-		add_parse_token(token, &result, mode_add);
-		if (mode_add == 1)
-			mode_add = 2;
 }
