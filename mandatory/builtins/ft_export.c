@@ -106,7 +106,7 @@ int	ft_export(t_tokens *tokens)
 	status = 0;
 	argv = tokens->token_arg;
 	len_arg = count_arg(argv);
-	if (len_arg < 1)
+	if (len_arg < 1 || !argv->arg_str)
 	{
 		display_env();
 		return (status);

@@ -37,7 +37,7 @@ int	is_builtin(char *cmd)
 	if (!cmd)
 		return (0);
 	return (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
-		|| ft_strcmp(cmd, "exit") == 0);
+		|| ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "export") == 0);
 }
 
 void	handle_command(t_tokens *data_cmd)
@@ -49,20 +49,41 @@ void	handle_command(t_tokens *data_cmd)
 		return; 
 	// if (handle_redirections(data_cmd->token_arg) == -1)
 	// 		return ; 
+	executable = NULL;
 	if (is_builtin(data_cmd->token_cmd->cmd_str))
 		execute_builtin(data_cmd);
 	else if (data_cmd->next)
 		execute_pipeline(data_cmd);
 	else
 	{
-		executable = find_executable(data_cmd->token_cmd->cmd_str);
-		if (executable)
+		if (data_cmd->token_cmd->cmd_str != NULL)
 		{
+			executable = find_executable(data_cmd->token_cmd->cmd_str);
+			if (executable)
+			{
+				pid = fork();
+				if (pid == 0)
+				{
+					if (execve(executable, array_tokens(data_cmd), get_tabenv()) == -1)
+					{
+						perror("execve");
+						exit(EXIT_FAILURE);
+					}
+				}
+				else if (pid > 0)
+					wait(NULL);
+				free(executable);
+			}
+			else
+				printf("command not found: %s\n", data_cmd->token_cmd->cmd_str);
+		}
+		else
+		{
+			// ty mila resahina kely
 			pid = fork();
 			if (pid == 0)
 			{
-				if (execve(executable, array_tokens(data_cmd), get_tabenv()) ==
-					-1)
+				if (execve(executable, array_tokens(data_cmd), get_tabenv()) == -1)
 				{
 					perror("execve");
 					exit(EXIT_FAILURE);
@@ -70,10 +91,7 @@ void	handle_command(t_tokens *data_cmd)
 			}
 			else if (pid > 0)
 				wait(NULL);
-			free(executable);
 		}
-		else
-			printf("command not found: %s\n", data_cmd->token_cmd->cmd_str);
 	}
 }
 

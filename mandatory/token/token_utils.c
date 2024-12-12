@@ -20,6 +20,12 @@ char	**array_tokens(t_tokens *token)
 	t_arg	*tmp;
 
 	len_arg = count_arg(token->token_arg);
+	if (len_arg < 1 && !token->token_cmd->cmd_str)
+	{
+		argv = malloc(sizeof(char *));
+		*argv = NULL; 
+		return (argv);
+	}	
 	len_arg += 2;
 	argv = malloc(sizeof(char *) * len_arg);
 	if (!argv)

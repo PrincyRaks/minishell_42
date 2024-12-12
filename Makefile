@@ -9,6 +9,7 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/handle_quotes.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
+	   mandatory/utils/exception.c \
 	   mandatory/env/ft_getenv.c \
 	   mandatory/env/env_utils.c \
 	   mandatory/env/getset_env.c \

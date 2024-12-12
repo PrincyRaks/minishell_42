@@ -50,26 +50,19 @@ t_arg	*last_arg(t_arg *arg)
 	return (NULL);
 }
 
-void	addback_arg(t_arg **first_arg, char *str_arg)
+void	addback_arg(t_arg **first_arg, t_arg *node_arg)
 {
-	t_arg	*arg;
 	t_arg	*end;
 
 	if (first_arg)
 	{
-		arg = new_arg();
-		// if (str_arg == NULL)
-		// 	arg->errnum = UNQUOTES;
-		arg = new_arg();
-		arg->arg_str = str_arg;
-		arg->next_arg = NULL;
 		if (!*first_arg)
-			*first_arg = arg;
+			*first_arg = node_arg;
 		else
 		{
 			end = last_arg(*first_arg);
 			if (end)
-				end->next_arg = arg;
+				end->next_arg = node_arg;
 		}
 	}
 }

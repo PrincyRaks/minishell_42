@@ -34,9 +34,8 @@
 
 typedef enum e_errnum
 {
-	DEFAULT = 0,
-	NOTCMD = -1,
-	UNQUOTES = -2
+	DEFAULT,
+	UNQUOTES
 }						t_errnum;
 
 typedef enum e_operator
@@ -46,6 +45,7 @@ typedef enum e_operator
 	OUTPUT,
 	APPEND,
 	HEREDOC,
+	VOIDTOKEN,
 }						t_operator;
 
 typedef struct s_data_env
@@ -88,12 +88,11 @@ char					*find_executable(char *command);
 // Parser
 // quotes
 t_tokens				**store_instruction(char *input);
-// char					*parse_input(char **start_quotes);
-t_tokens				*parse_input(t_tokens *token, char **input);
+char					*parse_input(t_tokens *token, char **input, int mode_add);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 t_tokens				**store_instruction(char *input);
-void					addback_arg(t_arg **first_arg, char *str_arg);
+void	addback_arg(t_arg **first_arg, t_arg *node_arg);
 t_tokens				*new_token(void);
 void					addback_token(t_tokens **first_token, t_tokens *token);
 int						count_token(t_tokens *lst);
@@ -127,6 +126,8 @@ void					clean_node_env(t_data_env *node);
 // utils
 char					*join_onespace(char *s1, char *s2);
 int						count_tab(char **tab);
+t_errnum				check_errnum(t_tokens *token);
+void					print_errnum(t_errnum numerr);
 
 // Builtins
 int						ft_cd(t_tokens *tokens);
