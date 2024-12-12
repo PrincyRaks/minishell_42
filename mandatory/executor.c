@@ -6,12 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/14 10:42:47 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:20:34 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// gerer "" '' . .. (is_directory)
 char	*find_executable(char *command)
 {
 	char		*full_path;
@@ -37,7 +38,7 @@ char	*find_executable(char *command)
 		path_tmp = ft_strdup(paths[i]);
 		full_path = ft_strjoin(path_tmp, "/");
 		full_path = ft_strjoin(full_path, command);
-		if (access(full_path, X_OK) == 0)
+		if (access(full_path, F_OK | X_OK) == 0)
 			return (full_path);
 		free(full_path);
 		i++;

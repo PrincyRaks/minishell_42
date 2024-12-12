@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/03 11:59:45 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:28:17 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,32 +54,12 @@ void	handle_command(t_tokens *data_cmd)
 		execute_builtin(data_cmd);
 	else if (data_cmd->next)
 		execute_pipeline(data_cmd);
-	else
+	else if (data_cmd->token_cmd->cmd_str != NULL)
 	{
-		if (data_cmd->token_cmd->cmd_str != NULL)
+		executable = find_executable(data_cmd->token_cmd->cmd_str);
+		printf("valiny: %s\n", executable);
+		if (executable)
 		{
-			executable = find_executable(data_cmd->token_cmd->cmd_str);
-			if (executable)
-			{
-				pid = fork();
-				if (pid == 0)
-				{
-					if (execve(executable, array_tokens(data_cmd), get_tabenv()) == -1)
-					{
-						perror("execve");
-						exit(EXIT_FAILURE);
-					}
-				}
-				else if (pid > 0)
-					wait(NULL);
-				free(executable);
-			}
-			else
-				printf("command not found: %s\n", data_cmd->token_cmd->cmd_str);
-		}
-		else
-		{
-			// ty mila resahina kely
 			pid = fork();
 			if (pid == 0)
 			{
@@ -91,7 +71,10 @@ void	handle_command(t_tokens *data_cmd)
 			}
 			else if (pid > 0)
 				wait(NULL);
+			free(executable);
 		}
+		else
+			printf("command not found: %s\n", data_cmd->token_cmd->cmd_str);
 	}
 }
 
