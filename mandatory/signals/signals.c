@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/09 17:50:00 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/16 10:35:24 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handle_sigint(int signum)
 {
 	(void)signum;
 	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();             
+	//rl_on_new_line();             
 	rl_replace_line("", 0);       
 	rl_redisplay();               
 }

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/09 14:09:23 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/16 11:57:12 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@
 # include <unistd.h>
 # include <limits.h>
 # include <fcntl.h>
-#include <signal.h>
+# include <signal.h>
+# include <stdbool.h>
+
 
 
 # define SYNTAX_ERROR 1
@@ -74,6 +76,7 @@ void					shell_loop(void);
 
 // Executor
 void					free_array(char **array);
+bool	is_only_dots(const char *command);
 char					*find_executable(char *command);
 
 // Parser
@@ -140,5 +143,7 @@ void execute_pipeline(t_tokens *tokens);
 void	handle_sigint(int signum);
 void	setup_signals(void);
 void	check_eof(char *input);
+
+
 
 #endif
