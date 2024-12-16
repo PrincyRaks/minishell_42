@@ -60,7 +60,8 @@ static void	handle_var(char **input, char **result, t_tokens *token, int mode_ad
 		return ;
 	}
 	expand = handle_dollar(input);
-	if (!ft_strlen(*result) && !expand && (**input == ' ' || **input == '\0' || **input == '|'))
+	if (!ft_strlen(*result) && !expand 
+		&& (**input == ' ' || **input == '\0' || **input == '|'))
 	{
 		if (mode_add == 1)
 			token->token_cmd->operand = VOIDTOKEN;
@@ -70,6 +71,14 @@ static void	handle_var(char **input, char **result, t_tokens *token, int mode_ad
 	if (!expand)
 		expand = ft_calloc(1, sizeof(char));
 	*result = concat_str(*result, expand);
+}
+
+static int	is_char(char c)
+{
+	return(c != '"' && c != '\'' 
+			&& c != '\0' && c != ' ' 
+			&& c != '$' && c != '>'
+			&& c != '<');
 }
 
 char	*parse_input(t_tokens *token, char **input, int mode_add)
@@ -85,14 +94,15 @@ char	*parse_input(t_tokens *token, char **input, int mode_add)
 			return (NULL);
 		if (**input == '\'' && !handle_onequotes(input, &result))
 			return (NULL);
-		if (**input != '"' && **input != '\'' && **input != '\0'
-			&& **input != ' ' && **input != '$')
+		if (is_char(**input))
 		{
 			result = concat_str(result, ft_substr(*input, 0, 1));
 			(*input)++;
 		}
 		if (**input == '$')
 			handle_var(input, &result, token, mode_add);
+		// if (**input == '>' || **input == '<')
+		// 	printf("ATO E!\n");
 	}
 	if (mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
 		token->token_cmd->operand = NOTOP;

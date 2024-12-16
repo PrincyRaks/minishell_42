@@ -14,6 +14,7 @@ SRCS = mandatory/main.c \
 	   mandatory/env/env_utils.c \
 	   mandatory/env/getset_env.c \
 	   mandatory/env/get_tabenv.c \
+	   mandatory/env/clean_env.c \
 	   mandatory/env/getset_export.c \
 	   mandatory/token/ft_args.c \
 	   mandatory/token/token_utils.c \

@@ -138,6 +138,7 @@ char					**get_data_export(void);
 void					set_data_export(char **value);
 t_data_env				*hash_env(char *data);
 void					clean_node_env(t_data_env *node);
+void					clear_export_env(void);
 
 // utils
 char					*join_onespace(char *s1, char *s2);

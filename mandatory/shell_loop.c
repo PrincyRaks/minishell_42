@@ -45,7 +45,7 @@ void	handle_command(t_tokens *data_cmd)
 	char	*executable;
 	pid_t pid;
 	
-	if(!data_cmd || !data_cmd->token_cmd)
+	if (!data_cmd || !data_cmd->token_cmd)
 		return; 
 	// if (handle_redirections(data_cmd->token_arg) == -1)
 	// 		return ; 

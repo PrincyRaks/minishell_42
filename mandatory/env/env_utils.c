@@ -49,6 +49,8 @@ t_data_env	*hash_env(char *data)
 	node = malloc(sizeof(t_data_env));
 	if (!node)
 		return (NULL);
+	node->key = NULL;
+	node->value = NULL;
 	node->next = NULL;
 	i = 0;
 	while (data[i] != '=' && data[i] != '\0')
@@ -58,10 +60,7 @@ t_data_env	*hash_env(char *data)
 		j = i - 1;
 	node->key = ft_substr(data, 0, j);
 	if (data[i] == '\0')
-	{
-		node->value = NULL;
 		return (node);
-	}
 	i += (data[i] == '=');
 	j = 0;
 	while (data[i + j] != '\0')
@@ -81,31 +80,4 @@ void	dup_env(char **env)
 		addback_env(&fisrt_data, hash_env(env[i]));
 	set_data_env(fisrt_data);
 	load_data_export();
-}
-
-void	clean_env(t_data_env **lst)
-{
-	t_data_env	*tmp;
-
-	while (*lst != NULL)
-	{
-		if ((*lst)->key != NULL)
-			free((*lst)->key);
-		if ((*lst)->value != NULL)
-			free((*lst)->value);
-		tmp = (*lst)->next;
-		free(*lst);
-		*lst = tmp;
-	}
-}
-
-void	clean_node_env(t_data_env *node)
-{
-	if (!node)
-		return ;
-	if (node->key != NULL)
-		free(node->key);
-	if (node->value != NULL)
-		free(node->value);
-	free(node);
 }
