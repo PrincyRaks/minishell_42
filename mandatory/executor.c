@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/16 12:07:51 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:52:34 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*find_executable(char *command)
 		printf("command not found: %s\n", command);
 		return (NULL);
 	}
-	
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, X_OK) == 0)
@@ -57,7 +56,7 @@ char	*find_executable(char *command)
 	while (paths && paths[i])
 	{
 		path_tmp = ft_strdup(paths[i]);
-		full_path = ft_strjoin(paths[i], "/");
+		full_path = ft_strjoin(path_tmp, "/");
 		full_path = ft_strjoin(full_path, command);
 		if (access(full_path, X_OK) == 0)
 		{
@@ -70,4 +69,3 @@ char	*find_executable(char *command)
 	free_array(paths);
 	return (NULL);
 }
-

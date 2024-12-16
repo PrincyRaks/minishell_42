@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/16 12:06:34 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:55:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	execute_builtin(t_tokens *tokens)
 	char	*cmd;
 
 	cmd = tokens->token_cmd->cmd_str;
+	if (ft_strcmp(cmd, "cd") == 0)
 		ft_cd(tokens);
-	if (ft_strcmp(cmd, "pwd") == 0)
+	else if (ft_strcmp(cmd, "pwd") == 0)
 		ft_pwd();
 	else if (ft_strcmp(cmd, "exit") == 0)
 		ft_exit(tokens);
@@ -36,7 +37,7 @@ int	is_builtin(char *cmd)
 	if (!cmd)
 		return (0);
 	return (ft_strcmp(cmd, "cd") == 0 || ft_strcmp(cmd, "pwd") == 0
-		|| ft_strcmp(cmd, "exit") == 0);
+		|| ft_strcmp(cmd, "exit") == 0 || ft_strcmp(cmd, "echo") == 0) ;
 }
 
 void	handle_command(t_tokens *data_cmd)
@@ -48,7 +49,7 @@ void	handle_command(t_tokens *data_cmd)
 		return;
 	if (ft_strlen(data_cmd->token_cmd->cmd_str) <= 0)
 	{
-		printf("Command '' not found.\n");
+		printf(" %s: command not found.\n", data_cmd->token_cmd->cmd_str);
 		return;
 	}
 	if (is_only_dots(data_cmd->token_cmd->cmd_str))
