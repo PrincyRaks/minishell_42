@@ -1,6 +1,7 @@
 CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
+	   mandatory/handle_command.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \
