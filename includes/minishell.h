@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/10 14:16:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:47:09 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,19 @@ typedef struct s_arg
 	struct s_arg		*next_arg;
 }						t_arg;
 
+// redirection
+typedef struct s_flow
+{
+	char				*file;
+	t_operator			operand;
+	struct s_flow		*next_flow;
+}						t_flow;
+
 typedef struct s_tokens
 {
 	t_cmd				*token_cmd;
 	t_arg				*token_arg;
+	t_flow				*token_flow;
 	struct s_tokens		*next;
 }						t_tokens;
 
@@ -88,11 +97,12 @@ char					*find_executable(char *command);
 // Parser
 // quotes
 t_tokens				**store_instruction(char *input);
-char					*parse_input(t_tokens *token, char **input, int mode_add);
+char					*parse_input(t_tokens *token, char **input,
+							int mode_add);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 t_tokens				**store_instruction(char *input);
-void	addback_arg(t_arg **first_arg, t_arg *node_arg);
+void					addback_arg(t_arg **first_arg, t_arg *node_arg);
 t_tokens				*new_token(void);
 void					addback_token(t_tokens **first_token, t_tokens *token);
 int						count_token(t_tokens *lst);
@@ -106,6 +116,12 @@ int						count_arg(t_arg *node);
 char					**array_tokens(t_tokens *token);
 char					*concat_str(char *prev_result, char *handle);
 t_arg					*last_arg(t_arg *arg);
+int	count_flow(t_flow *node);
+t_flow	*new_flow(void);
+t_flow	*last_flow(t_flow *flows);
+void	addback_flow(t_flow **first_flow, t_flow *node_flow);
+void	clean_flows(t_flow **lst);
+
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

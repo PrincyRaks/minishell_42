@@ -19,6 +19,7 @@ SRCS = mandatory/main.c \
 	   mandatory/token/token_utils.c \
 	   mandatory/token/ft_cmd.c \
 	   mandatory/token/ft_token.c \
+	   mandatory/token/ft_flow.c \
 	   mandatory/builtins/ft_cd.c \
 	   mandatory/builtins/ft_pwd.c \
 	   mandatory/builtins/ft_exit.c \

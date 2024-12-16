@@ -131,3 +131,4 @@ cmd >> ""
 > test/input.txt (creation du fichier)
 >> test/input.txt (creation du fichier)
 ls << fin -l > out
+> out ls -l > out1 > out2 << fin << end
