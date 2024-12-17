@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 10:32:57 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:22:05 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 
 # define SYNTAX_ERROR 1
-# define PROMPT "minishell > "
+# define PROMPT "👾 > "
 
 typedef enum e_errnum
 {

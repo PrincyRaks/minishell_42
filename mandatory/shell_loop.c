@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/17 10:40:28 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:38:34 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	shell_loop(void)
 		if (*input)
 		{
 			add_history(input);
+			if (*input == '|')
+			{
+				printf(": syntax error near unexpected token `|'\n");
+				continue ;
+			}
 			data_cmd = store_instruction(input);
 			if (data_cmd)
 			{
