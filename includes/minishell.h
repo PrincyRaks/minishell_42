@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/16 11:57:12 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:32:57 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 
 
 # define SYNTAX_ERROR 1
+# define PROMPT "minishell > "
 
 typedef enum e_errnum
 {
@@ -133,16 +134,18 @@ int						is_builtin(char *cmd);
 // Builtin utils
 int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
-void					execute_builtin(t_tokens *tokens);
+void	execute_builtin(t_tokens *tokens, int nb);
 
 // Pipe
 void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
 
 // Signals
-void	handle_sigint(int signum);
-void	setup_signals(void);
-void	check_eof(char *input);
+void	signal_reset_prompt(int signo);
+void	ignore_sigquit(void);
+void	set_signals_interactive(void);
+void	signal_print_newline(int signal);
+void	set_signals_noninteractive(void);
 
 
 
