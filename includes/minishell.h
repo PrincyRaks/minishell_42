@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 10:02:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:04:06 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 typedef enum e_errnum
 {
 	DEFAULT,
-	UNQUOTES
+	UNQUOTES,
+	// erreur de redirection ty !
 }						t_errnum;
 
 typedef enum e_operator

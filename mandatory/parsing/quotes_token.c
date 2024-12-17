@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/11 10:17:21 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:27:29 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ char	*parse_input(t_tokens *token, char **input, int mode_add)
 		}
 		if (**input == '$')
 			handle_var(input, &result, token, mode_add);
-		// if (**input == '>' || **input == '<')
-		// 	printf("ATO E!\n");
+		if ((**input == '>' || **input == '<') && !handle_flow(token, input))
+			return (NULL);
 	}
 	if (mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
 		token->token_cmd->operand = NOTOP;

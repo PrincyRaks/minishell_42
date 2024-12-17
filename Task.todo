@@ -1,14 +1,13 @@
 Parsing:
     ☐ Understand all external functions
-    ☐ Token check pipe
-    ☐ append & heredoc
     ✔ ENV variable @done(24-11-16 15:16)
     ✔ expand ($) @done(24-11-19 16:20)
     ✔ command pour ignorer les leaks readline @done(24-11-29 11:35)
+    ☐ commande dans les variables d'environnements
 
 ☐ Afficher un prompt lorsqu'il attend une nouvelle commande
 ☐ Implémenter un historique des commandes
-☐ Gérer les guillemets (quotes) : les simples et les doubles
+✔ Gérer les guillemets (quotes) : les simples et les doubles @done(24-12-17 14:46)
 ☐ Implémenter les redirections : <, >, <<, >>
 ☐ Implémenter les pipes : |
 ✔ Manipuler les variables d'environnement ($) @done(24-11-29 11:45)
