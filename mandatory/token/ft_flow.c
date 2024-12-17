@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flow.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 17:26:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/16 17:47:05 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:07:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_flow	*new_flow(void)
 	flow = malloc(sizeof(t_flow));
 	if (!flow)
 		return (NULL);
-	flow->file = NULL;
+	flow->word = NULL;
 	flow->operand = NOTOP;
 	flow->next_flow = NULL;
 	return (flow);
@@ -72,7 +72,7 @@ void	clean_flows(t_flow **lst)
 
 	while (*lst != NULL)
 	{
-		free((*lst)->file);
+		free((*lst)->word);
 		tmp = (*lst)->next_flow;
 		free(*lst);
 		*lst = tmp;
