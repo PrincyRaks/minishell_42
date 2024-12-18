@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:59:16 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/29 08:46:47 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:56:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ t_tokens	*new_token(void)
 	instr->token_cmd = NULL;
 	// arguments
 	instr->token_arg = NULL;
+	// redirection
+	instr->token_flow = NULL;
+	// others
+	instr->errnum = DEFAULT;
 	instr->next = NULL;
 	return (instr);
 }

@@ -4,12 +4,15 @@ Parsing:
     ✔ expand ($) @done(24-11-19 16:20)
     ✔ command pour ignorer les leaks readline @done(24-11-29 11:35)
     ☐ commande dans les variables d'environnements
+    ☐ parse redirection:
+        ☐ Attention erreur si (token_flow->operand != NOTOP && token_flow == NULL)
+        ☐ verifier si cmdstr ou argstr existe deja -> donc argument apres fichier
+        ☐ verifier si operand existe apres ajouter fichier : si operand et fichier existe donc new flow
 
-☐ Afficher un prompt lorsqu'il attend une nouvelle commande
 ☐ Implémenter un historique des commandes
 ✔ Gérer les guillemets (quotes) : les simples et les doubles @done(24-12-17 14:46)
 ☐ Implémenter les redirections : <, >, <<, >>
-☐ Implémenter les pipes : |
+✔ Implémenter les pipes : | @done(24-12-18 16:36)
 ✔ Manipuler les variables d'environnement ($) @done(24-11-29 11:45)
 ☐ Gérer les $? et les états de sortie
 ☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\

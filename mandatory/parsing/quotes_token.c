@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 15:27:29 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:28:10 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*handle_onequotes(char **qts, char **result)
+char	*handle_onequotes(char **qts, char **result, t_tokens *token)
 {
 	char	*trim;
 
@@ -21,17 +21,14 @@ static char	*handle_onequotes(char **qts, char **result)
 	{
 		free(trim);
 		free(*result);
-		// if (mode_add == 1)
-		// 	token->token_cmd->errnum = UNQUOTES;
-		// else
-		// 	last_arg(token->token_arg)->errnum = UNQUOTES;
+		token->errnum = UNQUOTES;
 		return (NULL);
 	}
 	*result = concat_str(*result, trim);
 	return (*result);
 }
 
-static char	*handle_doubquotes(char **qts, char **result)
+char	*handle_doubquotes(char **qts, char **result, t_tokens *token)
 {
 	char	*trim;
 
@@ -40,10 +37,7 @@ static char	*handle_doubquotes(char **qts, char **result)
 	{
 		free(trim);
 		free(*result);
-		// if (mode_add == 1)
-		// 	token->token_cmd->errnum = UNQUOTES;
-		// else
-		// 	last_arg(token->token_arg)->errnum = UNQUOTES;
+		token->errnum = UNQUOTES;
 		return (NULL);
 	}
 	*result = concat_str(*result, trim);
@@ -60,8 +54,8 @@ static void	handle_var(char **input, char **result, t_tokens *token, int mode_ad
 		return ;
 	}
 	expand = handle_dollar(input);
-	if (!ft_strlen(*result) && !expand 
-		&& (**input == ' ' || **input == '\0' || **input == '|'))
+	if (!ft_strlen(*result) && !expand && (**input == ' ' || **input == '\0'
+			|| **input == '|'))
 	{
 		if (mode_add == 1)
 			token->token_cmd->operand = VOIDTOKEN;
@@ -73,15 +67,13 @@ static void	handle_var(char **input, char **result, t_tokens *token, int mode_ad
 	*result = concat_str(*result, expand);
 }
 
-static int	is_char(char c)
+int	is_char(char c)
 {
-	return(c != '"' && c != '\'' 
-			&& c != '\0' && c != ' ' 
-			&& c != '$' && c != '>'
-			&& c != '<');
+	return (c != '"' && c != '\'' && c != '\0' && c != ' ' && c != '$'
+		&& c != '>' && c != '<');
 }
 
-char	*parse_input(t_tokens *token, char **input, int mode_add)
+char	*parse_input(t_tokens *token, char **input, int *mode_add)
 {
 	char	*result;
 
@@ -90,9 +82,9 @@ char	*parse_input(t_tokens *token, char **input, int mode_add)
 	result = ft_calloc(1, sizeof(char));
 	while (**input != ' ' && **input != '\0' && **input != '|')
 	{
-		if (**input == '"' && !handle_doubquotes(input, &result))
+		if (**input == '"' && !handle_doubquotes(input, &result, token))
 			return (NULL);
-		if (**input == '\'' && !handle_onequotes(input, &result))
+		if (**input == '\'' && !handle_onequotes(input, &result, token))
 			return (NULL);
 		if (is_char(**input))
 		{
@@ -100,13 +92,13 @@ char	*parse_input(t_tokens *token, char **input, int mode_add)
 			(*input)++;
 		}
 		if (**input == '$')
-			handle_var(input, &result, token, mode_add);
-		if ((**input == '>' || **input == '<') && !handle_flow(token, input))
+			handle_var(input, &result, token, *mode_add);
+		if ((**input == '>' || **input == '<') && !handle_flow(token, input, mode_add))
 			return (NULL);
 	}
-	if (mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
+	if (*mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
 		token->token_cmd->operand = NOTOP;
-	else if (mode_add == 2 && last_arg(token->token_arg)->operand == VOIDTOKEN && ft_strlen(result) > 0)
+	else if (*mode_add == 2 && last_arg(token->token_arg)->operand == VOIDTOKEN && ft_strlen(result) > 0)
 		last_arg(token->token_arg)->operand = NOTOP;
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/17 15:35:19 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:45:40 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	handle_command(t_tokens *data_cmd)
 void shell_loop(void)
 {
     char *input;
-    t_tokens **data_cmd;
+    // t_tokens **data_cmd;
 
     while (1) 
     {
@@ -94,12 +94,13 @@ void shell_loop(void)
         if (*input)
         {
             add_history(input);
-            data_cmd = store_instruction(input);
-            if (data_cmd)
-			{
-				handle_command(*data_cmd);
-				clean_tokens(data_cmd);	
-			}
+			store_instruction(input);
+            // data_cmd = store_instruction(input);
+            // if (data_cmd)
+			// {
+			// 	handle_command(*data_cmd);
+			// 	clean_tokens(data_cmd);	
+			// }
         }
         free(input);
     }

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 15:35:26 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:41:30 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,34 @@ static int	store_token(t_tokens *node_token, char **input)
 	char		*parsing;
 
 	parsing = NULL;
+	// arguments
 	if (node_token->token_cmd != NULL && mode_add == 2 && node_token->token_cmd->operand == NOTOP)
 	{
 		if (!node_token->token_arg)
 			node_token->token_arg = new_arg();
 		else if (last_arg(node_token->token_arg)->operand != VOIDTOKEN)
 			last_arg(node_token->token_arg)->next_arg = new_arg();
-		parsing = parse_input(node_token, input, mode_add);
+		parsing = parse_input(node_token, input, &mode_add);
 		if (!parsing)
-			return (0);
+			return (node_token->errnum);
 		last_arg(node_token->token_arg)->arg_str = parsing;
-		// mila gerena ny clean
-		return (1);
+		return (node_token->errnum);
 	}
+	// redirections
+	if (mode_add == 3 && node_token->token_flow != NULL)
+	{
+		parsing = parse_input(node_token, input, &mode_add);
+		if (!parsing)
+			return (node_token->errnum);
+		last_flow(node_token->token_flow)->word = parsing;
+		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str != NULL 
+			|| node_token->token_cmd->operand == VOIDTOKEN))
+			mode_add = 1;
+		if (node_token->token_cmd != NULL && mode_add == 2 && node_token->token_cmd->operand == NOTOP)
+			mode_add = 2;
+		return (node_token->errnum);
+	}
+	// commandes
 	if (!node_token->token_cmd)
 	{
 		node_token->token_cmd = new_cmd();
@@ -38,14 +53,14 @@ static int	store_token(t_tokens *node_token, char **input)
 	}
 	if (node_token->token_cmd->operand == VOIDTOKEN)
 		mode_add = 1;
-	parsing = parse_input(node_token, input, mode_add);
+	parsing = parse_input(node_token, input, &mode_add);
 	if (!parsing)
-		return (0);
+		return (node_token->errnum);
 	node_token->token_cmd->cmd_str = parsing;
 	mode_add = 2;
 	// if (node_token->token_cmd->operand == VOIDTOKEN)
 	// 	mode_add = 1;
-	return (1);
+	return (node_token->errnum);
 }
 
 static int	create_new_token(t_tokens **first_node, t_tokens **node_token)
@@ -104,15 +119,15 @@ t_tokens	**store_instruction(char *input)
 	*first_node = node_token;
 	if (!node_token)
 		return (NULL);
-	while (*input)
+	while (*input && node_token->errnum == DEFAULT)
 	{
 		while (*input == ' ')
 			input++;
 		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
-			if (!store_token(node_token, &input))
+			if (store_token(node_token, &input) != DEFAULT)
 			{
-				printf("Tsy midy ny quotes\n");
+				printf("Erreur minishell: %d\n", node_token->errnum);
 				// break ;
 			}
 		}
@@ -141,11 +156,14 @@ t_tokens	**store_instruction(char *input)
 		} */
 	}
 	parse_void_instruction(*first_node);
-	printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("Misy vide ve?: %d\n", is_void_instruction(*first_node));
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
+	printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
+	printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
+	printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);
 }

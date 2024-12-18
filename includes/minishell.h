@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 17:04:06 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:08:38 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef enum e_errnum
 {
 	DEFAULT,
 	UNQUOTES,
-	// erreur de redirection ty !
+	ERRFLOW,
 }						t_errnum;
 
 typedef enum e_operator
@@ -84,6 +84,7 @@ typedef struct s_tokens
 	t_cmd				*token_cmd;
 	t_arg				*token_arg;
 	t_flow				*token_flow;
+	t_errnum			errnum;
 	struct s_tokens		*next;
 }						t_tokens;
 
@@ -98,8 +99,7 @@ char					*find_executable(char *command);
 // Parser
 // quotes
 t_tokens				**store_instruction(char *input);
-char					*parse_input(t_tokens *token, char **input,
-							int mode_add);
+char					*parse_input(t_tokens *token, char **input, int *mode_add);
 char					*remove_onequotes(char **start_quotes);
 char					*remove_doubquotes(char **start_quotes);
 t_tokens				**store_instruction(char *input);
@@ -117,12 +117,15 @@ int						count_arg(t_arg *node);
 char					**array_tokens(t_tokens *token);
 char					*concat_str(char *prev_result, char *handle);
 t_arg					*last_arg(t_arg *arg);
-int	count_flow(t_flow *node);
-t_flow	*new_flow(void);
-t_flow	*last_flow(t_flow *flows);
-void	addback_flow(t_flow **first_flow, t_flow *node_flow);
-void	clean_flows(t_flow **lst);
-
+int						count_flow(t_flow *node);
+t_flow					*new_flow(void);
+t_flow					*last_flow(t_flow *flows);
+void					addback_flow(t_flow **first_flow, t_flow *node_flow);
+void					clean_flows(t_flow **lst);
+int	is_char(char c);
+char	*handle_onequotes(char **qts, char **result, t_tokens *token);
+char	*handle_doubquotes(char **qts, char **result, t_tokens *token);
+int		handle_flow(t_tokens *token, char **input, int *mode_add);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
