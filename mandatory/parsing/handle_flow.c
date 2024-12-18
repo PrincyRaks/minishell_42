@@ -16,32 +16,30 @@
 static int	check_operand(char **str)
 {
 	int	nb_op;
+    int i;
 
 	if (!str && !*str)
 		return (-1);
 	nb_op = 0;
+    i = 0;
 	while (**str == ' ' || **str == '<' || **str == '>')
 	{
 		if (**str == '<' || **str == '>')
-        {
 			nb_op++;
-            (*str)++;
-        }
-		else if (**str == ' ')
-		    (*str)++;
+        (*str)++;
+        i++;
 	}
-	printf("val: %d\n", nb_op);
 	if (nb_op >= 3 || nb_op <= 0)
 		return (-1);
 	if (nb_op == 1)
 	{
-		if (*(*str - nb_op) == '>')
+		if (*(*str - i) == '>')
 			return (INPUT);
 		return (OUTPUT);
 	}
-	if (*(*str - nb_op) == '<' && *(*str - (nb_op - 1)) == '<')
+	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
 		return (HEREDOC);
-	if (*(*str - nb_op) == '>' && *(*str - (nb_op - 1)) == '>')
+	if (*(*str - i) == '>' && *(*str - (i - 1)) == '>')
 		return (APPEND);
 	return (-1);
 }
@@ -79,7 +77,7 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add)
 		if (!token->token_flow)
 			token->token_flow = new_flow();
 		store_operator(&token->token_flow, operand);
-		*mode_add = 3;
+		*mode_add = 4;
 	}
 	return (1);
 }

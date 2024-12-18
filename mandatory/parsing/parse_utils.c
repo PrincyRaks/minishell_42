@@ -17,8 +17,16 @@ static int	store_token(t_tokens *node_token, char **input)
 	static int	mode_add = 1;
 	char		*parsing;
 
-	parsing = NULL;
-	// arguments
+	// commandes (1)
+	if (!node_token->token_cmd)
+	{
+		node_token->token_cmd = new_cmd();
+		mode_add = 1;
+	}
+	parsing = parse_input(node_token, input, &mode_add);
+	if (!parsing)
+		return (node_token->errnum);
+	// arguments (2)
 	if (node_token->token_cmd != NULL && mode_add == 2 && node_token->token_cmd->operand == NOTOP)
 	{
 		if (!node_token->token_arg)
@@ -31,12 +39,19 @@ static int	store_token(t_tokens *node_token, char **input)
 		last_arg(node_token->token_arg)->arg_str = parsing;
 		return (node_token->errnum);
 	}
-	// redirections
-	if (mode_add == 3 && node_token->token_flow != NULL)
+	if (node_token->token_cmd->operand == VOIDTOKEN)
+		mode_add = 1;
+	// parsing = parse_input(node_token, input, &mode_add);
+	// if (!parsing)
+	// 	return (node_token->errnum);
+	if (mode_add != 4)
 	{
-		parsing = parse_input(node_token, input, &mode_add);
-		if (!parsing)
-			return (node_token->errnum);
+		node_token->token_cmd->cmd_str = parsing;
+		mode_add = 2;
+	}
+	// redirections (4)
+	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
+	{
 		last_flow(node_token->token_flow)->word = parsing;
 		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str != NULL 
 			|| node_token->token_cmd->operand == VOIDTOKEN))
@@ -45,21 +60,6 @@ static int	store_token(t_tokens *node_token, char **input)
 			mode_add = 2;
 		return (node_token->errnum);
 	}
-	// commandes
-	if (!node_token->token_cmd)
-	{
-		node_token->token_cmd = new_cmd();
-		mode_add = 1;
-	}
-	if (node_token->token_cmd->operand == VOIDTOKEN)
-		mode_add = 1;
-	parsing = parse_input(node_token, input, &mode_add);
-	if (!parsing)
-		return (node_token->errnum);
-	node_token->token_cmd->cmd_str = parsing;
-	mode_add = 2;
-	// if (node_token->token_cmd->operand == VOIDTOKEN)
-	// 	mode_add = 1;
 	return (node_token->errnum);
 }
 
@@ -156,14 +156,14 @@ t_tokens	**store_instruction(char *input)
 		} */
 	}
 	parse_void_instruction(*first_node);
-	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("Misy vide ve?: %d\n", is_void_instruction(*first_node));
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
-	printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
-	printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
-	printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
+	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
+	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
+	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);
 }
