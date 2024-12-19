@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipeline.c                                 :+:      :+:    :+:   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/17 14:30:21 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:49:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,21 @@
 void	execute_pipeline(t_tokens *tokens)
 {
 	int		pipe_fd[2];
-	int		prev_fd = -1;
+	int		prev_fd;
 	pid_t	pid;
-	int		status;
 
+	prev_fd = -1;
 	while (tokens)
 	{
 		if (tokens->next && pipe(pipe_fd) == -1)
-		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
-		}
+			exit_perror("pipe");
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
+			exit_perror("fork");
 		if (pid == 0)
-		{
-			if (prev_fd != -1)
-			{
-				dup2(prev_fd, STDIN_FILENO);
-				close(prev_fd);
-			}
-			if (tokens->next)
-			{
-				close(pipe_fd[0]);
-				dup2(pipe_fd[1], STDOUT_FILENO);
-				close(pipe_fd[1]);
-			}
-			if (tokens->next)
-				close(pipe_fd[1]);
-			execute_single_command(tokens);
-			exit(127);
-		}
-		else
-		{
-			if (prev_fd != -1)
-				close(prev_fd);
-			if (tokens->next)
-			{
-				close(pipe_fd[1]);
-				prev_fd = pipe_fd[0];
-			}
-		}
+			handle_child(prev_fd, pipe_fd, tokens);
+		prev_fd = handle_parent(prev_fd, pipe_fd, tokens);
 		tokens = tokens->next;
 	}
-	while (wait(&status) > 0)
-		;
+	wait_for_children();
 }

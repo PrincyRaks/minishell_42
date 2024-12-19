@@ -1,7 +1,8 @@
 CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
-	   mandatory/handle_command.c \
+	   mandatory/handle_command/handle_command.c \
+	   mandatory/handle_command/handle_command_utils.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \
@@ -26,8 +27,10 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/ft_echo.c \
 	   mandatory/builtins/ft_export.c \
 	   mandatory/builtins/ft_unset.c \
+	   mandatory/builtins/execute_builtins.c \
 	   mandatory/utils/ft_utils.c \
-	   mandatory/pipe/execute_pipeline.c \
+	   mandatory/pipe/execute_pipe.c \
+	   mandatory/pipe/execute_pipe_utils.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/signals/signals.c
 

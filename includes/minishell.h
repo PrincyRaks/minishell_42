@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/17 14:22:05 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:35:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,16 @@ typedef struct s_tokens
 }						t_tokens;
 
 // Shell_loop
-void					handle_command(t_tokens *data_cmd);
 void					shell_loop(void);
+
+// Handle Command
+void	handle_dots_command(t_tokens *data_cmd);
+void handle_child_process(char *executable, t_tokens *data_cmd);
+void handle_parent_process(pid_t pid);
+void execute_external_command(char *executable, t_tokens *data_cmd);
+int is_invalid_command(t_tokens *data_cmd);
+void handle_external_command(t_tokens *data_cmd);
+void handle_command(t_tokens *data_cmd);
 
 // Executor
 void					free_array(char **array);
@@ -136,6 +144,13 @@ int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
 void	execute_builtin(t_tokens *tokens, int nb);
 
+// Pipe Utils
+void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens);
+void	wait_for_children(void);
+void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens);
+int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens);
+void	exit_perror(char *message);
+
 // Pipe
 void execute_single_command(t_tokens *token);
 void execute_pipeline(t_tokens *tokens);
@@ -146,7 +161,6 @@ void	ignore_sigquit(void);
 void	set_signals_interactive(void);
 void	signal_print_newline(int signal);
 void	set_signals_noninteractive(void);
-
 
 
 #endif
