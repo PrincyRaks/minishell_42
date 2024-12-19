@@ -6,13 +6,12 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/18 17:07:01 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:52:00 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//  ts mety ty eee !
 static int	check_operand(char **str)
 {
 	int	nb_op;

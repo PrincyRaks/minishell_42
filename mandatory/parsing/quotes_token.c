@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/18 16:28:10 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:22:45 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*handle_doubquotes(char **qts, char **result, t_tokens *token)
 	return (*result);
 }
 
-static void	handle_var(char **input, char **result, t_tokens *token, int mode_add)
+static void	handle_var(char **input, char **result, t_tokens *token,
+		int mode_add)
 {
 	char	*expand;
 
@@ -96,9 +97,12 @@ char	*parse_input(t_tokens *token, char **input, int *mode_add)
 		if ((**input == '>' || **input == '<') && !handle_flow(token, input, mode_add))
 			return (NULL);
 	}
-	if (*mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
+	if (*mode_add == 1 && token->token_cmd->operand == VOIDTOKEN
+		&& ft_strlen(result) > 0)
 		token->token_cmd->operand = NOTOP;
-	else if (*mode_add == 2 && last_arg(token->token_arg)->operand == VOIDTOKEN && ft_strlen(result) > 0)
+	else if (token->token_arg != NULL && *mode_add == 2
+		&& last_arg(token->token_arg)->operand == VOIDTOKEN
+		&& ft_strlen(result) > 0)
 		last_arg(token->token_arg)->operand = NOTOP;
 	return (result);
 }
