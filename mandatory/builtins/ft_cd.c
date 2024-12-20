@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/22 19:29:06 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/20 10:35:53 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	ft_cd(t_tokens *tokens)
 {
 	int			len_arg;
 	char		cwd[PATH_MAX];
-	static char	*prev_dir = NULL;
 
 	// if (!tokens)
 	// 	return (1);
@@ -67,17 +66,8 @@ int	ft_cd(t_tokens *tokens)
 		if (!ft_strcmp(tokens->token_arg->arg_str, "~")
 			|| !ft_strcmp(tokens->token_arg->arg_str, "--"))
 			return (dir_home());
-		else if (!ft_strcmp(tokens->token_arg->arg_str, "-")
-			&& prev_dir != NULL)
-		{
-			printf("%s\n", prev_dir);
-			return (safe_chdir(prev_dir));
-		}
-		else
-		{
-			prev_dir = getcwd(cwd, sizeof(cwd));
-			return (safe_chdir(tokens->token_arg->arg_str));
-		}
+		getcwd(cwd, sizeof(cwd));
+		return (safe_chdir(tokens->token_arg->arg_str));
 	}
 	return (0);
 }

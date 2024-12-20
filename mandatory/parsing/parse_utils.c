@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/20 09:50:53 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/20 10:12:07 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,13 @@ t_tokens	**store_instruction(char *input)
 				break ;
 		}
 	}
-	// parse_void_instruction(*first_node);
+	parse_void_instruction(*first_node);
 	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("Misy vide ve?: %d\n", is_void_instruction(*first_node));
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("number of node: %d\n", count_token(*first_node));
-	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
+	// // printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);

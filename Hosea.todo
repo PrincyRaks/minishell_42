@@ -1,6 +1,6 @@
 Redirections:
     input (>) :
-        ☐ creer fichier avec le type word du structure 
+        ☐ creer fichier avec le type word du structure
         ☐ Gerer operateur successive > out > out1 > out2
         ☐ ECRIRE la sortie du commande dans le dernier fichier cree
     append (>>) :

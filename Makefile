@@ -1,5 +1,5 @@
 CFLAGS = -Wall -Werror -Wextra -g
-CC= gcc
+CC= cc
 
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
