@@ -1,4 +1,5 @@
 CFLAGS = -Wall -Werror -Wextra -g
+CC= gcc
 
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
@@ -9,17 +10,21 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \
 	   mandatory/parsing/handle_quotes.c \
+	   mandatory/parsing/handle_flow.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
+	   mandatory/utils/exception.c \
 	   mandatory/env/ft_getenv.c \
 	   mandatory/env/env_utils.c \
 	   mandatory/env/getset_env.c \
 	   mandatory/env/get_tabenv.c \
+	   mandatory/env/clean_env.c \
 	   mandatory/env/getset_export.c \
 	   mandatory/token/ft_args.c \
 	   mandatory/token/token_utils.c \
 	   mandatory/token/ft_cmd.c \
 	   mandatory/token/ft_token.c \
+	   mandatory/token/ft_flow.c \
 	   mandatory/builtins/ft_cd.c \
 	   mandatory/builtins/ft_pwd.c \
 	   mandatory/builtins/ft_exit.c \
@@ -44,10 +49,10 @@ LIBFT = libft/libft.a
 all: libft $(NAME)
 
 %.o: %.c
-	cc $(CFLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT)
-	cc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 
 libft:
 	make -C libft/

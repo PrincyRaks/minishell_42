@@ -108,6 +108,7 @@ void	load_data_export(void)
 	char	*tmp;
 
 	i = 0;
+	clear_export_env();
 	keys = get_tabkeys();
 	while (keys[i] != NULL)
 	{

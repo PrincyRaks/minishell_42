@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:35:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/29 08:51:50 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:08:11 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_cmd	*new_cmd(void)
 	if (!cmd)
 		return (NULL);
 	cmd->cmd_str = NULL;
+	cmd->operand = NOTOP;
 	cmd->errnum = DEFAULT;
 	return (cmd);
 }

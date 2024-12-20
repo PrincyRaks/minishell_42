@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
 /*   Updated: 2024/12/19 09:41:39 by mrazanad         ###   ########.fr       */
@@ -15,7 +15,7 @@
 static void	handle_input(char *input)
 {
 	t_tokens	**data_cmd;
-
+ 
 	if (*input)
 	{
 		add_history(input);

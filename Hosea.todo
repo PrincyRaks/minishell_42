@@ -1,0 +1,12 @@
+Redirections:
+    input (>) :
+        ☐ creer fichier avec le type word du structure 
+        ☐ Gerer operateur successive > out > out1 > out2
+        ☐ ECRIRE la sortie du commande dans le dernier fichier cree
+    append (>>) :
+        ☐ creer fichier avec le type word du structure 
+        ☐ Gerer >> out > out1 >> out2
+        ☐ AJOUTER la sortie du commande dans le dernier fichier cree
+    output (<) :
+        ☐ ne pas creer le fichier s'il n'existe pas
+        ☐ marche avec cat seulement
