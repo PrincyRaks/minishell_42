@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:33:33 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 11:21:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:45:32 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,24 @@ void setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
     if (prev_fd != -1)
     {
-        printf("[DEBUG] Duping prev_fd to STDIN\n");
         if (dup2(prev_fd, STDIN_FILENO) == -1)
         {
-            perror("[DEBUG] dup2 prev_fd failed");
+            perror("dup2");
             exit(EXIT_FAILURE);
         }
         close(prev_fd);
     }
-    if (tokens->next) // Si une commande suit
+    if (tokens->next)
     {
-        printf("[DEBUG] Duping pipe_fd[1] to STDOUT\n");
         close(pipe_fd[0]);
         if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
         {
-            perror("[DEBUG] dup2 pipe_fd[1] failed");
+            perror("dup2");
             exit(EXIT_FAILURE);
         }
         close(pipe_fd[1]);
     }
 }
-
 
 void	wait_for_children(void)
 {
@@ -46,11 +43,16 @@ void	wait_for_children(void)
 		;
 }
 
-
 void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
 	setup_pipe(prev_fd, pipe_fd, tokens);
-	execute_single_command(tokens);
+    if (is_builtin(tokens->token_cmd->cmd_str))
+    {
+        execute_builtin(tokens, is_builtin(tokens->token_cmd->cmd_str));
+        exit(0);
+    }
+    else
+	    execute_single_command(tokens);
 	exit(127);
 }
 
