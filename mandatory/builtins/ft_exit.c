@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/22 18:17:44 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:01:08 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,26 @@ int	ft_exit(t_tokens *tokens)
 	int			len_arg;
 	char		*str_arg;
 	long long	exit_code;
-	int			is_digit;
 
-	exit_code = 0;
-	str_arg = NULL;
-	is_digit = is_numeric(str_arg);
 	printf("exit\n");
-	len_arg = count_arg(tokens->token_arg);
-	if (len_arg > 0)
-		str_arg = tokens->token_arg->arg_str;
-	if (len_arg > 1 && is_digit)
-	{
-		printf("exit: too many arguments\n");
-		return (1);
-	}
+	if (tokens && tokens->token_arg)
+		len_arg = count_arg(tokens->token_arg);
 	else
+		len_arg = 0;
+	if (len_arg == 0)
+		exit(0);
+	str_arg = tokens->token_arg->arg_str;
+	if (len_arg > 1)
 	{
-		if (len_arg == 1 && is_digit && check_range(str_arg,
-				&exit_code))
-			exit(exit_code % 256);
-		else
+		if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
 		{
-			printf("exit: %s: numeric argument required\n", str_arg);
-			exit(2);
+			printf("exit: too many arguments\n");
+			return (1);
 		}
 	}
-	exit(exit_code);
+	if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
+		exit(exit_code % 256);
+	printf("exit: %s: numeric argument required\n", str_arg);
+	exit(2);
+	return (0);
 }

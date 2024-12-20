@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-void    ft_env(void)
+void	ft_env(void)
 {
-    t_data_env  *env;
+	t_data_env	*env;
 
-    env = get_data_env();
-    while (env != NULL)
-    {
-        if (env->key != NULL && env->value != NULL)
-            printf("%s=%s\n", env->key, env->value);
-        env = env->next;
-    }
+	env = get_data_env();
+	while (env != NULL)
+	{
+		if (env->key != NULL && env->value != NULL)
+			printf("%s=%s\n", env->key, env->value);
+		env = env->next;
+	}
 }

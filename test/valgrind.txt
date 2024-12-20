@@ -1,0 +1,18 @@
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignore_readline.supp -s 
+
+{
+    libreadline
+    Memcheck:Leak
+    match-leak-kinds: reachable
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+    ...
+}
+{
+   readline
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:readline
+   ...
+}

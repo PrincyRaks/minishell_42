@@ -14,7 +14,7 @@
 
 int	count_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	if (!tab)
 		return (0);

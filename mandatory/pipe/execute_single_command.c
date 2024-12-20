@@ -6,33 +6,28 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/26 10:25:04 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:38:46 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_single_command(t_tokens *token)
+void	execute_single_command(t_tokens *tokens)
 {
 	char	*executable;
-	char	**args;
+	char	**argv;
 
-	if (!token || !token->token_cmd || !token->token_cmd->cmd_str)
-		exit(EXIT_FAILURE);
-	executable = find_executable(token->token_cmd->cmd_str);
+	executable = find_executable(tokens->token_cmd->cmd_str);
 	if (!executable)
 	{
-		printf("command not found: %s\n", token->token_cmd->cmd_str);
+		dup2(STDERR_FILENO, STDOUT_FILENO);
+		printf("%s: command not found\n", tokens->token_cmd->cmd_str);
 		exit(127);
 	}
-	args = array_tokens(token);
-	if (execve(executable, args, get_tabenv()) == -1)
+	argv = array_tokens(tokens);
+	if (execve(executable, argv, get_tabenv()) == -1)
 	{
 		perror("execve");
-		free(args);
-		free(executable);
 		exit(EXIT_FAILURE);
 	}
-	free(args);
-	free(executable);
 }

@@ -143,12 +143,6 @@ t_tokens	**store_instruction(char *input)
 			if (!create_new_token(first_node, &node_token))
 				break ;
 		}
-		/* else if (*input == '>' || *input == '<')
-		{
-			input = parse_redirections(input, &node_token->token_arg);
-			if (!input)
-				return (clean_tokens(first_node), NULL);
-		} */
 	}
 	// parse_void_instruction(*first_node);
 	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);

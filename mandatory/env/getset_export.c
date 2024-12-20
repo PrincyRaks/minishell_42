@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 static char	***static_data_export(void)
 {
 	static char	**cst = NULL;

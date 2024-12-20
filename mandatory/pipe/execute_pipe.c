@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_memory.c                                      :+:      :+:    :+:   */
+/*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/16 12:15:00 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/12/19 10:49:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_array(char **array)
+void	execute_pipeline(t_tokens *tokens)
 {
-	int	i;
+	int		pipe_fd[2];
+	int		prev_fd;
+	pid_t	pid;
 
-	i = -1;
-	if (!array)
-		return ;
-	while (array[++i])
+	prev_fd = -1;
+	while (tokens)
 	{
-		if (array[i] != NULL)
-			free(array[i]);
+		if (tokens->next && pipe(pipe_fd) == -1)
+			exit_perror("pipe");
+		pid = fork();
+		if (pid == -1)
+			exit_perror("fork");
+		if (pid == 0)
+			handle_child(prev_fd, pipe_fd, tokens);
+		prev_fd = handle_parent(prev_fd, pipe_fd, tokens);
+		tokens = tokens->next;
 	}
-	free(array);
+	wait_for_children();
 }
