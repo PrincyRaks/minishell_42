@@ -64,6 +64,6 @@ int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 
 void	exit_perror(char *message)
 {
-    perror(message);
-    exit(EXIT_FAILURE);
+	perror(message);
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/19 10:16:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:01:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	is_only_dots(const char *command)
 	}
 	return (true);
 }
+
 char	*find_executable(char *command)
 {
 	char		*full_path;
@@ -36,7 +37,6 @@ char	*find_executable(char *command)
 	t_data_env	*path_exec;
 
 	i = 0;
-
 	if (is_only_dots(command))
 	{
 		printf("command not found: %s\n", command);

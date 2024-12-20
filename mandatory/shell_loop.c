@@ -12,44 +12,44 @@
 
 #include "minishell.h"
 
-static void handle_input(char *input)
+static void	handle_input(char *input)
 {
-    t_tokens **data_cmd;
+	t_tokens	**data_cmd;
 
-    if (*input)
-    {
-        add_history(input);
-        if (*input == '|')
-        {
-            printf(": syntax error near unexpected token `|'\n");
-            return ;
-        }
-        data_cmd = store_instruction(input);
-        if (data_cmd)
-        {
-            handle_command(*data_cmd);
-            clean_tokens(data_cmd);
-        }
-    }
+	if (*input)
+	{
+		add_history(input);
+		if (*input == '|')
+		{
+			printf(": syntax error near unexpected token `|'\n");
+			return ;
+		}
+		data_cmd = store_instruction(input);
+		if (data_cmd)
+		{
+			handle_command(*data_cmd);
+			clean_tokens(data_cmd);
+		}
+	}
 }
 
-static void process_input(void)
+static void	process_input(void)
 {
-    char *input;
+	char	*input;
 
-    set_signals_interactive();
-    input = readline(PROMPT);
-    if (!input)
-    {
-        write(STDOUT_FILENO, "exit\n", 5);
-        exit(0);
-    }
-    handle_input(input);
-    free(input);
+	set_signals_interactive();
+	input = readline(PROMPT);
+	if (!input)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
+	handle_input(input);
+	free(input);
 }
 
-void shell_loop(void)
+void	shell_loop(void)
 {
-    while (1)
-        process_input();
+	while (1)
+		process_input();
 }

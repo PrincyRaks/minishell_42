@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	dir_home()
+static int	dir_home(void)
 {
 	t_data_env	*home;
 
@@ -32,10 +32,10 @@ static int	dir_home()
 
 static int	safe_chdir(char *dir)
 {
-	int	status;
-	char		*error;
+	int		status;
+	char	*error;
 
-	status = chdir(dir)  == 0;
+	status = chdir(dir) == 0;
 	if (status)
 		return (0);
 	error = ft_strjoin(ft_strdup("cd: "), dir);
@@ -51,7 +51,6 @@ int	ft_cd(t_tokens *tokens)
 	int			len_arg;
 	char		cwd[PATH_MAX];
 	static char	*prev_dir = NULL;
-		
 
 	// if (!tokens)
 	// 	return (1);
@@ -65,10 +64,11 @@ int	ft_cd(t_tokens *tokens)
 		return (dir_home());
 	else
 	{
-		if (!ft_strcmp(tokens->token_arg->arg_str, "~") 
+		if (!ft_strcmp(tokens->token_arg->arg_str, "~")
 			|| !ft_strcmp(tokens->token_arg->arg_str, "--"))
 			return (dir_home());
-		else if (!ft_strcmp(tokens->token_arg->arg_str, "-") && prev_dir != NULL)
+		else if (!ft_strcmp(tokens->token_arg->arg_str, "-")
+			&& prev_dir != NULL)
 		{
 			printf("%s\n", prev_dir);
 			return (safe_chdir(prev_dir));

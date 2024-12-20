@@ -17,18 +17,18 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0' )
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
 		i++;
 	return (s1[i] - s2[i]);
 }
 
-char    *concat_str(char *prev_result, char *handle)
+char	*concat_str(char *prev_result, char *handle)
 {
-    char    *str;
+	char	*str;
 
-    str = ft_strjoin(prev_result, handle);
-    free(handle);
-    return (str);
+	str = ft_strjoin(prev_result, handle);
+	free(handle);
+	return (str);
 }
 
 char	*join_onespace(char *s1, char *s2)
@@ -53,4 +53,3 @@ char	*join_onespace(char *s1, char *s2)
 	free(s1);
 	return (new_s - len);
 }
-

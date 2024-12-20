@@ -84,8 +84,7 @@ static int	handle_arg_export(char *value, int type_arg)
 	}
 	else if (type_arg == -2 && !flag)
 	{
-		printf("export: %c%c: invalid option\n", *(value),
-			*(value + 1));
+		printf("export: %c%c: invalid option\n", *(value), *(value + 1));
 		return (2);
 	}
 	else
@@ -98,9 +97,9 @@ static int	handle_arg_export(char *value, int type_arg)
 
 int	ft_export(t_tokens *tokens)
 {
-	int	len_arg;
-	int	type_arg;
-	int	status;
+	int		len_arg;
+	int		type_arg;
+	int		status;
 	t_arg	*argv;
 
 	status = 0;
