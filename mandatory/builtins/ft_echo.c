@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:42:37 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 12:17:29 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:22:13 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

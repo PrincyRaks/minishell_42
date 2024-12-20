@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/20 10:12:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:25:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	store_token(t_tokens *node_token, char **input)
 		last_arg(node_token->token_arg)->arg_str = parsing;
 		return (node_token->errnum);
 	}
-	if (node_token->token_cmd->operand == VOIDTOKEN)
+	if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
 		mode_add = 1;
 	if (mode_add == 1)
 	{
