@@ -3,14 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/20 11:25:52 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:19:48 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
+{
+	int		i;
+	char	**data;
+	int		len_data;
+	t_arg	*arg_cmd;
+	t_arg	*first_arg;
+	(void)mode_add;
+	
+	if (!parsing || !token)
+		return ;
+	data = ft_split(parsing, ' ');
+	if (!data)
+		return ;
+	len_data = count_tab(data);
+	if (len_data <= 1)
+	{
+		free_array(data);
+		return ;
+	}
+	i = 0;
+	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
+		token->token_cmd->cmd_str = data[i++];
+	if (!token->token_arg)
+	{
+		token->token_arg = new_arg();
+		arg_cmd = token->token_arg;
+		first_arg = arg_cmd;
+	}
+	while (i < len_data)
+	{
+		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
+		{
+			arg_cmd->arg_str = data[i];
+			addback_arg(&first_arg, arg_cmd);
+		}
+		else if (arg_cmd == NULL)
+		{
+			arg_cmd = new_arg();
+			arg_cmd->arg_str = data[i];
+			addback_arg(&first_arg, arg_cmd);
+		}
+		arg_cmd = arg_cmd->next_arg;
+		i++;
+	}
+	// *mode_add = 2;
+}
 
 static int	store_token(t_tokens *node_token, char **input)
 {
@@ -26,6 +74,9 @@ static int	store_token(t_tokens *node_token, char **input)
 	parsing = parse_input(node_token, input, &mode_add);
 	if (!parsing)
 		return (node_token->errnum);
+	// commande in variable (3)
+	if (mode_add == 3)
+		store_cmd_var(node_token, parsing, &mode_add);
 	// arguments (2)
 	if (node_token->token_cmd != NULL && mode_add == 2 
 		&& node_token->token_cmd->operand == NOTOP && parsing != NULL)
@@ -39,7 +90,7 @@ static int	store_token(t_tokens *node_token, char **input)
 	}
 	if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
 		mode_add = 1;
-	if (mode_add == 1)
+	if (mode_add == 1 && parsing != NULL)
 	{
 		node_token->token_cmd->cmd_str = parsing;
 		mode_add = 2;
@@ -145,9 +196,9 @@ t_tokens	**store_instruction(char *input)
 		}
 	}
 	parse_void_instruction(*first_node);
-	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("Misy vide ve?: %d\n", is_void_instruction(*first_node));
-	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
+	printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("number of node: %d\n", count_token(*first_node));
 	// // printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);

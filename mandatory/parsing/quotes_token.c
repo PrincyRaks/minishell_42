@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/19 13:22:45 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/20 11:57:30 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*handle_doubquotes(char **qts, char **result, t_tokens *token)
 }
 
 static void	handle_var(char **input, char **result, t_tokens *token,
-		int mode_add)
+		int *mode_add)
 {
 	char	*expand;
 
@@ -58,7 +58,7 @@ static void	handle_var(char **input, char **result, t_tokens *token,
 	if (!ft_strlen(*result) && !expand && (**input == ' ' || **input == '\0'
 			|| **input == '|'))
 	{
-		if (mode_add == 1)
+		if (*mode_add == 1)
 			token->token_cmd->operand = VOIDTOKEN;
 		else
 			last_arg(token->token_arg)->operand = VOIDTOKEN;
@@ -66,6 +66,7 @@ static void	handle_var(char **input, char **result, t_tokens *token,
 	if (!expand)
 		expand = ft_calloc(1, sizeof(char));
 	*result = concat_str(*result, expand);
+	*mode_add = 3;
 }
 
 int	is_char(char c)
@@ -93,7 +94,7 @@ char	*parse_input(t_tokens *token, char **input, int *mode_add)
 			(*input)++;
 		}
 		if (**input == '$')
-			handle_var(input, &result, token, *mode_add);
+			handle_var(input, &result, token, mode_add);
 		if ((**input == '>' || **input == '<') && !handle_flow(token, input, mode_add))
 			return (NULL);
 	}
