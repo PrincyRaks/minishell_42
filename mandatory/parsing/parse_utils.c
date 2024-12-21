@@ -18,7 +18,7 @@ void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
 	char	**data;
 	int		len_data;
 	t_arg	*arg_cmd;
-	t_arg	*first_arg;
+	t_arg	**first_arg;
 	(void)mode_add;
 	
 	if (!parsing || !token)
@@ -27,7 +27,7 @@ void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
 	if (!data)
 		return ;
 	len_data = count_tab(data);
-	if (len_data <= 1)
+	if (len_data <= 0)
 	{
 		free_array(data);
 		return ;
@@ -35,29 +35,21 @@ void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
 	i = 0;
 	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
 		token->token_cmd->cmd_str = data[i++];
-	if (!token->token_arg)
-	{
-		token->token_arg = new_arg();
-		arg_cmd = token->token_arg;
-		first_arg = arg_cmd;
-	}
+	first_arg = &token->token_arg;
+	arg_cmd = token->token_arg;
 	while (i < len_data)
 	{
 		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
 		{
 			arg_cmd->arg_str = data[i];
-			addback_arg(&first_arg, arg_cmd);
+			addback_arg(first_arg, arg_cmd);
+			arg_cmd = arg_cmd->next_arg;
+			i++;
 		}
-		else if (arg_cmd == NULL)
-		{
+		if (!arg_cmd)
 			arg_cmd = new_arg();
-			arg_cmd->arg_str = data[i];
-			addback_arg(&first_arg, arg_cmd);
-		}
-		arg_cmd = arg_cmd->next_arg;
-		i++;
 	}
-	// *mode_add = 2;
+	*mode_add = 2;
 }
 
 static int	store_token(t_tokens *node_token, char **input)
@@ -76,7 +68,10 @@ static int	store_token(t_tokens *node_token, char **input)
 		return (node_token->errnum);
 	// commande in variable (3)
 	if (mode_add == 3)
+	{
 		store_cmd_var(node_token, parsing, &mode_add);
+		return (node_token->errnum);
+	}
 	// arguments (2)
 	if (node_token->token_cmd != NULL && mode_add == 2 
 		&& node_token->token_cmd->operand == NOTOP && parsing != NULL)
@@ -196,9 +191,8 @@ t_tokens	**store_instruction(char *input)
 		}
 	}
 	parse_void_instruction(*first_node);
-	printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
-	// printf("Misy vide ve?: %d\n", is_void_instruction(*first_node));
-	printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
+	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	// printf("number of node: %d\n", count_token(*first_node));
 	// // printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
