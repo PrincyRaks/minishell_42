@@ -43,6 +43,7 @@ typedef enum e_errnum
 	DEFAULT,
 	UNQUOTES,
 	ERRFLOW,
+	ERRPIPE,
 }						t_errnum;
 
 typedef enum e_operator
@@ -192,8 +193,8 @@ void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 
 // Redirections
-// char *parse_redirections(char *input, t_arg **args);
-// int handle_redirections(t_arg *args);
+int     check_errflow(t_flow *flow);
+void    execute_redirection(t_flow *flows);
 
 // Signals
 void	signal_reset_prompt(int signo);

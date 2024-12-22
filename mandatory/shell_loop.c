@@ -27,8 +27,10 @@ static void	handle_input(char *input)
 		data_cmd = store_instruction(input);
 		if (data_cmd)
 		{
-			handle_command(*data_cmd);
-			clean_tokens(data_cmd);
+			if ((*data_cmd)->token_flow != NULL)
+				execute_redirection((*data_cmd)->token_flow);
+			// handle_command(*data_cmd);
+			// clean_tokens(data_cmd);
 		}
 	}
 }

@@ -183,7 +183,10 @@ t_tokens	**store_instruction(char *input)
 				while (new_input && *new_input == '\0')
 					new_input = readline("> ");
 				if (!new_input)
-					return (clean_tokens(first_node), NULL);
+				{
+					clean_tokens(first_node);
+					return (NULL);
+				}
 				input = new_input;
 			}
 			if (!create_new_token(first_node, &node_token))
