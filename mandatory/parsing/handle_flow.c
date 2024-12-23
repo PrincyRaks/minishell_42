@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_flow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/19 11:52:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:25:07 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	check_operand(char **str)
 	if (nb_op == 1)
 	{
 		if (*(*str - i) == '>')
-			return (INPUT);
-		return (OUTPUT);
+			return (OUTPUT);
+		return (INPUT);
 	}
 	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
 		return (HEREDOC);

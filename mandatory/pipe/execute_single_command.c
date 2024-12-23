@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 10:41:01 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/23 14:57:06 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	execute_single_command(t_tokens *tokens)
 		exit(127);
 	}
 	argv = array_tokens(tokens);
+	if (tokens->token_flow)
+	{
+		ft_putstr_fd(tokens->token_flow->word, 1);
+	}
 	if (execve(executable, argv, get_tabenv()) == -1)
 	{
 		perror("execve");
