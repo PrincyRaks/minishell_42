@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 21:16:39 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 16:47:54 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:09:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	handle_command(t_tokens *data_cmd)
 {
 	int	nb_builtin;
 
+	// verifier si redirection existe
 	if (is_invalid_command(data_cmd))
 		return ;
 	if (is_only_dots(data_cmd->token_cmd->cmd_str))

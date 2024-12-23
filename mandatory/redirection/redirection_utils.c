@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:12:44 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/22 13:15:42 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:17:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     check_errflow(t_flow *flow)
 }
 
 // pour un flow
-// void    execute_typeflow(t_flow  *flows)
+// void    execute_typeflow(t_flow  *flows, t_token *token)
 // {
 //     while (flows != NULL)
 //     {
@@ -46,11 +46,12 @@ int     check_errflow(t_flow *flow)
 // }
 
 // pour un token
-void    execute_redirection(t_flow *flows)
+void    execute_redirection(t_tokens *token)
 {
+    t_flow  *flows;
     // t_flow  *first_flow;
 
-    if (!flows)
+    if (!token || !token->token_flow)
         return ;
     // first_flow = flows;
     if (check_errflow(flows))

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/20 11:10:16 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:17:21 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void					execute_pipeline(t_tokens *tokens);
 
 // Redirections
 int     check_errflow(t_flow *flow);
-void    execute_redirection(t_flow *flows);
+// void    execute_typeflow(t_flow  *flows, t_token *token);
 
 // Signals
 void	signal_reset_prompt(int signo);
