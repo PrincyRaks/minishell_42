@@ -17,16 +17,19 @@ void    open_heredoc(t_flow  *flow)
 {
     char    *delimiter;
     char    *input_hd;
+    // int     fd;
 
-    if (!flow || !flow->word && flow->operand != HEREDOC)
+    if ((!flow || !flow->word) && flow->operand != HEREDOC)
         return ;
     delimiter = flow->word;
     input_hd = NULL;
-    while (ft_strcmp(delimiter, input_hd) != 0 || (input_hd && *input_hd == '\0'))
+    // fd = open();
+    while (!input_hd || (input_hd && *input_hd == '\0') || ft_strcmp(delimiter, input_hd) != 0)
     {
-        input_hd = readline("heredoc > ");
+        input_hd = readline("heredoc► ");
         if (!input_hd)
             return ;
+        // handle quotes and var
         printf("%s\n", input_hd);
     }
 }

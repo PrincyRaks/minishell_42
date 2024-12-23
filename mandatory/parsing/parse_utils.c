@@ -12,14 +12,13 @@
 
 #include "minishell.h"
 
-void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
+void	store_cmd_var(t_tokens *token, char *parsing)
 {
 	int		i;
 	char	**data;
 	int		len_data;
 	t_arg	*arg_cmd;
 	t_arg	**first_arg;
-	(void)mode_add;
 	
 	if (!parsing || !token)
 		return ;
@@ -49,7 +48,6 @@ void	store_cmd_var(t_tokens *token, char *parsing, int *mode_add)
 		if (!arg_cmd)
 			arg_cmd = new_arg();
 	}
-	*mode_add = 2;
 }
 
 static int	store_token(t_tokens *node_token, char **input)
@@ -69,7 +67,7 @@ static int	store_token(t_tokens *node_token, char **input)
 	// commande in variable (3)
 	if (mode_add == 3)
 	{
-		store_cmd_var(node_token, parsing, &mode_add);
+		store_cmd_var(node_token, parsing);
 		return (node_token->errnum);
 	}
 	// arguments (2)

@@ -29,7 +29,7 @@ int     check_errflow(t_flow *flow)
 }
 
 // pour un flow
-// void    execute_typeflow(t_flow  *flows, t_token *token)
+// void    execute_typeflow(t_flow  *flows, t_tokens *token)
 // {
 //     while (flows != NULL)
 //     {
@@ -54,6 +54,7 @@ void    execute_redirection(t_tokens *token)
     if (!token || !token->token_flow)
         return ;
     // first_flow = flows;
+    flows = token->token_flow;
     if (check_errflow(flows))
     {
         print_errnum(ERRFLOW);
@@ -69,8 +70,8 @@ void    execute_redirection(t_tokens *token)
     }
     else if (flows != NULL && flows->operand == HEREDOC)
     {
-        printf("misy heredoc\n");
-        // open_heredoc
+        // printf("misy heredoc\n");
+        open_heredoc(flows);
         if (flows->next_flow != NULL)
             printf("bola mitohy apres heredoc\n");
             // recurssive of function execute_redirection avec argument flows->next_flow 

@@ -36,7 +36,7 @@
 
 
 # define SYNTAX_ERROR 1
-# define PROMPT "👾 > "
+# define PROMPT "👾# "
 
 typedef enum e_errnum
 {
@@ -194,7 +194,9 @@ void					execute_pipeline(t_tokens *tokens);
 
 // Redirections
 int     check_errflow(t_flow *flow);
-// void    execute_typeflow(t_flow  *flows, t_token *token);
+// void    execute_typeflow(t_flow  *flows, t_tokens *token);
+void    open_heredoc(t_flow  *flow);
+void    execute_redirection(t_tokens *token);
 
 // Signals
 void	signal_reset_prompt(int signo);
