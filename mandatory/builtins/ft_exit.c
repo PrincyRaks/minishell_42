@@ -14,20 +14,36 @@
 
 int	is_numeric(const char *str)
 {
+	int	flag;
+
+	flag = 0;
 	if (!str || *str == '\0')
 		return (0);
-	if (*str == '+' || *str == '-')
-		str++;
 	while (*str)
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(*str) && !ft_isspace(*str) && *str != '+' && *str != '-')
 			return (0);
-		str++;
+		while (ft_isspace(*str))
+			str++;
+		if (*str == '+' || *str == '-')
+		{
+			if (!ft_isdigit(*(str + 1)))
+				return (0);
+			str++;
+		}
+		if (ft_isdigit(*str))
+			flag++;
+		while (ft_isdigit(*str))
+		{
+			if (flag > 1)
+				return (0);
+			str++;
+		}
 	}
 	return (1);
 }
 
-static int	check_range(const char *str, long long *res)
+static int	check_range(const char *str, long long *n_exit)
 {
 	int	i;
 	int	negative;
@@ -36,15 +52,18 @@ static int	check_range(const char *str, long long *res)
 	i = str[0] == '-' || str[0] == '+';
 	while (str[i] != '\0')
 	{
-		if (*res > 922337203685477580)
-			return (*res = 0);
-		else if (!negative && *res == 922337203685477580 && (str[i] - '0')
+		while (ft_isspace(str[i]))
+			i++;
+		if (*n_exit > 922337203685477580)
+			return (*n_exit = 0);
+		else if (!negative && *n_exit == 922337203685477580 && (str[i] - '0')
 			% 10 > 7)
-			return (*res = 0);
-		else if (negative && *res == 922337203685477580 && (str[i] - '0')
+			return (*n_exit = 0);
+		else if (negative && *n_exit == 922337203685477580 && (str[i] - '0')
 			% 10 > 8)
-			return (*res = 0);
-		*res = *res * 10 + (str[i] - '0');
+			return (*n_exit = 0);
+		if (ft_isdigit(str[i]))
+			*n_exit = *n_exit * 10 + (str[i] - '0');
 		i++;
 	}
 	return (1);

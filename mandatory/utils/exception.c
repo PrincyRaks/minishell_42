@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:26:56 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/11 09:31:51 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/22 11:31:01 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ t_errnum	check_errnum(t_tokens *token)
 
 void    print_errnum(t_errnum numerr)
 {
-    if (numerr == UNQUOTES)
+	if (numerr == DEFAULT)
+		return ;
+    else if (numerr == UNQUOTES)
         ft_putstr_fd("Error: unclosed quotes\n", 2);
+	else if (numerr == ERRFLOW)
+		ft_putstr_fd("syntax error near unexpected token `redirection'\n", 2);
+	else
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 }
