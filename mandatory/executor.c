@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/24 13:06:13 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/24 16:26:34 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ char *find_executable(char *command)
 
     if (is_only_dots(command))
     {
-        write(STDERR_FILENO, command, ft_strlen(command));
-        write(STDERR_FILENO, ": command not found\n", 20);
+        ft_putstr_fd(command, 2);
+		ft_putstr_fd(": command not found\n", 2);
         return (NULL);
     }
     if (command[0] == '/' || command[0] == '.')
@@ -52,8 +52,8 @@ char *find_executable(char *command)
         }
         if (access(command, X_OK) != 0)
         {
-            write(STDERR_FILENO, command, ft_strlen(command));
-            write(STDERR_FILENO, ": Permission denied\n", 20);
+            ft_putstr_fd(command, 2);
+			ft_putstr_fd(": Permission denied \n", 2);
             return (NULL);
         }
         return (ft_strdup(command));
@@ -78,8 +78,8 @@ char *find_executable(char *command)
     }
     if (paths)
         free_array(paths);
-    write(STDERR_FILENO, command, ft_strlen(command));
-    write(STDERR_FILENO, ": command not found\n", 20);
+    // write(STDERR_FILENO, command, ft_strlen(command));
+    // write(STDERR_FILENO, "eto ngamba: command not found\n", 20);
     return (NULL);
 }
 
