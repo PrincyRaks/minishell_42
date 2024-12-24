@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:33:33 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 16:45:32 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/23 20:24:46 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,24 @@ void	wait_for_children(void)
 		;
 }
 
-void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
+void handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
-	setup_pipe(prev_fd, pipe_fd, tokens);
-    if (is_builtin(tokens->token_cmd->cmd_str))
-    {
+    setup_pipe(prev_fd, pipe_fd, tokens);
+
+    if (apply_redirection(tokens) == -1) {
+        fprintf(stderr, "Error in redirection\n");
+        exit(1);
+    }
+
+    if (is_builtin(tokens->token_cmd->cmd_str)) {
         execute_builtin(tokens, is_builtin(tokens->token_cmd->cmd_str));
         exit(0);
+    } else {
+        execute_single_command(tokens);
     }
-    else
-	    execute_single_command(tokens);
-	exit(127);
+    exit(127);
 }
+
 
 int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
