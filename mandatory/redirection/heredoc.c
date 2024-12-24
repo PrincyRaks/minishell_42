@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/22 11:13:25 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/24 10:45:39 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//  refa le << iny le token_flow zay mande ty !
+//  check delimiter if quotes exist "" or ''
 void    open_heredoc(t_flow  *flow)
 {
     char    *delimiter;
