@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/23 16:25:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:03:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	check_operand(char **str)
         (*str)++;
         i++;
 	}
+	while (**str == ' ')
+		(*str)++;
 	if (nb_op >= 3 || nb_op <= 0)
 		return (-1);
 	if (nb_op == 1)
@@ -80,3 +82,4 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add)
 	}
 	return (1);
 }
+

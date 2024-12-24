@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 21:16:39 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/24 06:33:55 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:14:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,47 @@ void	handle_external_command(t_tokens *data_cmd)
 		printf("%s: command not found\n", data_cmd->token_cmd->cmd_str);
 }
 
-void restore_stdio(int saved_stdin, int saved_stdout)
+void	restore_stdio(int saved_stdin, int saved_stdout)
 {
-    dup2(saved_stdin, STDIN_FILENO);
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdin);
-    close(saved_stdout);
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 }
 
 void handle_command(t_tokens *data_cmd)
 {
-    int saved_stdin = dup(STDIN_FILENO);
-    int saved_stdout = dup(STDOUT_FILENO);
+    // int saved_stdin = dup(STDIN_FILENO);
+    // int saved_stdout = dup(STDOUT_FILENO);
+    int nb_builtin;
+    //char *executable_path;
 
-    if (apply_redirection(data_cmd) == -1) {
-        fprintf(stderr, "Redirection error\n");
-        goto restore;
-    }
-    if (is_invalid_command(data_cmd)) {
-        goto restore;
-    }
-    if (is_only_dots(data_cmd->token_cmd->cmd_str)) {
-        handle_dots_command(data_cmd);
-    } else {
-        int nb_builtin = is_builtin(data_cmd->token_cmd->cmd_str);
-        if (nb_builtin > 0 && !data_cmd->next) {
-            execute_builtin(data_cmd, nb_builtin);
-        } else if (data_cmd->next) {
-            execute_pipeline(data_cmd);
-        } else {
-            handle_external_command(data_cmd);
-        }
-    }
+    // if (apply_redirection(data_cmd) == -1)
+    // {
+    //     restore_stdio(saved_stdin, saved_stdout);
+    //     return;
+    // }
+    // if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
+    // {
+    //     restore_stdio(saved_stdin, saved_stdout);
+    //     return;
+    // }
+    // executable_path = find_executable(data_cmd->token_cmd->cmd_str);
+    // if (!executable_path) 
+    // {
+    //     restore_stdio(saved_stdin, saved_stdout);
+    //     return;
+    // }
+    nb_builtin = is_builtin(data_cmd->token_cmd->cmd_str);
+    if (nb_builtin > 0 && !data_cmd->next)
+        execute_builtin(data_cmd, nb_builtin);
+    else if (data_cmd->next)
+        execute_pipeline(data_cmd);
+    else
+        handle_external_command(data_cmd);
 
-restore:
-    dup2(saved_stdin, STDIN_FILENO);
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdin);
-    close(saved_stdout);
+    // free(executable_path);
+    // restore_stdio(saved_stdin, saved_stdout);
 }
 
 
