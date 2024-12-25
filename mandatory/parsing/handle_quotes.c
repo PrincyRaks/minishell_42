@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 13:19:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/01 15:14:44 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/24 23:07:22 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*expand_dollar(char **start, int *len_str, char **start_dollar)
 	return (str);
 }
 
-char	*remove_doubquotes(char **qts)
+char	*remove_doubquotes(char **qts, int is_expand)
 {
 	int		len;
 	int		is_close;
@@ -42,11 +42,11 @@ char	*remove_doubquotes(char **qts)
 	result = ft_calloc(1, sizeof(char));
 	while (is_close < 2)
 	{
-		if (**qts == '$')
+		if (**qts == '$' && is_expand)
 			result = concat_str(result, expand_dollar(&start, &len, qts));
 		if (**qts == '"')
 			is_close++;
-		if (**qts != '"' && **qts != '$')
+		if (**qts != '"' && !is_expand)
 			len++;
 		if (is_close == 1 && **qts == '\0')
 			return (NULL);

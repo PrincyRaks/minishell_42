@@ -43,6 +43,8 @@ typedef enum e_errnum
 	DEFAULT,
 	UNQUOTES,
 	ERRFLOW,
+// $notexist: ambiguous redirect
+	AMBIGUOUS,
 	ERRPIPE,
 }						t_errnum;
 
@@ -83,6 +85,7 @@ typedef struct s_flow
 {
 	char				*word;
 	t_operator			operand;
+	t_operator			typevoid;
 	struct s_flow		*next_flow;
 }						t_flow;
 
@@ -117,7 +120,7 @@ char					*find_executable(char *command);
 t_tokens				**store_instruction(char *input);
 char					*parse_input(t_tokens *token, char **input, int *mode_add);
 char					*remove_onequotes(char **start_quotes);
-char					*remove_doubquotes(char **start_quotes);
+char	*remove_doubquotes(char **qts, int is_expand);
 t_tokens				**store_instruction(char *input);
 void					addback_arg(t_arg **first_arg, t_arg *node_arg);
 t_tokens				*new_token(void);
@@ -138,10 +141,10 @@ t_flow					*new_flow(void);
 t_flow					*last_flow(t_flow *flows);
 void					addback_flow(t_flow **first_flow, t_flow *node_flow);
 void					clean_flows(t_flow **lst);
-int	is_char(char c);
+int		is_valid_char(char c);
 char	*handle_onequotes(char **qts, char **result, t_tokens *token);
-char	*handle_doubquotes(char **qts, char **result, t_tokens *token);
-int		handle_flow(t_tokens *token, char **input, int *mode_add);
+char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int *is_expand);
+int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);
@@ -187,6 +190,7 @@ void	wait_for_children(void);
 void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens);
 int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens);
 void	exit_perror(char *message);
+
 
 // Pipe
 void					execute_single_command(t_tokens *token);

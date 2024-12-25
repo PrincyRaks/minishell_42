@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-static int	check_operand(char **str)
+static int	check_operand(char **str, int *is_expand)
 {
-	int	nb_op;
     int i;
+	int	nb_op;
 
 	if (!str && !*str)
 		return (-1);
-	nb_op = 0;
     i = 0;
+	nb_op = 0;
 	while (**str == ' ' || **str == '<' || **str == '>')
 	{
 		if (**str == '<' || **str == '>')
@@ -28,6 +28,8 @@ static int	check_operand(char **str)
         (*str)++;
         i++;
 	}
+	if (**str == '\0')
+		return (-1);
 	if (nb_op >= 3 || nb_op <= 0)
 		return (-1);
 	if (nb_op == 1)
@@ -37,7 +39,10 @@ static int	check_operand(char **str)
 		return (OUTPUT);
 	}
 	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
+	{
+		*is_expand = 0;
 		return (HEREDOC);
+	}
 	if (*(*str - i) == '>' && *(*str - (i - 1)) == '>')
 		return (APPEND);
 	return (-1);
@@ -59,7 +64,7 @@ static void	store_operator(t_flow **node_flow, int operator)
 	addback_flow(node_flow, new);
 }
 
-int	handle_flow(t_tokens *token, char **input, int *mode_add)
+int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand)
 {
 	int	operand;
 
@@ -67,7 +72,7 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add)
 		return (0);
 	if (**input == '>' || **input == '<')
 	{
-		operand = check_operand(input);
+		operand = check_operand(input, is_expand);
 		if (operand < 0)
 		{
 			token->errnum = ERRFLOW;

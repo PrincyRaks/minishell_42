@@ -54,6 +54,7 @@ static int	store_token(t_tokens *node_token, char **input)
 {
 	static int	mode_add = 1;
 	char		*parsing;
+	t_flow		*last_redir;
 
 	// commandes (1)
 	if (!node_token->token_cmd)
@@ -91,7 +92,8 @@ static int	store_token(t_tokens *node_token, char **input)
 	// redirections (4)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
 	{
-		last_flow(node_token->token_flow)->word = parsing;
+		last_redir = last_flow(node_token->token_flow);
+		last_redir->word = parsing;
 		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str == NULL 
 			|| node_token->token_cmd->operand == VOIDTOKEN))
 			mode_add = 1;
@@ -164,6 +166,7 @@ t_tokens	**store_instruction(char *input)
 			input++;
 		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
+			// stop minishell print error num and clean all allocations
 			if (store_token(node_token, &input) != DEFAULT)
 			{
 				printf("Erreur minishell: %d\n", node_token->errnum);

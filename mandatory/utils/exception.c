@@ -36,6 +36,8 @@ void    print_errnum(t_errnum numerr)
         ft_putstr_fd("Error: unclosed quotes\n", 2);
 	else if (numerr == ERRFLOW)
 		ft_putstr_fd("syntax error near unexpected token `redirection'\n", 2);
-	else
+	else if (numerr == ERRPIPE)
 		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+	else
+		ft_putstr_fd("ambiguous redirect\n", 2);
 }
