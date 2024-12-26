@@ -4,6 +4,7 @@ CC= cc
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
 	   mandatory/handle_command/handle_command_utils.c \
+	   mandatory/handle_command/handle_command_utils2.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \

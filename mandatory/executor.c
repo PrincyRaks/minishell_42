@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/24 16:26:34 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:57:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ bool	is_only_dots(const char *command)
 	if (!command || command[0] == '\0')
 		return (false);
 	i = 0;
-	while (command[i])
-	{
-		if (command[i] != '.')
-			return (false);
-		i++;
-	}
-	return (true);
+    while (command[i])
+    {
+        if (command[i] != '.')
+            return (false);
+        i++;
+    }
+    return (true);
 }
 
 char *find_executable(char *command)
@@ -37,26 +37,12 @@ char *find_executable(char *command)
     t_data_env *path_exec;
 
     if (is_only_dots(command))
-    {
-        ft_putstr_fd(command, 2);
-		ft_putstr_fd(": command not found\n", 2);
         return (NULL);
-    }
     if (command[0] == '/' || command[0] == '.')
     {
-        if (access(command, F_OK) != 0)
-        {
-			ft_putstr_fd(command, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-            return (NULL);
-        }
-        if (access(command, X_OK) != 0)
-        {
-            ft_putstr_fd(command, 2);
-			ft_putstr_fd(": Permission denied \n", 2);
-            return (NULL);
-        }
-        return (ft_strdup(command));
+        if (access(command, F_OK | X_OK) == 0)
+            return (ft_strdup(command));
+        return (NULL);
     }
     paths = NULL;
     path_exec = ft_getenv("PATH");
@@ -68,7 +54,7 @@ char *find_executable(char *command)
         path_tmp = ft_strdup(paths[i]);
         full_path = ft_strjoin(path_tmp, "/");
         full_path = ft_strjoin(full_path, command);
-        if (access(full_path, F_OK) == 0 && access(full_path, X_OK) == 0)
+        if (access(full_path, F_OK | X_OK) == 0)
         {
             free_array(paths);
             return (full_path);
@@ -78,8 +64,5 @@ char *find_executable(char *command)
     }
     if (paths)
         free_array(paths);
-    // write(STDERR_FILENO, command, ft_strlen(command));
-    // write(STDERR_FILENO, "eto ngamba: command not found\n", 20);
     return (NULL);
 }
-

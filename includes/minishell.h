@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/24 12:53:40 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:03:37 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_tokens
 void					shell_loop(void);
 
 // Handle Command
-void	handle_dots_command(t_tokens *data_cmd);
 void handle_child_process(char *executable, t_tokens *data_cmd);
 void handle_parent_process(pid_t pid);
 void execute_external_command(char *executable, t_tokens *data_cmd);
