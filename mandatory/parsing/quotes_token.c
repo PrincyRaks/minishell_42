@@ -12,118 +12,80 @@
 
 #include "minishell.h"
 
-char	*handle_onequotes(char **qts, char **result, t_tokens *token)
+static char	*expand_heredocvar(char **input, char *result)
 {
-	char	*trim;
+	size_t	len_res;
 
-	trim = remove_onequotes(qts);
-	if (!trim)
-	{
-		free(trim);
-		free(*result);
-		token->errnum = UNQUOTES;
-		return (NULL);
-	}
-	*result = concat_str(*result, trim);
-	return (*result);
-}
-
-char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int *is_expand)
-{
-	char	*trim;
-
-	trim = remove_doubquotes(qts, *is_expand);
-	if (!trim)
-	{
-		free(trim);
-		free(*result);
-		token->errnum = UNQUOTES;
-		return (NULL);
-	}
-	*result = concat_str(*result, trim);
-	return (*result);
-}
-
-static void	handle_var(char **input, char **result, t_tokens *token,
-		int *mode_add)
-{
-	char	*expand;
-
+	len_res = ft_strlen(result);
 	if (*(*input + 1) == '"' || *(*input + 1) == '\'')
 	{
+		len_res = count_dollar(result);
+		if (len_res > 0 && *(*input - 1) == '$')
+		{
+			free(result);
+			result = dupnb_dollar(len_res + 1);
+		}
 		(*input)++;
-		return ;
 	}
-	expand = handle_dollar(input);
-	if (!ft_strlen(*result) && !expand && (**input == ' ' || **input == '\0'
-			|| **input == '|'))
+	if (**input != '"' && **input != '\'')
 	{
-		if (*mode_add == 1)
-			token->token_cmd->operand = VOIDTOKEN;
-		else if (*mode_add == 2)
-			last_arg(token->token_arg)->operand = VOIDTOKEN;
-		else
-			token->errnum = AMBIGUOUS;
+		result = concat_str(result, ft_substr(*input, 0, 1));
+		(*input)++;
 	}
-	if (!expand)
-		expand = ft_calloc(1, sizeof(char));
-	*result = concat_str(*result, expand);
-	if (*mode_add != 4)
-		*mode_add = 3;
+	return (result);
 }
 
-int	is_valid_char(char c)
+static void	setfull_element(t_tokens *token, int mode, char *res)
 {
-	return (c != '"' && c != '\'' && c != '\0' 
-	&& c != '$' && c != ' ' && c != '>' && c != '<');
+	size_t	len_res;
+	t_arg	*end_arg;
+
+	len_res = ft_strlen(res);
+	end_arg = last_arg(token->token_arg);
+	printf("mode:%d operand: %d len: %zu\n", mode, token->token_cmd->operand, len_res);
+	if (mode == 1 && token->token_cmd->operand == VOIDTOKEN && len_res > 0)
+		token->token_cmd->operand = NOTOP;
+	else if (token->token_arg != NULL && mode == 2 && end_arg->operand == VOIDTOKEN 
+			&& len_res > 0)
+		end_arg->operand = NOTOP;
 }
 
-char	*parse_input(t_tokens *token, char **input, int *mode_add)
+char	**parse_specific(char  **str, char **res, t_tokens *token, int is_expand)
+{
+	if (**str == '"' && !handle_doubquotes(str, res, token, is_expand))
+		return (NULL);
+	if (**str == '\'' && !handle_onequotes(str, res, token))
+		return (NULL);
+	if (valid_char(**str))
+		append_char(str, res);
+	return (res);
+}
+
+char	*parse_input(t_tokens *token, char **input, int *mode)
 {
 	char	*result;
 	int		is_expand;
 
-	if (!token)
-		return (NULL);
-	result = ft_calloc(1, sizeof(char));
 	is_expand = 1;
-	while (**input != ' ' && **input != '\0' && **input != '|' && token->errnum == DEFAULT)
+	result = ft_calloc(1, sizeof(char));
+	while(valid_token(token, **input))
 	{
-		// gérer double quotes
-		if (**input == '"' && !handle_doubquotes(input, &result, token, &is_expand))
-			return (NULL);
-		// gérer un seule quotes
-		if (**input == '\'' && !handle_onequotes(input, &result, token))
-			return (NULL);
-		// caractere normal de atao join tsikelikely
-		if (is_valid_char(**input))
-		{
-			result = concat_str(result, ft_substr(*input, 0, 1));
-			(*input)++;
-		}
-		// si dollar mila jerena oe expandable ve : expandable raha tsy misy HEREDOC eo aloha sinon expand
+		if ((**input == '"' || **input == '\'' || valid_char(**input)) 
+			&& !parse_specific(input, &result, token, is_expand))
+			return(NULL);
 		if (**input == '$')
 		{
 			if (is_expand)
-				handle_var(input, &result, token, mode_add);
-			else
-			{
-				result = concat_str(result, ft_substr(*input, 0, 1));
-				(*input)++;
-			}
+				handle_var(input, &result, token, mode);
+			else if (!is_expand && **input == '$')
+				result = expand_heredocvar(input, result);
 		}
-		// raha nisy cmd na arg avant operateur na vide "\0" anaty flow de stocke-na aloha
-		if ((ft_strlen(result) > 0 || *mode_add == 4) && (**input == '>' || **input == '<'))
+		if ((ft_strlen(result) > 0 || *mode == 4) && valid_redir(**input))
 			return (result);
-		// raha misy operateur de ajouter le operateur en créant un flow
-		if ((**input == '>' || **input == '<') && !handle_flow(token, input, mode_add, &is_expand))
+		if (valid_redir(**input) 
+			&& !handle_flow(token, input, mode, &is_expand))
 			return (free(result), NULL);
 	}
-	// averina ts vide ny cmd na arguments
-	if (*mode_add == 1 && token->token_cmd->operand == VOIDTOKEN && ft_strlen(result) > 0)
-		token->token_cmd->operand = NOTOP;
-	else if (token->token_arg != NULL && *mode_add == 2 && last_arg(token->token_arg)->operand == VOIDTOKEN
-		&& ft_strlen(result) > 0)
-		last_arg(token->token_arg)->operand = NOTOP;
+	setfull_element(token, *mode, result);
 	return (result);
 }

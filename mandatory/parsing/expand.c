@@ -12,17 +12,19 @@
 
 #include "minishell.h"
 
-static int	count_dollar(char *dollar)
+int	count_dollar(char *dollar)
 {
 	int	i;
 
 	i = 0;
+	while (dollar[i] != '$' && dollar[i] != '\0')
+		i++;
 	while (dollar[i] == '$')
 		i++;
 	return (i);
 }
 
-static char	*dupnb_dollar(int nb_dollar)
+char	*dupnb_dollar(int nb_dollar)
 {
 	char	*str;
 
@@ -95,7 +97,7 @@ char	*handle_dollar(char **var)
 	result = dupnb_dollar(nb_dollar - 1);
 	*var = *var + nb_dollar;
 	extend = expand(var);
-	if (!extend)
+	if (!extend && !*result)
 		return (NULL);
 	result = concat_str(result, extend);
 	return (result);

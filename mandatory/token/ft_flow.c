@@ -34,7 +34,6 @@ t_flow	*new_flow(void)
 		return (NULL);
 	flow->word = NULL;
 	flow->operand = NOTOP;
-	flow->typevoid = OUTQUOTES;
 	flow->next_flow = NULL;
 	return (flow);
 }

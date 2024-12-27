@@ -12,13 +12,36 @@
 
 #include "minishell.h"
 
-void	store_cmd_var(t_tokens *token, char *parsing)
+void	set_array_element(t_tokens *token, char **data, int len_data)
 {
 	int		i;
-	char	**data;
-	int		len_data;
 	t_arg	*arg_cmd;
 	t_arg	**first_arg;
+
+	i = 0;
+	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
+		token->token_cmd->cmd_str = data[i++];
+	first_arg = &token->token_arg;
+	if (!token->token_arg)
+		arg_cmd = new_arg();
+	while (i < len_data)
+	{
+		if (!arg_cmd)
+			arg_cmd = new_arg();
+		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
+		{
+			arg_cmd->arg_str = data[i];
+			addback_arg(first_arg, arg_cmd);
+			arg_cmd = arg_cmd->next_arg;
+			i++;
+		}
+	}
+}
+
+void	store_var_element(t_tokens *token, char *parsing)
+{
+	char	**data;
+	int		len_data;
 	
 	if (!parsing || !token)
 		return ;
@@ -31,23 +54,7 @@ void	store_cmd_var(t_tokens *token, char *parsing)
 		free_array(data);
 		return ;
 	}
-	i = 0;
-	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
-		token->token_cmd->cmd_str = data[i++];
-	first_arg = &token->token_arg;
-	arg_cmd = token->token_arg;
-	while (i < len_data)
-	{
-		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
-		{
-			arg_cmd->arg_str = data[i];
-			addback_arg(first_arg, arg_cmd);
-			arg_cmd = arg_cmd->next_arg;
-			i++;
-		}
-		if (!arg_cmd)
-			arg_cmd = new_arg();
-	}
+	set_array_element(token, data, len_data);
 }
 
 static int	store_token(t_tokens *node_token, char **input)
@@ -68,7 +75,7 @@ static int	store_token(t_tokens *node_token, char **input)
 	// commande in variable (3)
 	if (mode_add == 3)
 	{
-		store_cmd_var(node_token, parsing);
+		store_var_element(node_token, parsing);
 		return (node_token->errnum);
 	}
 	// arguments (2)
@@ -82,12 +89,13 @@ static int	store_token(t_tokens *node_token, char **input)
 		last_arg(node_token->token_arg)->arg_str = parsing;
 		return (node_token->errnum);
 	}
-	if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
-		mode_add = 1;
+	// if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
+	// 	mode_add = 1;
 	if (mode_add == 1 && parsing != NULL)
 	{
 		node_token->token_cmd->cmd_str = parsing;
-		mode_add = 2;
+		if (node_token->token_cmd->operand != VOIDTOKEN && mode_add != 4)
+			mode_add = 2;
 	}
 	// redirections (4)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
@@ -195,12 +203,14 @@ t_tokens	**store_instruction(char *input)
 		}
 	}
 	parse_void_instruction(*first_node);
-	// printf("cmd: %s\n", (*first_node)->token_cmd->cmd_str);
+	printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
-	// printf("number of node: %d\n", count_token(*first_node));
-	// // printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
+	printf("number of node: %d\n", count_token(*first_node));
+	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);
+	// printf("cmd2 arg2: %s\n", (*first_node)->next->token_arg->arg_str);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
+	// printf("operand: %d | file: %s\n", (*first_node)->next->token_flow->operand, (*first_node)->next->token_flow->word);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);

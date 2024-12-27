@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 13:19:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/24 23:07:22 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:12:14 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*remove_doubquotes(char **qts, int is_expand)
 			result = concat_str(result, expand_dollar(&start, &len, qts));
 		if (**qts == '"')
 			is_close++;
-		if (**qts != '"' && !is_expand)
+		if (**qts != '"')
 			len++;
 		if (is_close == 1 && **qts == '\0')
 			return (NULL);

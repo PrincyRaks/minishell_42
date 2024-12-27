@@ -85,7 +85,6 @@ typedef struct s_flow
 {
 	char				*word;
 	t_operator			operand;
-	t_operator			typevoid;
 	struct s_flow		*next_flow;
 }						t_flow;
 
@@ -141,10 +140,16 @@ t_flow					*new_flow(void);
 t_flow					*last_flow(t_flow *flows);
 void					addback_flow(t_flow **first_flow, t_flow *node_flow);
 void					clean_flows(t_flow **lst);
-int		is_valid_char(char c);
 char	*handle_onequotes(char **qts, char **result, t_tokens *token);
-char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int *is_expand);
+char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int is_expand);
+void	handle_var(char **input, char **res, t_tokens *token, int *mode);
 int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand);
+int	count_dollar(char *dollar);
+char	*dupnb_dollar(int nb_dollar);
+int	valid_char(char c);
+int	valid_token(t_tokens *token, char char_input);
+void	append_char(char **input, char **result);
+int	valid_redir(char c);
 
 // env
 void					addback_env(t_data_env **lst, t_data_env *node);

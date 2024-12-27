@@ -12,6 +12,26 @@
 
 #include "minishell.h"
 
+static int	valid_operand(char *str, int nb_operator, int iter, int *expand)
+{
+	if (*str == '\0' || nb_operator >= 3 || nb_operator <= 0)
+		return (-1);
+	if (nb_operator == 1)
+	{
+		if (*(str - iter) == '>')
+			return (INPUT);
+		return (OUTPUT);	
+	}
+	if (*(str - iter) == '<' && *(str - (iter - 1)) == '<')
+	{
+		*expand = 0;
+		return (HEREDOC);
+	}
+	if (*(str - iter) == '>' && *(str - (iter - 1)) == '>')
+		return (APPEND);
+	return (-1);
+}
+
 static int	check_operand(char **str, int *is_expand)
 {
     int i;
@@ -28,24 +48,7 @@ static int	check_operand(char **str, int *is_expand)
         (*str)++;
         i++;
 	}
-	if (**str == '\0')
-		return (-1);
-	if (nb_op >= 3 || nb_op <= 0)
-		return (-1);
-	if (nb_op == 1)
-	{
-		if (*(*str - i) == '>')
-			return (INPUT);
-		return (OUTPUT);
-	}
-	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
-	{
-		*is_expand = 0;
-		return (HEREDOC);
-	}
-	if (*(*str - i) == '>' && *(*str - (i - 1)) == '>')
-		return (APPEND);
-	return (-1);
+	return (valid_operand(*str, nb_op, i, is_expand));
 }
 
 static void	store_operator(t_flow **node_flow, int operator)

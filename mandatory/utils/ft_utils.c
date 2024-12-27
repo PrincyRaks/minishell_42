@@ -26,6 +26,8 @@ char	*concat_str(char *prev_result, char *handle)
 {
 	char	*str;
 
+	if (!handle)
+		handle = ft_calloc(1, sizeof(char));
 	str = ft_strjoin(prev_result, handle);
 	free(handle);
 	return (str);
