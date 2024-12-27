@@ -19,14 +19,12 @@ int	open_redirection_file(t_flow *redir)
 	fd = -1;
 	if (!redir || !redir->word)
 		return (-1);
-	
 	if (redir->operand == OUTPUT)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (redir->operand == INPUT)
 		fd = open(redir->word, O_RDONLY);
 	else if (redir->operand == APPEND)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_APPEND, 0644);
-
 	return (fd);
 }
 

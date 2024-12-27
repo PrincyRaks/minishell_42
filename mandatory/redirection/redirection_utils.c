@@ -77,4 +77,3 @@ int	check_errflow(t_flow *flow)
 // 		// recurssive of function execute_redirection avec argument flows->next_flow
 // 	}
 // }
-

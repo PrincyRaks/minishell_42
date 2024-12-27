@@ -1,66 +1,10 @@
-
-static void	handle_var(char **input, char **result, t_tokens *token,
-		int mode_add)
-{
-	char	*expand;
-
-	if (*(*input + 1) == '"' || *(*input + 1) == '\'')
-	{
-		(*input)++;
-		return ;
-	}
-	expand = handle_dollar(input);
-	if (!ft_strlen(*result) && !expand && (**input == ' ' || **input == '\0'
-			|| **input == '|'))
-	{
-		if (mode_add == 1)
-			token->token_cmd->operand = VOIDTOKEN;
-		else
-			last_arg(token->token_arg)->operand = VOIDTOKEN;
-	}
-	if (!expand)
-		expand = ft_calloc(1, sizeof(char));
-	*result = concat_str(*result, expand);
-}
-
-char	*parse_input(t_tokens *token, char **input, int *mode_add)
-{
-	char	*result;
-
-	if (!token)
-		return (NULL);
-	result = ft_calloc(1, sizeof(char));
-	while (**input != ' ' && **input != '\0' && **input != '|')
-	{
-		if (**input == '"' && !handle_doubquotes(input, &result, token))
-			return (NULL);
-		if (**input == '\'' && !handle_onequotes(input, &result, token))
-			return (NULL);
-		if (is_char(**input))
-		{
-			result = concat_str(result, ft_substr(*input, 0, 1));
-			(*input)++;
-		}
-		if (**input == '$')
-			handle_var(input, &result, token, *mode_add);
-		if ((**input == '>' || **input == '<') && !handle_flow(token, input, mode_add))
-			return (NULL);
-	}
-	if (*mode_add == 1 && token->token_cmd->operand == VOIDTOKEN
-		&& ft_strlen(result) > 0)
-		token->token_cmd->operand = NOTOP;
-	else if (token->token_arg != NULL && *mode_add == 2
-		&& last_arg(token->token_arg)->operand == VOIDTOKEN
-		&& ft_strlen(result) > 0)
-		last_arg(token->token_arg)->operand = NOTOP;
-	return (result);
-}
-
+// #include "minishell.h"
 
 static int	store_token(t_tokens *node_token, char **input)
 {
 	static int	mode_add = 1;
 	char		*parsing;
+	t_flow		*last_redir;
 
 	// commandes (1)
 	if (!node_token->token_cmd)
@@ -71,6 +15,12 @@ static int	store_token(t_tokens *node_token, char **input)
 	parsing = parse_input(node_token, input, &mode_add);
 	if (!parsing)
 		return (node_token->errnum);
+	// commande in variable (3)
+	if (mode_add == 3)
+	{
+		store_cmd_var(node_token, parsing);
+		return (node_token->errnum);
+	}
 	// arguments (2)
 	if (node_token->token_cmd != NULL && mode_add == 2 
 		&& node_token->token_cmd->operand == NOTOP && parsing != NULL)
@@ -84,7 +34,7 @@ static int	store_token(t_tokens *node_token, char **input)
 	}
 	if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
 		mode_add = 1;
-	if (mode_add == 1)
+	if (mode_add == 1 && parsing != NULL)
 	{
 		node_token->token_cmd->cmd_str = parsing;
 		mode_add = 2;
@@ -92,7 +42,8 @@ static int	store_token(t_tokens *node_token, char **input)
 	// redirections (4)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
 	{
-		last_flow(node_token->token_flow)->word = parsing;
+		last_redir = last_flow(node_token->token_flow);
+		last_redir->word = parsing;
 		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str == NULL 
 			|| node_token->token_cmd->operand == VOIDTOKEN))
 			mode_add = 1;

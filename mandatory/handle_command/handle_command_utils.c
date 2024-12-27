@@ -52,21 +52,19 @@ void	execute_external_command(char *executable, t_tokens *data_cmd)
 		perror("fork");
 }
 
-int is_invalid_command(t_tokens *data_cmd)
+int	is_invalid_command(t_tokens *data_cmd)
 {
-    char    *cmd_path;
+	char	*cmd_path;
 
-    if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
-        return (1);
-    if (ft_strlen(data_cmd->token_cmd->cmd_str) <= 0)
-        return (1);
-    if (is_builtin(data_cmd->token_cmd->cmd_str))
-        return (0);
-    cmd_path = find_executable(data_cmd->token_cmd->cmd_str);
-    if (!cmd_path)
-        return (1);
-    free(cmd_path);
-    return (0);
+	if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
+		return (1);
+	if (ft_strlen(data_cmd->token_cmd->cmd_str) <= 0)
+		return (1);
+	if (is_builtin(data_cmd->token_cmd->cmd_str))
+		return (0);
+	cmd_path = find_executable(data_cmd->token_cmd->cmd_str);
+	if (!cmd_path)
+		return (1);
+	free(cmd_path);
+	return (0);
 }
-
-

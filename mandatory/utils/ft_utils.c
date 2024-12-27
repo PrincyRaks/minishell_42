@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:24:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/24 12:56:48 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:22:16 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*concat_str(char *prev_result, char *handle)
 {
 	char	*str;
 
+	if (!handle)	
+		handle = ft_calloc(1, sizeof(char));
 	str = ft_strjoin(prev_result, handle);
 	free(handle);
 	return (str);

@@ -3,24 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   handle_flow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/24 13:03:23 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:52:00 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_operand(char **str)
+static int	valid_operand(char *str, int nb_operator, int iter, int *expand)
 {
-	int	nb_op;
+	if (*str == '\0' || nb_operator >= 3 || nb_operator <= 0)
+		return (-1);
+	if (nb_operator == 1)
+	{
+		if (*(str - iter) == '>')
+			return (INPUT);
+		return (OUTPUT);	
+	}
+	if (*(str - iter) == '<' && *(str - (iter - 1)) == '<')
+	{
+		*expand = 0;
+		return (HEREDOC);
+	}
+	if (*(str - iter) == '>' && *(str - (iter - 1)) == '>')
+		return (APPEND);
+	return (-1);
+}
+
+static int	check_operand(char **str, int *is_expand)
+{
     int i;
+	int	nb_op;
 
 	if (!str && !*str)
 		return (-1);
-	nb_op = 0;
     i = 0;
+	nb_op = 0;
 	while (**str == ' ' || **str == '<' || **str == '>')
 	{
 		if (**str == '<' || **str == '>')
@@ -28,21 +48,7 @@ static int	check_operand(char **str)
         (*str)++;
         i++;
 	}
-	while (**str == ' ')
-		(*str)++;
-	if (nb_op >= 3 || nb_op <= 0)
-		return (-1);
-	if (nb_op == 1)
-	{
-		if (*(*str - i) == '>')
-			return (OUTPUT);
-		return (INPUT);
-	}
-	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
-		return (HEREDOC);
-	if (*(*str - i) == '>' && *(*str - (i - 1)) == '>')
-		return (APPEND);
-	return (-1);
+	return (valid_operand(*str, nb_op, i, is_expand));
 }
 
 static void	store_operator(t_flow **node_flow, int operator)
@@ -61,7 +67,7 @@ static void	store_operator(t_flow **node_flow, int operator)
 	addback_flow(node_flow, new);
 }
 
-int	handle_flow(t_tokens *token, char **input, int *mode_add)
+int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand)
 {
 	int	operand;
 
@@ -69,7 +75,7 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add)
 		return (0);
 	if (**input == '>' || **input == '<')
 	{
-		operand = check_operand(input);
+		operand = check_operand(input, is_expand);
 		if (operand < 0)
 		{
 			token->errnum = ERRFLOW;
@@ -82,4 +88,3 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add)
 	}
 	return (1);
 }
-

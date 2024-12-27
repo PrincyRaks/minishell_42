@@ -6,11 +6,11 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:25:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/26 20:41:43 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/27 09:00:22 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static void	handle_dot_command(char *cmd, int saved_stdin, int saved_stdout)
 {
@@ -43,7 +43,8 @@ static void	handle_path_command(char *cmd, int saved_stdin, int saved_stdout)
 	restore_stdio(saved_stdin, saved_stdout);
 }
 
-static void	handle_executable_error(char *cmd, int saved_stdin, int saved_stdout)
+static void	handle_executable_error(char *cmd, int saved_stdin,
+		int saved_stdout)
 {
 	ft_putstr_fd(" : ", 2);
 	ft_putstr_fd(cmd, 2);
@@ -51,8 +52,8 @@ static void	handle_executable_error(char *cmd, int saved_stdin, int saved_stdout
 	restore_stdio(saved_stdin, saved_stdout);
 }
 
-static void	execute_command_type(t_tokens *data_cmd, char *cmd, 
-	int saved_stdin, int saved_stdout)
+static void	execute_command_type(t_tokens *data_cmd, char *cmd, int saved_stdin,
+		int saved_stdout)
 {
 	int	nb_builtin;
 

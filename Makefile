@@ -12,6 +12,8 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/expand.c \
 	   mandatory/parsing/handle_quotes.c \
 	   mandatory/parsing/handle_flow.c \
+	   mandatory/parsing/handle_specialchar.c \
+	   mandatory/parsing/valid_in_loop.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 	   mandatory/utils/exception.c \
