@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/23 11:17:21 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:03:37 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 
 
 # define SYNTAX_ERROR 1
-# define PROMPT "👾# "
+# define PROMPT "👾$ "
+
 
 typedef enum e_errnum
 {
@@ -101,7 +102,6 @@ typedef struct s_tokens
 void					shell_loop(void);
 
 // Handle Command
-void	handle_dots_command(t_tokens *data_cmd);
 void handle_child_process(char *executable, t_tokens *data_cmd);
 void handle_parent_process(pid_t pid);
 void execute_external_command(char *executable, t_tokens *data_cmd);
@@ -203,9 +203,14 @@ void					execute_pipeline(t_tokens *tokens);
 
 // Redirections
 int     check_errflow(t_flow *flow);
+
 // void    execute_typeflow(t_flow  *flows, t_tokens *token);
 void    open_heredoc(t_flow  *flow);
 void    execute_redirection(t_tokens *token);
+//void    execute_redirection(t_tokens *token);
+int open_redirection_file(t_flow *redir);
+int	apply_redirection(t_tokens *token);
+void restore_stdio(int saved_stdin, int saved_stdout);
 
 // Signals
 void	signal_reset_prompt(int signo);
@@ -213,6 +218,5 @@ void	ignore_sigquit(void);
 void	set_signals_interactive(void);
 void	signal_print_newline(int signal);
 void	set_signals_noninteractive(void);
-
 
 #endif

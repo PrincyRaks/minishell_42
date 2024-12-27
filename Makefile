@@ -4,6 +4,7 @@ CC= cc
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
 	   mandatory/handle_command/handle_command_utils.c \
+	   mandatory/handle_command/handle_command_utils2.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
 	   mandatory/parsing/quotes_token.c \
@@ -41,7 +42,9 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/signals/signals.c \
 	   mandatory/redirection/redirection_utils.c \
-	   mandatory/redirection/heredoc.c 
+	   mandatory/redirection/heredoc.c \
+	   mandatory/redirection/redirections.c
+
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/23 11:05:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:32:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	handle_input(char *input)
 {
 	t_tokens	**data_cmd;
- 
+
 	if (*input)
 	{
 		add_history(input);
@@ -29,6 +29,7 @@ static void	handle_input(char *input)
 		{
 			// if ((*data_cmd)->token_flow != NULL)
 			// 	execute_redirection(*data_cmd);
+      copie_copie_main
 			handle_command(*data_cmd);
 			clean_tokens(data_cmd);
 		}

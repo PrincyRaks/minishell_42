@@ -6,22 +6,11 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:01:42 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/19 10:02:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:43:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	handle_dots_command(t_tokens *data_cmd)
-{
-	if (!ft_strcmp(data_cmd->token_cmd->cmd_str, "."))
-	{
-		printf(" .: filename argument required\n");
-		printf(".: usage: . filename [arguments]\n");
-	}
-	else
-		printf(" %s: command not found\n", data_cmd->token_cmd->cmd_str);
-}
 
 void	handle_child_process(char *executable, t_tokens *data_cmd)
 {
@@ -63,14 +52,21 @@ void	execute_external_command(char *executable, t_tokens *data_cmd)
 		perror("fork");
 }
 
-int	is_invalid_command(t_tokens *data_cmd)
+int is_invalid_command(t_tokens *data_cmd)
 {
-	if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
-		return (1);
-	if (ft_strlen(data_cmd->token_cmd->cmd_str) <= 0)
-	{
-		printf(" %s: command not found.\n", data_cmd->token_cmd->cmd_str);
-		return (1);
-	}
-	return (0);
+    char    *cmd_path;
+
+    if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
+        return (1);
+    if (ft_strlen(data_cmd->token_cmd->cmd_str) <= 0)
+        return (1);
+    if (is_builtin(data_cmd->token_cmd->cmd_str))
+        return (0);
+    cmd_path = find_executable(data_cmd->token_cmd->cmd_str);
+    if (!cmd_path)
+        return (1);
+    free(cmd_path);
+    return (0);
 }
+
+

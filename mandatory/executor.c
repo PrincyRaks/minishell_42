@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 09:01:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/26 17:57:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,53 +19,50 @@ bool	is_only_dots(const char *command)
 	if (!command || command[0] == '\0')
 		return (false);
 	i = 0;
-	while (command[i])
-	{
-		if (command[i] != '.')
-			return (false);
-		i++;
-	}
-	return (true);
+    while (command[i])
+    {
+        if (command[i] != '.')
+            return (false);
+        i++;
+    }
+    return (true);
 }
 
-char	*find_executable(char *command)
+char *find_executable(char *command)
 {
-	char		*full_path;
-	int			i;
-	char		*path_tmp;
-	char		**paths;
-	t_data_env	*path_exec;
+    char *full_path;
+    int i;
+    char *path_tmp;
+    char **paths;
+    t_data_env *path_exec;
 
-	i = 0;
-	if (is_only_dots(command))
-	{
-		printf("command not found: %s\n", command);
-		return (NULL);
-	}
-	if (command[0] == '/' || command[0] == '.')
-	{
-		if (access(command, X_OK) == 0)
-			return (ft_strdup(command));
-		else
-			return (NULL);
-	}
-	paths = NULL;
-	path_exec = ft_getenv("PATH");
-	if (path_exec != NULL)
-		paths = ft_split(path_exec->value, ':');
-	while (paths && paths[i])
-	{
-		path_tmp = ft_strdup(paths[i]);
-		full_path = ft_strjoin(path_tmp, "/");
-		full_path = ft_strjoin(full_path, command);
-		if (access(full_path, X_OK) == 0)
-		{
-			free_array(paths);
-			return (full_path);
-		}
-		free(full_path);
-		i++;
-	}
-	free_array(paths);
-	return (NULL);
+    if (is_only_dots(command))
+        return (NULL);
+    if (command[0] == '/' || command[0] == '.')
+    {
+        if (access(command, F_OK | X_OK) == 0)
+            return (ft_strdup(command));
+        return (NULL);
+    }
+    paths = NULL;
+    path_exec = ft_getenv("PATH");
+    if (path_exec != NULL)
+        paths = ft_split(path_exec->value, ':');
+    i = 0;
+    while (paths && paths[i])
+    {
+        path_tmp = ft_strdup(paths[i]);
+        full_path = ft_strjoin(path_tmp, "/");
+        full_path = ft_strjoin(full_path, command);
+        if (access(full_path, F_OK | X_OK) == 0)
+        {
+            free_array(paths);
+            return (full_path);
+        }
+        free(full_path);
+        i++;
+    }
+    if (paths)
+        free_array(paths);
+    return (NULL);
 }

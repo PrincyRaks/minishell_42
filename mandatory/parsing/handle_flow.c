@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_flow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/19 11:52:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/24 13:03:23 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ static int	check_operand(char **str, int *is_expand)
         i++;
 	}
 	return (valid_operand(*str, nb_op, i, is_expand));
+	while (**str == ' ')
+		(*str)++;
+	if (nb_op >= 3 || nb_op <= 0)
+		return (-1);
+	if (nb_op == 1)
+	{
+		if (*(*str - i) == '>')
+			return (OUTPUT);
+		return (INPUT);
+	}
+	if (*(*str - i) == '<' && *(*str - (i - 1)) == '<')
+		return (HEREDOC);
+	if (*(*str - i) == '>' && *(*str - (i - 1)) == '>')
+		return (APPEND);
+	return (-1);
 }
 
 static void	store_operator(t_flow **node_flow, int operator)
@@ -88,3 +103,4 @@ int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand)
 	}
 	return (1);
 }
+

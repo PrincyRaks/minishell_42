@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_single_command.c                           :+:      :+:    :+:   */
+/*   handle_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/23 14:57:06 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/12/16 21:16:39 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/12/26 18:25:29 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_single_command(t_tokens *tokens)
+void	handle_external_command(t_tokens *data_cmd)
 {
 	char	*executable;
-	char	**argv;
 
-	executable = find_executable(tokens->token_cmd->cmd_str);
-	if (!executable)
+	executable = find_executable(data_cmd->token_cmd->cmd_str);
+	if (executable)
 	{
-		dup2(STDERR_FILENO, STDOUT_FILENO);
-		printf("%s: command not found\n", tokens->token_cmd->cmd_str);
-		exit(127);
+		execute_external_command(executable, data_cmd);
+		free(executable);
 	}
-	argv = array_tokens(tokens);
-	if (tokens->token_flow)
-	{
-		ft_putstr_fd(tokens->token_flow->word, 1);
-	}
-	if (execve(executable, argv, get_tabenv()) == -1)
-	{
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
+}
+
+void	restore_stdio(int saved_stdin, int saved_stdout)
+{
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 }
