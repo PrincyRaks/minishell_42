@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/20 16:19:48 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:50:57 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_tokens	**store_instruction(char *input)
 	// parse_void_instruction(*first_node);
 	printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
 	printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
-	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
+	printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
 	printf("count arg: %d\n", count_arg((*first_node)->token_arg));
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);

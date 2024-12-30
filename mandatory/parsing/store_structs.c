@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 22:50:08 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/29 23:58:01 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:32:44 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 	t_arg	**first_arg;
 
 	i = 0;
+	arg_cmd = NULL;
 	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
 		token->token_cmd->cmd_str = data[i++];
 	first_arg = &token->token_arg;
 	if (!token->token_arg)
 		arg_cmd = new_arg();
+	while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
+		arg_cmd = arg_cmd->next_arg;
 	while (i < len_data)
 	{
 		if (!arg_cmd)
@@ -35,11 +38,6 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 			arg_cmd = arg_cmd->next_arg;
 			i++;
 		}
-		// while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
-		// {
-		// 	printf("\n");
-		// 	arg_cmd = arg_cmd->next_arg;
-		// }
 	}
 	*mode = 2;
 }
@@ -60,6 +58,7 @@ void	set_void_str(t_tokens *token, char *void_str, int *mode)
 	end_arg = last_arg(token->token_arg);
 	if (end_arg && !end_arg->arg_str && end_arg->operand == INQUOTES)
 		end_arg->arg_str = void_str;
+	printf("arg str null: %s\n", end_arg->arg_str);
 	*mode = 2;
 }
 
@@ -113,7 +112,6 @@ int	store_parse_argument(t_tokens *node, char *str_parse)
 	}
 	end_arg = last_arg(end_arg);
 	end_arg->arg_str = str_parse;
-	printf("adresse: %p value arg: %s et operand: %d\n", end_arg, str_parse, end_arg->operand);
 	return (node->errnum);
 }
 
