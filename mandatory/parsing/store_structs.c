@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 22:50:08 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/30 16:32:44 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:14:45 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 	t_arg	**first_arg;
 
 	i = 0;
-	arg_cmd = NULL;
+	arg_cmd = token->token_arg;
 	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
 		token->token_cmd->cmd_str = data[i++];
 	first_arg = &token->token_arg;
@@ -42,7 +42,7 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 	*mode = 2;
 }
 
-// verifier a partir de inquotes 
+// verifier a partir de inquotes
 void	set_void_str(t_tokens *token, char *void_str, int *mode)
 {
 	t_cmd	*cmd;
@@ -58,7 +58,6 @@ void	set_void_str(t_tokens *token, char *void_str, int *mode)
 	end_arg = last_arg(token->token_arg);
 	if (end_arg && !end_arg->arg_str && end_arg->operand == INQUOTES)
 		end_arg->arg_str = void_str;
-	printf("arg str null: %s\n", end_arg->arg_str);
 	*mode = 2;
 }
 
