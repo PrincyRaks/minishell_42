@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 22:50:08 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/29 23:58:01 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:22:11 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,37 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 {
 	int		i;
 	t_arg	*arg_cmd;
+	t_arg	*arg_new;
 	t_arg	**first_arg;
 
 	i = 0;
+	arg_new = NULL;
+	arg_cmd = token->token_arg;
+	first_arg = &token->token_arg;
 	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
 		token->token_cmd->cmd_str = data[i++];
-	first_arg = &token->token_arg;
 	if (!token->token_arg)
+	{
 		arg_cmd = new_arg();
+		arg_cmd->arg_str = data[i++];
+		addback_arg(first_arg, arg_cmd);
+	}
+	while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
+		arg_cmd = arg_cmd->next_arg;
 	while (i < len_data)
 	{
 		if (!arg_cmd)
-			arg_cmd = new_arg();
+		{
+			arg_new = new_arg();
+			arg_new->arg_str = data[i++];
+			addback_arg(first_arg, arg_new);
+		}
 		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
 		{
-			arg_cmd->arg_str = data[i];
-			addback_arg(first_arg, arg_cmd);
+			arg_cmd->arg_str = data[i++];
+			// addback_arg(first_arg, arg_cmd);
 			arg_cmd = arg_cmd->next_arg;
-			i++;
 		}
-		// while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
-		// {
-		// 	printf("\n");
-		// 	arg_cmd = arg_cmd->next_arg;
-		// }
 	}
 	*mode = 2;
 }
