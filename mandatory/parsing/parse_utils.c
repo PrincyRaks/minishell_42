@@ -131,11 +131,10 @@ t_tokens	**store_instruction(char *input)
 		}
 	}
 	// parse_void_instruction(*first_node);
-	printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
+	// printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
 	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
-	// exit(0);
-	printf("count arg: %d\n", count_arg((*first_node)->token_arg));
+	// printf("count arg: %d\n", count_arg((*first_node)->token_arg));
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);
 	// printf("cmd2 arg2: %s\n", (*first_node)->next->token_arg->arg_str);
