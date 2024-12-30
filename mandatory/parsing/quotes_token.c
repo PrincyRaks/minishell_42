@@ -35,7 +35,7 @@ static char	*expand_heredocvar(char **input, char *result)
 	return (result);
 }
 
-static void	setfull_element(t_tokens *token, int mode, char *res)
+static void	set_notop_element(t_tokens *token, int mode, char *res)
 {
 	size_t	len_res;
 	t_arg	*end_arg;
@@ -46,7 +46,7 @@ static void	setfull_element(t_tokens *token, int mode, char *res)
 	if (mode == 1 && token->token_cmd->operand == VOIDTOKEN && len_res > 0)
 		token->token_cmd->operand = NOTOP;
 	else if (token->token_arg != NULL && mode == 2 && end_arg->operand == VOIDTOKEN 
-			&& len_res > 0)
+		&& len_res > 0)
 		end_arg->operand = NOTOP;
 }
 
@@ -86,6 +86,6 @@ char	*parse_input(t_tokens *token, char **input, int *mode)
 			&& !handle_flow(token, input, mode, &is_expand))
 			return (free(result), NULL);
 	}
-	setfull_element(token, *mode, result);
+	set_notop_element(token, *mode, result);
 	return (result);
 }

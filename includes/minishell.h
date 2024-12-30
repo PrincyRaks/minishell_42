@@ -41,9 +41,9 @@
 typedef enum e_errnum
 {
 	DEFAULT,
+	ERRMALLOC,
 	UNQUOTES,
 	ERRFLOW,
-// $notexist: ambiguous redirect
 	AMBIGUOUS,
 	ERRPIPE,
 }						t_errnum;
@@ -56,6 +56,7 @@ typedef enum e_operator
 	APPEND,
 	HEREDOC,
 	VOIDTOKEN,
+	INQUOTES,
 }						t_operator;
 
 typedef struct s_data_env
@@ -69,6 +70,7 @@ typedef struct s_cmd
 {
 	char				*cmd_str;
 	t_operator			operand;
+	t_operator			inquotes;
 	t_errnum			errnum;
 }						t_cmd;
 
@@ -80,7 +82,6 @@ typedef struct s_arg
 	struct s_arg		*next_arg;
 }						t_arg;
 
-// redirection
 typedef struct s_flow
 {
 	char				*word;
@@ -114,8 +115,6 @@ void					free_array(char **array);
 bool	is_only_dots(const char *command);
 char					*find_executable(char *command);
 
-// Parser
-// quotes
 t_tokens				**store_instruction(char *input);
 char					*parse_input(t_tokens *token, char **input, int *mode_add);
 char					*remove_onequotes(char **start_quotes);
@@ -150,8 +149,12 @@ int	valid_char(char c);
 int	valid_token(t_tokens *token, char char_input);
 void	append_char(char **input, char **result);
 int	valid_redir(char c);
+int	create_new_token(t_tokens **first_node, t_tokens **node_token);
+int	store_var_element(t_tokens *token, char *parsing, int *mode);
+int	store_parse_argument(t_tokens *node, char *str_parse);
+// int	store_parse_redir(t_tokens *node, char *str_parse, int *mode);
+int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode);
 
-// env
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
@@ -168,13 +171,13 @@ t_data_env				*hash_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
 
-// utils
+
 char					*join_onespace(char *s1, char *s2);
 int						count_tab(char **tab);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
 
-// Builtins
+
 int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
@@ -184,12 +187,11 @@ int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
-// Builtin utils
 int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
 void	execute_builtin(t_tokens *tokens, int nb);
 
-// Pipe Utils
+
 void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens);
 void	wait_for_children(void);
 void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens);
@@ -197,17 +199,15 @@ int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens);
 void	exit_perror(char *message);
 
 
-// Pipe
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 
-// Redirections
+
 int     check_errflow(t_flow *flow);
 // void    execute_typeflow(t_flow  *flows, t_tokens *token);
 void    open_heredoc(t_flow  *flow);
 void    execute_redirection(t_tokens *token);
 
-// Signals
 void	signal_reset_prompt(int signo);
 void	ignore_sigquit(void);
 void	set_signals_interactive(void);
