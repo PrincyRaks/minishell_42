@@ -20,7 +20,6 @@ int	count_arg(t_arg *node)
 	while (node != NULL)
 	{
 		i++;
-		printf("%s\n", node->arg_str);
 		node = node->next_arg;
 	}
 	return (i);
@@ -78,7 +77,8 @@ void	clean_args(t_arg **lst)
 
 	while (*lst != NULL)
 	{
-		free((*lst)->arg_str);
+		if ((*lst)->arg_str != NULL)
+			free((*lst)->arg_str);
 		tmp = (*lst)->next_arg;
 		free(*lst);
 		*lst = tmp;

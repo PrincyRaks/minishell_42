@@ -105,8 +105,9 @@ t_tokens	**store_instruction(char *input)
 			// stop minishell print error num and clean all allocations
 			if (store_token(node_token, &input) != DEFAULT)
 			{
-				printf("Erreur minishell: %d\n", node_token->errnum);
-				// break ;
+				print_errnum(node_token->errnum);
+				clean_tokens(first_node);
+				break ;
 			}
 		}
 		if (*input == '|')

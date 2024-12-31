@@ -24,7 +24,7 @@ void    open_heredoc(t_flow  *flow)
     delimiter = flow->word;
     input_hd = NULL;
     // fd = open();
-    while (!input_hd || (input_hd && *input_hd == '\0') || ft_strcmp(delimiter, input_hd) != 0)
+    while (!input_hd || ft_strcmp(delimiter, input_hd) != 0)
     {
         input_hd = readline("heredoc► ");
         if (!input_hd)

@@ -17,15 +17,15 @@ void    print_errnum(t_errnum numerr)
 	if (numerr == DEFAULT)
 		return ;
 	else if (numerr == ERRMALLOC)
-		ft_putstr_fd("Error allocation of memory\n", 2);
+		ft_putstr_fd("Error: allocation of memory\n", 2);
     else if (numerr == UNQUOTES)
         ft_putstr_fd("Error: unclosed quotes\n", 2);
 	else if (numerr == ERRFLOW)
-		ft_putstr_fd("syntax error near unexpected token `redirection'\n", 2);
+		ft_putstr_fd("Error: syntax error near unexpected token `redirection'\n", 2);
 	else if (numerr == ERRPIPE)
-		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+		ft_putstr_fd("Error: syntax error near unexpected token `|'\n", 2);
 	else
-		ft_putstr_fd("ambiguous redirect\n", 2);
+		ft_putstr_fd("Error: ambiguous redirect\n", 2);
 }
 
 t_errnum	check_errnum(t_tokens *token)
