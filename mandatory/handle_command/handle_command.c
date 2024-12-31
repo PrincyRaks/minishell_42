@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:25:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/27 09:00:22 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:57:59 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ static void	execute_command_type(t_tokens *data_cmd, char *cmd, int saved_stdin,
 		execute_builtin(data_cmd, nb_builtin);
 		return (restore_stdio(saved_stdin, saved_stdout));
 	}
+	if (data_cmd->next)
+	{
+		execute_pipeline(data_cmd);
+		return (restore_stdio(saved_stdin, saved_stdout));
+	}
 	if (!find_executable(cmd))
 		return (handle_executable_error(cmd, saved_stdin, saved_stdout));
-	if (data_cmd->next)
-		execute_pipeline(data_cmd);
-	else
-		handle_external_command(data_cmd);
+	handle_external_command(data_cmd);
 	restore_stdio(saved_stdin, saved_stdout);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:29:31 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/27 15:34:43 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:21:40 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,11 +174,16 @@ t_tokens	**store_instruction(char *input)
 			input++;
 		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
-			// stop minishell print error num and clean all allocations
 			if (store_token(node_token, &input) != DEFAULT)
 			{
-				printf("Erreur minishell: %d\n", node_token->errnum);
-				// break ;
+				if (node_token->errnum == ERRFLOW)
+				{
+					if (!node_token->token_flow)
+						ft_putstr_fd(": syntax error near unexpected token `newline'\n", 2);
+					else
+						ft_putstr_fd(": No such file or directory\n", 2);
+				}
+				break;
 			}
 		}
 		if (*input == '|')
@@ -203,15 +208,5 @@ t_tokens	**store_instruction(char *input)
 		}
 	}
 	parse_void_instruction(*first_node);
-	//printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
-	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);
-	// printf("arg2: %s\n", (*first_node)->token_arg->next_arg->arg_str);
-	//printf("number of node: %d\n", count_token(*first_node));
-	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);
-	// printf("cmd2 arg2: %s\n", (*first_node)->next->token_arg->arg_str);
-	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
-	// printf("operand: %d | file: %s\n", (*first_node)->next->token_flow->operand, (*first_node)->next->token_flow->word);
-	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
-	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);
 }

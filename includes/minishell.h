@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/27 15:28:04 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:55:13 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 # define SYNTAX_ERROR 1
 # define PROMPT "👾$ "
+
 
 typedef enum e_errnum
 {
@@ -204,6 +205,7 @@ void					exit_perror(char *message);
 // Pipe
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
+void 					set_signals_pipe(void);
 
 // Redirections
 int						check_errflow(t_flow *flow);

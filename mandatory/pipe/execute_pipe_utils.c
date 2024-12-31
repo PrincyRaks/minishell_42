@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+         +:+     */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:33:33 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/24 10:43:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/31 09:41:05 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,24 @@ void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 void	wait_for_children(void)
 {
 	int	status;
+	int last_status = 0;
 
 	while (wait(&status) > 0)
-		;
+	{
+		if (WIFEXITED(status))
+			last_status = WEXITSTATUS(status);
+	}
+	if (last_status != 0)
+		exit(last_status);
 }
 
 void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
 	setup_pipe(prev_fd, pipe_fd, tokens);
+	if (tokens->token_cmd == NULL || tokens->token_cmd->cmd_str == NULL)
+		exit(0);
 	if (apply_redirection(tokens) == -1)
-	{
-		perror("apply_redirection");
 		exit(1);
-	}
 	if (is_builtin(tokens->token_cmd->cmd_str))
 	{
 		execute_builtin(tokens, is_builtin(tokens->token_cmd->cmd_str));
