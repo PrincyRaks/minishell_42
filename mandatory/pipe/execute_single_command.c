@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/31 10:18:08 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/01 11:56:01 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,29 @@ void	execute_single_command(t_tokens *tokens)
 {
 	char	*executable;
 	char	**argv;
+	char	*cmd;
 
-	executable = find_executable(tokens->token_cmd->cmd_str);
+	cmd = tokens->token_cmd->cmd_str;
+	executable = find_executable(cmd);
 	if (!executable)
 	{
-		ft_putstr_fd(tokens->token_cmd->cmd_str, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		if (cmd[0] != '/' && cmd[0] != '.')
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
 		exit(127);
 	}
 	argv = array_tokens(tokens);
 	if (execve(executable, argv, get_tabenv()) == -1)
 	{
-		perror("execve");
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("minishell: ", 2);
+		perror(cmd);
+		free(executable);
+		free_array(argv);
+		exit(126);
 	}
+	free(executable);
+	free_array(argv);
 }
