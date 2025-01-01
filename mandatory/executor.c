@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/26 17:57:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/01 21:55:01 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ bool	is_only_dots(const char *command)
     return (true);
 }
 
+
 char *find_executable(char *command)
 {
-    char *full_path;
-    int i;
-    char *path_tmp;
-    char **paths;
+    char *full_path = NULL;
+    int i = 0;
+    char *path_tmp = NULL;
+    char **paths = NULL;
     t_data_env *path_exec;
 
     if (is_only_dots(command))
@@ -44,25 +45,37 @@ char *find_executable(char *command)
             return (ft_strdup(command));
         return (NULL);
     }
-    paths = NULL;
     path_exec = ft_getenv("PATH");
-    if (path_exec != NULL)
+    if (path_exec)
         paths = ft_split(path_exec->value, ':');
-    i = 0;
     while (paths && paths[i])
     {
-        path_tmp = ft_strdup(paths[i]);
-        full_path = ft_strjoin(path_tmp, "/");
-        full_path = ft_strjoin(full_path, command);
+        path_tmp = ft_strjoin(paths[i], "/");
+        if (!path_tmp)
+        {
+            free_array(paths);
+            return (NULL);
+        }
+        full_path = ft_strjoin(path_tmp, command);
+        free(path_tmp);
+
+        if (!full_path)
+        {
+            free_array(paths);
+            return (NULL);
+        }
         if (access(full_path, F_OK | X_OK) == 0)
         {
             free_array(paths);
             return (full_path);
         }
         free(full_path);
+        full_path = NULL;
         i++;
     }
     if (paths)
         free_array(paths);
     return (NULL);
 }
+
+
