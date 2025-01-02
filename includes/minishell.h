@@ -70,7 +70,6 @@ typedef struct s_cmd
 {
 	char				*cmd_str;
 	t_operator			operand;
-	t_operator			inquotes;
 	t_errnum			errnum;
 }						t_cmd;
 
@@ -86,6 +85,7 @@ typedef struct s_flow
 {
 	char				*word;
 	t_operator			operand;
+	int					expandable;
 	struct s_flow		*next_flow;
 }						t_flow;
 

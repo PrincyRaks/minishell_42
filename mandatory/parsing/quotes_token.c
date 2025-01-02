@@ -42,7 +42,7 @@ static void	set_notop_element(t_tokens *token, int mode, char *res)
 
 	len_res = ft_strlen(res);
 	end_arg = last_arg(token->token_arg);
-	printf("mode:%d operand: %d len: %zu\n", mode, token->token_cmd->operand, len_res);
+	printf("mode:%d len: %zu\n", mode, len_res);
 	if (mode == 1 && token->token_cmd->operand == VOIDTOKEN && len_res > 0)
 		token->token_cmd->operand = NOTOP;
 	else if (token->token_arg != NULL && mode == 2 && end_arg->operand == VOIDTOKEN 
@@ -64,26 +64,25 @@ char	**parse_specific(char  **str, char **res, t_tokens *token, int is_expand)
 char	*parse_input(t_tokens *token, char **input, int *mode)
 {
 	char	*result;
-	int		is_expand;
+	int		exp;
 
-	is_expand = 1;
+	exp = 1;
 	result = ft_calloc(1, sizeof(char));
 	while(valid_token(token, **input))
 	{
-		if ((**input == '"' || **input == '\'' || valid_char(**input)) 
-			&& !parse_specific(input, &result, token, is_expand))
+		if ((**input == '"' || **input == '\'' || valid_char(**input))
+			&& !parse_specific(input, &result, token, exp))
 			return(NULL);
 		if (**input == '$')
 		{
-			if (is_expand)
+			if (exp)
 				handle_var(input, &result, token, mode);
-			else if (!is_expand && **input == '$')
+			else if (!exp && **input == '$')
 				result = expand_heredocvar(input, result);
 		}
 		if ((ft_strlen(result) > 0 || *mode == 4) && valid_redir(**input))
 			return (result);
-		if (valid_redir(**input) 
-			&& !handle_flow(token, input, mode, &is_expand))
+		if (valid_redir(**input) && !handle_flow(token, input, mode, &exp))
 			return (free(result), NULL);
 	}
 	set_notop_element(token, *mode, result);

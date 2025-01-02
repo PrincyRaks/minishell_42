@@ -76,6 +76,7 @@ void	clean_tokens(t_tokens **lst)
 	{
 		clean_cmd((*lst)->token_cmd);
 		clean_args(&(*lst)->token_arg);
+		clean_flows(&(*lst)->token_flow);
 		tmp = (*lst)->next;
 		free(*lst);
 		*lst = tmp;

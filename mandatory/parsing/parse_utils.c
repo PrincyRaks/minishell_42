@@ -12,6 +12,29 @@
 
 #include "minishell.h"
 
+static void	set_expandable_var_heredoc(t_tokens *node, t_flow *end_flow)
+{
+	t_cmd	*cmd;
+	t_arg	*end_arg;
+
+	if (!node)
+		return ;
+	cmd = node->token_cmd;
+	end_arg = last_arg(node->token_arg);
+	if (!end_flow)
+		return ;
+	if(cmd != NULL && !cmd->cmd_str && cmd->operand == INQUOTES && !end_flow->word)
+	{
+		end_flow->expandable = 0;
+		cmd->operand = NOTOP;
+	}
+	if (end_arg != NULL && !end_arg->arg_str && end_arg->operand == INQUOTES && !end_flow->word)
+	{
+		end_flow->expandable = 0;
+		end_arg->operand = NOTOP;
+	}
+}
+
 int	valid_arguments(t_tokens *node, int mode_add, char *str_parsing)
 {
 	return (node->token_cmd != NULL && mode_add == 2 && str_parsing != NULL);
@@ -44,6 +67,8 @@ static int	store_token(t_tokens *node_token, char **input)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
 	{
 		last_redir = last_flow(node_token->token_flow);
+		// veririfier si heredoc peut faire un parsing du $variable ou non
+		set_expandable_var_heredoc(node_token, last_redir);
 		last_redir->word = parsing;
 		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str == NULL 
 			|| node_token->token_cmd->operand == VOIDTOKEN))
@@ -139,9 +164,9 @@ t_tokens	**store_instruction(char *input)
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);
 	// printf("cmd2 arg2: %s\n", (*first_node)->next->token_arg->arg_str);
-	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word);
+	printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word, (*first_node)->token_flow->expandable);
 	// printf("operand: %d | file: %s\n", (*first_node)->next->token_flow->operand, (*first_node)->next->token_flow->word);
-	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word);
+	printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word,(*first_node)->token_flow->next_flow->expandable);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);
 }

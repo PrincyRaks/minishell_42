@@ -21,7 +21,7 @@ int     check_errflow(t_flow *flow)
         if (flow->operand == NOTOP || flow->operand == VOIDTOKEN)
             return (1);
         if (flow->operand != NOTOP && flow->operand != VOIDTOKEN 
-            && (!flow->word || !ft_strlen(flow->word)))
+            && !flow->word)
             return (1); 
         flow = flow->next_flow;
     }
