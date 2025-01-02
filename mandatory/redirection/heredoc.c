@@ -36,7 +36,7 @@ void    open_heredoc(t_flow  *flow)
     char    *delimiter;
     char    *input_hd;
     int     fd_tmp;
-    int     is_expand;
+    // int     is_expand;
     // static int  file_tmp;
     char *path_name;
 
@@ -48,16 +48,20 @@ void    open_heredoc(t_flow  *flow)
     path_name = ft_strjoin(path_name, "1");
     input_hd = NULL;
     delimiter = flow->word;
-    is_expand = flow->expandable;
+    // is_expand = flow->expandable;
     // file_tmp = 1;
-    fd_tmp = open(path_name , O_CREAT | O_TRUNC);
+    fd_tmp = open(path_name , O_CREAT | O_WRONLY | O_APPEND);
     printf("fd: %d et path: %s\n", fd_tmp, path_name);
     while (fd_tmp >= 0 && (!input_hd || ft_strcmp(delimiter, input_hd) != 0))
     {
         input_hd = readline("heredoc► ");
         if (!input_hd)
             return ;
+        if (!ft_strcmp(delimiter, input_hd))
+            break ;
         // handle quotes and var
         ft_putstr_fd(input_hd, fd_tmp);
+        ft_putchar_fd('\n', fd_tmp);
+
     }
 }

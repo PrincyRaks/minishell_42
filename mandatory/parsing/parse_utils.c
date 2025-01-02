@@ -164,9 +164,9 @@ t_tokens	**store_instruction(char *input)
 	// printf("number of node: %d\n", count_token(*first_node));
 	// printf("cmd2: %s\n", (*first_node)->next->token_cmd->cmd_str);
 	// printf("cmd2 arg2: %s\n", (*first_node)->next->token_arg->arg_str);
-	printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word, (*first_node)->token_flow->expandable);
+	// printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->operand, (*first_node)->token_flow->word, (*first_node)->token_flow->expandable);
 	// printf("operand: %d | file: %s\n", (*first_node)->next->token_flow->operand, (*first_node)->next->token_flow->word);
-	printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word,(*first_node)->token_flow->next_flow->expandable);
+	// printf("operand: %d | file: %s | expandable: %d\n", (*first_node)->token_flow->next_flow->operand, (*first_node)->token_flow->next_flow->word,(*first_node)->token_flow->next_flow->expandable);
 	// printf("operand: %d | file: %s\n", (*first_node)->token_flow->next_flow->next_flow->operand, (*first_node)->token_flow->next_flow->next_flow->word);
 	return (first_node);
 }
