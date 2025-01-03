@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 16:39:14 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/10 14:16:33 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:15:49 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,12 @@ void	addback_arg(t_arg **first_arg, t_arg *node_arg)
 		else
 		{
 			end = last_arg(*first_arg);
+			printf("%p\n", end);
 			if (end)
+			{
 				end->next_arg = node_arg;
+				node_arg->next_arg = NULL;
+			}
 		}
 	}
 }
@@ -73,7 +77,8 @@ void	clean_args(t_arg **lst)
 
 	while (*lst != NULL)
 	{
-		free((*lst)->arg_str);
+		if ((*lst)->arg_str != NULL)
+			free((*lst)->arg_str);
 		tmp = (*lst)->next_arg;
 		free(*lst);
 		*lst = tmp;

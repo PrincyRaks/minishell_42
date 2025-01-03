@@ -37,7 +37,7 @@ char	*dupnb_dollar(int nb_dollar)
 	return (str);
 }
 
-static char	*get_valuekey(char	**var, char *result)
+static char	*get_valuekey(char	**var)
 {
 	int			size;
 	char		*key;
@@ -51,10 +51,13 @@ static char	*get_valuekey(char	**var, char *result)
 	}
 	key = ft_substr((*var) - size, 0, size);
 	data = ft_getenv(key);
-	if (!data || !data->value)
+	if ((!data || !data->value))
+	{
+		free(key);
 		return (NULL);
+	}
 	free(key);
-	return (ft_strjoin(result, data->value));
+	return (ft_strdup(data->value));
 }
 
 static char	*expand(char **var)
@@ -67,7 +70,7 @@ static char	*expand(char **var)
 	size = 0;
 	result = ft_calloc(sizeof(char), 1);
 	if (ft_isalpha(**var) || **var == '_')
-		return (get_valuekey(var, result));
+		return (get_valuekey(var));
 	result = ft_strjoin(result, "$");
 	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
 		&& **var != '\'' && **var != '"')

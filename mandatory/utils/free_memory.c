@@ -25,3 +25,11 @@ void free_array(char **array) {
     }
     free(array);
 }
+
+// clean_minishell(t_tokens *token)
+// {
+// 	clean_tokens(token);
+// 	// tokens
+// 	// env
+// 	// valuer de retour
+// }

@@ -29,7 +29,8 @@ void	clean_cmd(t_cmd *cmd)
 {
 	if (cmd != NULL)
 	{
-		free(cmd->cmd_str);
+		if (cmd->cmd_str != NULL)
+			free(cmd->cmd_str);
 		free(cmd);
 	}
 }

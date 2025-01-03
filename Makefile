@@ -13,6 +13,7 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/handle_flow.c \
 	   mandatory/parsing/handle_specialchar.c \
 	   mandatory/parsing/valid_in_loop.c \
+	   mandatory/parsing/store_structs.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 	   mandatory/utils/exception.c \
@@ -42,6 +43,7 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/utils.c \
 	   mandatory/signals/signals.c \
 	   mandatory/redirection/redirection_utils.c \
+	   mandatory/redirection/heredoc.c 
 	   mandatory/redirection/redirections.c
 
 OBJS = $(SRCS:.c=.o)

@@ -34,6 +34,7 @@ t_flow	*new_flow(void)
 		return (NULL);
 	flow->word = NULL;
 	flow->operand = NOTOP;
+	flow->expandable = 1;
 	flow->next_flow = NULL;
 	return (flow);
 }
@@ -72,7 +73,8 @@ void	clean_flows(t_flow **lst)
 
 	while (*lst != NULL)
 	{
-		free((*lst)->word);
+		if ((*lst)->word != NULL)
+			free((*lst)->word);
 		tmp = (*lst)->next_flow;
 		free(*lst);
 		*lst = tmp;

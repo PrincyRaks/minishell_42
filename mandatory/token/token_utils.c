@@ -37,3 +37,18 @@ char	**array_tokens(t_tokens *token)
 	argv[i] = NULL;
 	return (argv);
 }
+
+int	create_new_token(t_tokens **first_node, t_tokens **node_token)
+{
+	if (!node_token && !*node_token)
+		return (0);
+	*node_token = new_token();
+	if (!node_token)
+	{
+		// mila gerer-na ny clean
+		clean_tokens(first_node);
+		return (0);
+	}
+	addback_token(first_node, *node_token);
+	return (1);
+}

@@ -90,8 +90,7 @@ static void	add_prefix(char **keys)
 		tmp = keys[i];
 		if (value)
 		{
-			tmp = ft_strjoin(tmp, "=");
-			tmp = ft_strjoin(tmp, "\"");
+			tmp = ft_strjoin(tmp, "=\"");
 			tmp = ft_strjoin(tmp, value);
 			tmp = ft_strjoin(tmp, "\"");
 		}

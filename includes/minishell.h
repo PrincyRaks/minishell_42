@@ -33,15 +33,15 @@
 # include <unistd.h>
 
 # define SYNTAX_ERROR 1
-# define PROMPT "👾$ "
-
+# define PROMPT "👾# "
 
 typedef enum e_errnum
 {
 	DEFAULT,
+	ERRMALLOC,
 	UNQUOTES,
 	ERRFLOW,
-	AMBIGUOUS, 	
+	AMBIGUOUS,
 	ERRPIPE,
 }						t_errnum;
 
@@ -53,6 +53,7 @@ typedef enum e_operator
 	APPEND,
 	HEREDOC,
 	VOIDTOKEN,
+	INQUOTES,
 }						t_operator;
 
 typedef struct s_data_env
@@ -77,11 +78,11 @@ typedef struct s_arg
 	struct s_arg		*next_arg;
 }						t_arg;
 
-// redirection
 typedef struct s_flow
 {
 	char				*word;
 	t_operator			operand;
+	int					expandable;
 	struct s_flow		*next_flow;
 }						t_flow;
 
@@ -112,8 +113,6 @@ void					free_array(char **array);
 bool					is_only_dots(const char *command);
 char					*find_executable(char *command);
 
-// Parser
-// quotes
 t_tokens				**store_instruction(char *input);
 char					*parse_input(t_tokens *token, char **input,
 							int *mode_add);
@@ -139,22 +138,23 @@ t_flow					*new_flow(void);
 t_flow					*last_flow(t_flow *flows);
 void					addback_flow(t_flow **first_flow, t_flow *node_flow);
 void					clean_flows(t_flow **lst);
-char					*handle_onequotes(char **qts, char **result,
-							t_tokens *token);
-char					*handle_doubquotes(char **qts, char **result,
-							t_tokens *token, int is_expand);
-void					handle_var(char **input, char **res, t_tokens *token,
-							int *mode);
-int						handle_flow(t_tokens *token, char **input,
-							int *mode_add, int *is_expand);
-int						count_dollar(char *dollar);
-char					*dupnb_dollar(int nb_dollar);
-int						valid_char(char c);
-int						valid_token(t_tokens *token, char char_input);
-void					append_char(char **input, char **result);
-int						valid_redir(char c);
 
-// env
+char	*handle_onequotes(char **qts, char **result, t_tokens *token);
+char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int is_expand);
+void	handle_var(char **input, char **res, t_tokens *token, int *mode);
+int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand);
+int	count_dollar(char *dollar);
+char	*dupnb_dollar(int nb_dollar);
+int	valid_char(char c);
+int	valid_token(t_tokens *token, char char_input);
+void	append_char(char **input, char **result);
+int	valid_redir(char c);
+int	create_new_token(t_tokens **first_node, t_tokens **node_token);
+int	store_var_element(t_tokens *token, char *parsing, int *mode);
+int	store_parse_argument(t_tokens *node, char *str_parse);
+// int	store_parse_redir(t_tokens *node, char *str_parse, int *mode);
+int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode);
+
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
@@ -171,13 +171,13 @@ t_data_env				*hash_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
 
-// utils
+
 char					*join_onespace(char *s1, char *s2);
 int						count_tab(char **tab);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
 
-// Builtins
+
 int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
@@ -187,10 +187,10 @@ int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
-// Builtin utils
 int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
+
 
 // Pipe Utils
 void					setup_pipe(int prev_fd, int pipe_fd[2],
@@ -209,14 +209,17 @@ void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
 		int *prev_fd, int *pipe_fd);
 void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd);	
 
-// Pipe
+
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 void 					set_signals_pipe(void);
 
-// Redirections
-int						check_errflow(t_flow *flow);
-// void    execute_redirection(t_tokens *token);
+
+int     check_errflow(t_flow *flow);
+// void    execute_typeflow(t_flow  *flows, t_tokens *token);
+void    open_heredoc(t_flow  *flow);
+void    execute_redirection(t_tokens *token);
+
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);
 void					restore_stdio(int saved_stdin, int saved_stdout);

@@ -1,4 +1,4 @@
-// #include "minishell.h"
+#include "minishell.h"
 
 static int	store_token(t_tokens *node_token, char **input)
 {
@@ -18,7 +18,7 @@ static int	store_token(t_tokens *node_token, char **input)
 	// commande in variable (3)
 	if (mode_add == 3)
 	{
-		store_cmd_var(node_token, parsing);
+		store_var_element(node_token, parsing);
 		return (node_token->errnum);
 	}
 	// arguments (2)
@@ -32,12 +32,13 @@ static int	store_token(t_tokens *node_token, char **input)
 		last_arg(node_token->token_arg)->arg_str = parsing;
 		return (node_token->errnum);
 	}
-	if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
-		mode_add = 1;
+	// if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
+	// 	mode_add = 1;
 	if (mode_add == 1 && parsing != NULL)
 	{
 		node_token->token_cmd->cmd_str = parsing;
-		mode_add = 2;
+		if (node_token->token_cmd->operand != VOIDTOKEN && mode_add != 4)
+			mode_add = 2;
 	}
 	// redirections (4)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
@@ -51,5 +52,34 @@ static int	store_token(t_tokens *node_token, char **input)
 			mode_add = 2;
 		return (node_token->errnum);
 	}
+	return (node_token->errnum);
+}
+
+
+static int	store_token(t_tokens *node_token, char **input)
+{
+	static int	mode_add = 1;
+	char		*parsing;
+
+	if (!node_token->token_cmd)
+	{
+		node_token->token_cmd = new_cmd();
+		mode_add = 1;
+	}
+	parsing = parse_input(node_token, input, &mode_add);
+	if (!parsing)
+		return (node_token->errnum);
+	if (mode_add == 3)
+		return (store_var_element(node_token, parsing));
+	if (valid_arguments(node_token, mode_add, parsing))
+		return (store_parse_argument(node_token, parsing));
+	if (mode_add == 1 && parsing != NULL)
+	{
+		node_token->token_cmd->cmd_str = parsing;
+		if (node_token->token_cmd->operand != VOIDTOKEN && mode_add != 4)
+			mode_add = 2;
+	}
+	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
+		return (store_parse_redir(node_token, parsing, &mode_add));
 	return (node_token->errnum);
 }

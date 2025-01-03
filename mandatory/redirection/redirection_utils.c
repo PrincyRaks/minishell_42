@@ -14,21 +14,22 @@
 
 int	check_errflow(t_flow *flow)
 {
-	if (!flow)
-		return (0);
-	while (flow != NULL)
-	{
-		if (flow->operand == NOTOP || flow->operand == VOIDTOKEN)
-			return (1);
-		if (flow->operand != NOTOP && flow->operand != VOIDTOKEN && (!flow->word
-				|| !ft_strlen(flow->word)))
-			return (1);
-		flow = flow->next_flow;
-	}
-	return (0);
+    if (!flow)
+        return (0);
+    while (flow != NULL)
+    {
+        if (flow->operand == NOTOP || flow->operand == VOIDTOKEN)
+            return (1);
+        if (flow->operand != NOTOP && flow->operand != VOIDTOKEN 
+            && !flow->word)
+            return (1); 
+        flow = flow->next_flow;
+    }
+    return (0);
 }
 
-// void	execute_typeflow(t_flow *flows, t_tokens *token)
+// pour un flow
+// void    execute_typeflow(t_flow  *flows, t_tokens *token)
 // {
 // 	while (flows != NULL)
 // 	{
@@ -46,34 +47,34 @@ int	check_errflow(t_flow *flow)
 // }
 
 // pour un token
-// void	execute_redirection(t_tokens *token)
-// {
-// 	t_flow	*flows;
-// 	t_flow	*first_flow;
+void	execute_redirection(t_tokens *token)
+{
+	t_flow	*flows;
+	t_flow	*first_flow;
 
-// 	flows = token->token_flow;
-// 	if (!token || !token->token_flow)
-// 		return ;
-// 	first_flow = flows;
-// 	if (check_errflow(flows))
-// 	{
-// 		print_errnum(ERRFLOW);
-// 		return ;
-// 	}
-// 	while (flows != NULL && flows->operand != HEREDOC)
-// 		flows = flows->next_flow;
-// 	if (!flows)
-// 	{
-// 		// printf("pas de heredoc\n");
-// 		execute_typeflow(first_flow, token);
-// 		return ;
-// 	}
-// 	else if (flows != NULL && flows->operand == HEREDOC)
-// 	{
-// 		// printf("misy heredoc\n");
-// 		// open_heredoc
-// 		if (flows->next_flow != NULL)
-// 			printf("bola mitohy apres heredoc\n");
-// 		// recurssive of function execute_redirection avec argument flows->next_flow
-// 	}
-// }
+    if (!token || !token->token_flow)
+        return ;
+    // first_flow = flows;
+    flows = token->token_flow;
+    if (check_errflow(flows))
+    {
+        print_errnum(ERRFLOW);
+        return ;
+    }
+    while (flows != NULL && flows->operand != HEREDOC)
+        flows = flows->next_flow;
+    if (!flows)
+    {
+        printf("pas de heredoc\n");
+        // execute_typeflow(first_flow);
+        return ;
+    }
+    else if (flows != NULL && flows->operand == HEREDOC)
+    {
+        // printf("misy heredoc\n");
+        open_heredoc(flows);
+        if (flows->next_flow != NULL)
+            printf("bola mitohy apres heredoc\n");
+            // recurssive of function execute_redirection avec argument flows->next_flow 
+    }
+}
