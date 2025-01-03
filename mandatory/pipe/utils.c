@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/01 21:49:17 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:32:38 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_command(t_tokens *current)
 		&& !find_executable(current->token_cmd->cmd_str)))
 	{
 		ft_putstr_fd(current->token_cmd->cmd_str, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(" : command not found\n", 2);
 		return (0);
 	}
 	return (1);

@@ -6,11 +6,12 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/01 11:56:01 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:45:21 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 void	execute_single_command(t_tokens *tokens)
 {
