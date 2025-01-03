@@ -1,4 +1,5 @@
-CFLAGS = -Wall -Werror -Wextra -g 
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
@@ -43,7 +44,7 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/utils.c \
 	   mandatory/signals/signals.c \
 	   mandatory/redirection/redirection_utils.c \
-	   mandatory/redirection/heredoc.c 
+	   mandatory/redirection/heredoc.c \
 	   mandatory/redirection/redirections.c
 
 OBJS = $(SRCS:.c=.o)

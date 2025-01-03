@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:12:44 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/23 21:11:51 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:01:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_errflow(t_flow *flow)
 void	execute_redirection(t_tokens *token)
 {
 	t_flow	*flows;
-	t_flow	*first_flow;
+	// t_flow	*first_flow;
 
     if (!token || !token->token_flow)
         return ;

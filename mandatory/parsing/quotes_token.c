@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/24 17:30:34 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:04:12 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	set_notop_element(t_tokens *token, int mode, char *res)
 
 	len_res = ft_strlen(res);
 	end_arg = last_arg(token->token_arg);
-	printf("mode:%d len: %zu\n", mode, len_res);
+	// printf("mode:%d len: %zu\n", mode, len_res);
 	if (mode == 1 && token->token_cmd->operand == VOIDTOKEN && len_res > 0)
 		token->token_cmd->operand = NOTOP;
 	else if (token->token_arg != NULL && mode == 2 && end_arg->operand == VOIDTOKEN 

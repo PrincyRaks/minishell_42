@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/30 22:01:48 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:29:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	valid_operand(char *str, int nb_operator, int iter, int *expand)
 	if (nb_operator == 1)
 	{
 		if (*(str - iter) == '>')
-			return (INPUT);
-		return (OUTPUT);
+			return (OUTPUT);
+		return (INPUT);
 	}
 	if (*(str - iter) == '<' && *(str - (iter - 1)) == '<')
 	{

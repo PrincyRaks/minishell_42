@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/31 10:55:17 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:30:24 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_input(char *input)
 	}
 }
 
-static void	process_input(void)
+/* static void	process_input(void)
 {
 	char	*input;
 
@@ -48,10 +48,22 @@ static void	process_input(void)
 	}
 	handle_input(input);
 	free(input);
-}
+} */
 
 void	shell_loop(void)
 {
+	char	*input;
+	
+	set_signals_interactive();
 	while (1)
-		process_input();
+	{
+		input = readline(PROMPT);
+		if (!input)
+		{
+			write(STDOUT_FILENO, "exit\n", 5);
+			break;
+		}
+		handle_input(input);
+		free(input);	
+	}
 }
