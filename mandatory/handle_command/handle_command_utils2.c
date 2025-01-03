@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_pipe.c                                     :+:      :+:    :+:   */
+/*   handle_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/31 11:14:32 by mrazanad         ###   ########.fr       */
+/*   Created: 2024/12/16 21:16:39 by mrazanad          #+#    #+#             */
+/*   Updated: 2024/12/26 18:25:29 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_pipeline(t_tokens *tokens)
+void	handle_external_command(t_tokens *data_cmd)
 {
-	int			prev_fd;
-	t_tokens	*current;
-	t_tokens	*last;
+	char	*executable;
 
-	set_signals_pipe();
-	last = tokens;
-	while (last->next)
-		last = last->next;
-	if (!check_command(last))
+	executable = find_executable(data_cmd->token_cmd->cmd_str);
+	if (executable)
 	{
-		set_signals_interactive();
-		return ;
+		execute_external_command(executable, data_cmd);
+		free(executable);
 	}
-	prev_fd = -1;
-	current = last;
-	while (current)
-	{
-		execute_command(tokens, current, &prev_fd);
-		current = get_prev_token(tokens, current);
-	}
-	while (wait(NULL) > 0)
-		;
-	set_signals_interactive();
+}
+
+void	restore_stdio(int saved_stdin, int saved_stdout)
+{
+	dup2(saved_stdin, STDIN_FILENO);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdin);
+	close(saved_stdout);
 }

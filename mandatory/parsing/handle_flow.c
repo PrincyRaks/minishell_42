@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_flow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/19 11:52:00 by rrakotos         ###   ########.fr       */
+/*   Updated: 2024/12/30 22:01:48 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	valid_operand(char *str, int nb_operator, int iter, int *expand)
 	{
 		if (*(str - iter) == '>')
 			return (INPUT);
-		return (OUTPUT);	
+		return (OUTPUT);
 	}
 	if (*(str - iter) == '<' && *(str - (iter - 1)) == '<')
 	{
@@ -69,7 +69,7 @@ static void	store_operator(t_flow **node_flow, int operator)
 
 int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand)
 {
-	int	operand;
+    int	operand;
 
 	if (!input && !token)
 		return (0);

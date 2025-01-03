@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 09:01:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:27:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,49 @@ char	*find_executable(char *command)
 	char		**paths;
 	t_data_env	*path_exec;
 
+	full_path = NULL;
 	i = 0;
-	if (is_only_dots(command))
-	{
-		printf("command not found: %s\n", command);
-		return (NULL);
-	}
+	path_tmp = NULL;
+	paths = NULL;
 	if (command[0] == '/' || command[0] == '.')
 	{
-		if (access(command, X_OK) == 0)
+		if (access(command, F_OK | X_OK) == 0)
 			return (ft_strdup(command));
-		else
-			return (NULL);
+		// else
+		// 	handle_path_command(command, 0, 0);
+		return (NULL);
 	}
-	paths = NULL;
 	path_exec = ft_getenv("PATH");
-	if (path_exec != NULL)
+	if (path_exec)
 		paths = ft_split(path_exec->value, ':');
 	while (paths && paths[i])
 	{
-		path_tmp = ft_strdup(paths[i]);
-		full_path = ft_strjoin(path_tmp, "/");
-		full_path = ft_strjoin(full_path, command);
-		if (access(full_path, X_OK) == 0)
+		path_tmp = ft_strjoin(paths[i], "/");
+		if (!path_tmp)
+		{
+			// free_array(paths);
+			// return (NULL);
+			break ;
+		}
+		full_path = ft_strjoin(path_tmp, command);
+		// free(path_tmp);
+		path_tmp = NULL;
+		if (!full_path)
+		{
+			// free_array(paths);
+			// return (NULL);
+			break ;
+		}
+		if (access(full_path, F_OK | X_OK) == 0)
 		{
 			free_array(paths);
 			return (full_path);
 		}
 		free(full_path);
+		full_path = NULL;
 		i++;
 	}
-	free_array(paths);
+	if (paths)
+		free_array(paths);
 	return (NULL);
 }

@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 
 static int	store_token(t_tokens *node_token, char **input)

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
 /*   Updated: 2024/12/24 17:30:34 by rrakotos         ###   ########.fr       */

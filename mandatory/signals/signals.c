@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/17 09:43:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:55:22 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void	signal_reset_prompt(int signo)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	signal_pipe_handler(int signo)
+{
+	(void)signo;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+}
+
+void	set_signals_pipe(void)
+{
+	struct sigaction	act;
+
+	ft_memset(&act, 0, sizeof(act));
+	act.sa_handler = &signal_pipe_handler;
+	sigaction(SIGINT, &act, NULL);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	ignore_sigquit(void)
@@ -48,6 +65,10 @@ void	signal_print_newline(int signal)
 
 void	set_signals_noninteractive(void)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	struct sigaction	act;
+
+	ft_memset(&act, 0, sizeof(act));
+	act.sa_handler = SIG_DFL;
+	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 }

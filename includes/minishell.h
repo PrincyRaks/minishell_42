@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/23 11:17:21 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/03 10:22:07 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -29,11 +31,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <limits.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <stdbool.h>
-
 
 # define SYNTAX_ERROR 1
 # define PROMPT "👾# "
@@ -102,23 +99,25 @@ typedef struct s_tokens
 void					shell_loop(void);
 
 // Handle Command
-void	handle_dots_command(t_tokens *data_cmd);
-void handle_child_process(char *executable, t_tokens *data_cmd);
-void handle_parent_process(pid_t pid);
-void execute_external_command(char *executable, t_tokens *data_cmd);
-int is_invalid_command(t_tokens *data_cmd);
-void handle_external_command(t_tokens *data_cmd);
-void handle_command(t_tokens *data_cmd);
+void					handle_child_process(char *executable,
+							t_tokens *data_cmd);
+void					handle_parent_process(pid_t pid);
+void					execute_external_command(char *executable,
+							t_tokens *data_cmd);
+int						is_invalid_command(t_tokens *data_cmd);
+void					handle_external_command(t_tokens *data_cmd);
+void					handle_command(t_tokens *data_cmd);
 
 // Executor
 void					free_array(char **array);
-bool	is_only_dots(const char *command);
+bool					is_only_dots(const char *command);
 char					*find_executable(char *command);
 
 t_tokens				**store_instruction(char *input);
-char					*parse_input(t_tokens *token, char **input, int *mode_add);
+char					*parse_input(t_tokens *token, char **input,
+							int *mode_add);
 char					*remove_onequotes(char **start_quotes);
-char	*remove_doubquotes(char **qts, int is_expand);
+char					*remove_doubquotes(char **qts, int is_expand);
 t_tokens				**store_instruction(char *input);
 void					addback_arg(t_arg **first_arg, t_arg *node_arg);
 t_tokens				*new_token(void);
@@ -139,6 +138,7 @@ t_flow					*new_flow(void);
 t_flow					*last_flow(t_flow *flows);
 void					addback_flow(t_flow **first_flow, t_flow *node_flow);
 void					clean_flows(t_flow **lst);
+
 char	*handle_onequotes(char **qts, char **result, t_tokens *token);
 char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int is_expand);
 void	handle_var(char **input, char **res, t_tokens *token, int *mode);
@@ -189,18 +189,30 @@ int						is_builtin(char *cmd);
 
 int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
-void	execute_builtin(t_tokens *tokens, int nb);
+void					execute_builtin(t_tokens *tokens, int nb);
 
 
-void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens);
-void	wait_for_children(void);
-void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens);
-int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens);
-void	exit_perror(char *message);
+// Pipe Utils
+void					setup_pipe(int prev_fd, int pipe_fd[2],
+							t_tokens *tokens);
+void					wait_for_children(void);
+void					handle_child(int prev_fd, int pipe_fd[2],
+							t_tokens *tokens);
+int						handle_parent(int prev_fd, int pipe_fd[2],
+							t_tokens *tokens);
+void					exit_perror(char *message);
+t_tokens *get_prev_token(t_tokens *head, t_tokens *current);
+void	setup_child_process(t_tokens *tokens, t_tokens *current,
+		int prev_fd, int *pipe_fd);
+int	check_command(t_tokens *current);
+void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
+		int *prev_fd, int *pipe_fd);
+void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd);	
 
 
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
+void 					set_signals_pipe(void);
 
 
 int     check_errflow(t_flow *flow);
@@ -208,11 +220,18 @@ int     check_errflow(t_flow *flow);
 void    open_heredoc(t_flow  *flow);
 void    execute_redirection(t_tokens *token);
 
-void	signal_reset_prompt(int signo);
-void	ignore_sigquit(void);
-void	set_signals_interactive(void);
-void	signal_print_newline(int signal);
-void	set_signals_noninteractive(void);
+int						open_redirection_file(t_flow *redir);
+int						apply_redirection(t_tokens *token);
+void					restore_stdio(int saved_stdin, int saved_stdout);
 
+// Signals
+void					signal_reset_prompt(int signo);
+void					ignore_sigquit(void);
+void					set_signals_interactive(void);
+void					signal_print_newline(int signal);
+void					set_signals_noninteractive(void);
+
+// Handle_command
+void	handle_path_command(char *cmd, int saved_stdin, int saved_stdout);
 
 #endif

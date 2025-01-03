@@ -6,13 +6,13 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:12:44 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/23 11:17:03 by mrazanad         ###   ########.fr       */
+/*   Updated: 2024/12/23 21:11:51 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int     check_errflow(t_flow *flow)
+int	check_errflow(t_flow *flow)
 {
     if (!flow)
         return (0);
@@ -31,25 +31,26 @@ int     check_errflow(t_flow *flow)
 // pour un flow
 // void    execute_typeflow(t_flow  *flows, t_tokens *token)
 // {
-//     while (flows != NULL)
-//     {
-//         if (!flows)
-//             return ;
-//         if (flows->operand == INPUT)
-//             // fonction input
-//         else if (flows->operand == APPEND)
-//             // fonction append
-//         else if (flows->operand == OUTPUT)
-//             // fonction output
-//         flows = flows->next_flow;
-//     }
+// 	while (flows != NULL)
+// 	{
+
+// 		if (flows->operand == OUTPUT)
+// 		{
+// 			apply_redirection(token);
+// 		}
+// 		// else if (flows->operand == APPEND)
+// 		//     apply_append_redirection(token);
+// 		// else if (flows->operand == INPUT)
+// 		//     apply_input_redirection(token);
+// 		flows = flows->next_flow;
+// 	}
 // }
 
 // pour un token
-void    execute_redirection(t_tokens *token)
+void	execute_redirection(t_tokens *token)
 {
-    t_flow  *flows;
-    // t_flow  *first_flow;
+	t_flow	*flows;
+	t_flow	*first_flow;
 
     if (!token || !token->token_flow)
         return ;
