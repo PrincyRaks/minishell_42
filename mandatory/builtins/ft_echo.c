@@ -33,15 +33,14 @@ void	ft_echo(t_tokens *tokens)
 
 	// if (!tokens)
 	//     return ;
-	// handle echo $? / $VAR_ENV
 	option = 0;
 	argt = tokens->token_arg;
-	while (argt != NULL && check_option(argt->arg_str))
+	while (argt != NULL && argt->arg_str != NULL && check_option(argt->arg_str))
 	{
 		option = 1;
 		argt = argt->next_arg;
 	}
-	while (argt != NULL)
+	while (argt != NULL && argt->arg_str != NULL)
 	{
 		if (!argt->next_arg)
 		{

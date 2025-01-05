@@ -47,15 +47,13 @@ int	check_errflow(t_flow *flow)
 // }
 
 // pour un token
-void	execute_redirection(t_tokens *token)
+void	execute_redirection(t_flow	*flows)
 {
-	t_flow	*flows;
 	// t_flow	*first_flow;
 
-    if (!token || !token->token_flow)
+    if (!flows)
         return ;
     // first_flow = flows;
-    flows = token->token_flow;
     if (check_errflow(flows))
     {
         print_errnum(ERRFLOW);
@@ -74,7 +72,8 @@ void	execute_redirection(t_tokens *token)
         // printf("misy heredoc\n");
         open_heredoc(flows);
         if (flows->next_flow != NULL)
-            printf("bola mitohy apres heredoc\n");
+            execute_redirection(flows->next_flow);
+            // printf("bola mitohy apres heredoc\n");
             // recurssive of function execute_redirection avec argument flows->next_flow 
     }
 }

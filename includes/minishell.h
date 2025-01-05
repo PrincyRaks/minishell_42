@@ -217,8 +217,8 @@ void 					set_signals_pipe(void);
 
 int     check_errflow(t_flow *flow);
 // void    execute_typeflow(t_flow  *flows, t_tokens *token);
-void    open_heredoc(t_flow  *flow);
-void    execute_redirection(t_tokens *token);
+int		open_heredoc(t_flow  *flow);
+void	execute_redirection(t_flow	*flows);
 
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);

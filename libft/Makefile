@@ -8,7 +8,7 @@ NAME= libft.a
 all: $(NAME)
 
 %.o: %.c
-	cc $(CFLAGS) -c $(SRC) $(SRC_bonus)
+	gcc $(CFLAGS) -c $(SRC) $(SRC_bonus)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)

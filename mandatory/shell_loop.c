@@ -27,8 +27,8 @@ static void	handle_input(char *input)
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL)
 		{
-//       if ((*data_cmd)->token_flow != NULL)
-// 				execute_redirection(*data_cmd);
+      		// if ((*data_cmd)->token_flow != NULL)
+			// 	execute_redirection((*data_cmd)->token_flow);
 			handle_command(*data_cmd);
 			clean_tokens(data_cmd);
 		}
@@ -61,7 +61,7 @@ void	shell_loop(void)
 		if (!input)
 		{
 			write(STDOUT_FILENO, "exit\n", 5);
-			break;
+			break ;
 		}
 		handle_input(input);
 		free(input);	

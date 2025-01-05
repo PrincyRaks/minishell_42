@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 17:58:28 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/02 21:20:25 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:20:19 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	set_void_operand(t_tokens *token, int mode)
 		token->token_arg = new_arg();
 		end_arg = token->token_arg;
 	}
-	if (mode == 2 && end_arg && !end_arg->arg_str && end_arg->operand != INQUOTES)
+	if (mode == 2 && end_arg && !end_arg->arg_str 
+		&& end_arg->operand != INQUOTES)
 		end_arg->operand = VOIDTOKEN;
 	else if (mode == 2 && end_arg && end_arg->arg_str)
 	{

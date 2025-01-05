@@ -28,6 +28,8 @@ int	open_redirection_file(t_flow *redir)
 		fd = open(redir->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (redir->operand == APPEND)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (redir->operand == HEREDOC)
+		fd = open_heredoc(redir);
 	if (fd == -1)
 		ft_putstr_fd(" : No such file or directory\n", 2);
 	return (fd);
@@ -65,7 +67,7 @@ static int	apply_single_redirection(t_flow *redir)
 		return (-1);
 	if (redir->operand == OUTPUT || redir->operand == APPEND)
 		ret = handle_output_redirection(redir, fd);
-	else if (redir->operand == INPUT)
+	else if (redir->operand == INPUT || redir->operand == HEREDOC)
 		ret = handle_input_redirection(redir, fd);
 	else
 		ret = 0;

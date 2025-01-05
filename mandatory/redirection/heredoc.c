@@ -30,38 +30,63 @@ static void    set_folder_tmp(char **str_folder)
     *str_folder = ft_strjoin(ft_strdup(cwd), "/");
 }
 
-//  !!! check signal ctrl + D and display warning !!!
-void    open_heredoc(t_flow  *flow)
+void    write_heredoc(char *input, int fd_tmp, int expandable)
 {
+    char    *expand;
+
+    expand = NULL;
+    while (*input)
+    {
+        if (*input == '$' && expandable && (*(input + 1) == '"' || *(input + 1) == '\''))
+        {
+            while (*input != '$' && *input != '\0' && *input != '"' && *input =='\'')
+            {
+                ft_putchar_fd(*input, fd_tmp);
+                input++;
+            }
+        }
+        if (*input == '$' && expandable)
+        {
+            expand = handle_dollar(&input);
+            if (expand != NULL)
+            {
+                ft_putstr_fd(expand, fd_tmp);
+                free(expand);
+            }
+        }
+        if ((*input != '$' && *input != '\0') || !expandable)
+        {
+            ft_putchar_fd(*input, fd_tmp);
+            input++;
+        }
+    }
+}
+
+//  !!! check signal ctrl + D and display warning !!!
+int open_heredoc(t_flow  *flow)
+{
+    int     fd_tmp;
     char    *delimiter;
     char    *input_hd;
-    int     fd_tmp;
-    // int     is_expand;
-    // static int  file_tmp;
-    char *path_name;
+    char    *path_name;
 
     if ((!flow || !flow->word) && flow->operand != HEREDOC)
-        return ;
+        return (-1);
     set_folder_tmp(&path_name);
     if (!path_name)
-        return ;
-    path_name = ft_strjoin(path_name, "1");
+        return (-1);
+    path_name = ft_strjoin(path_name, "tmp");
     input_hd = NULL;
     delimiter = flow->word;
-    // is_expand = flow->expandable;
-    // file_tmp = 1;
-    fd_tmp = open(path_name , O_CREAT | O_WRONLY | O_APPEND);
-    printf("fd: %d et path: %s\n", fd_tmp, path_name);
-    while (fd_tmp >= 0 && (!input_hd || ft_strcmp(delimiter, input_hd) != 0))
+    fd_tmp = open(path_name , O_CREAT | O_WRONLY | O_RDONLY | O_TRUNC);
+    while (fd_tmp >= 0)
     {
         input_hd = readline("heredoc► ");
-        if (!input_hd)
-            return ;
-        if (!ft_strcmp(delimiter, input_hd))
+        if (!input_hd || !ft_strcmp(delimiter, input_hd))
             break ;
-        // handle quotes and var
-        ft_putstr_fd(input_hd, fd_tmp);
+        write_heredoc(input_hd, fd_tmp, flow->expandable);
         ft_putchar_fd('\n', fd_tmp);
-
+        free(input_hd);
     }
+    return (fd_tmp);
 }
