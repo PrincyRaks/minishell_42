@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:24:20 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:37:56 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,21 +139,28 @@ t_flow					*last_flow(t_flow *flows);
 void					addback_flow(t_flow **first_flow, t_flow *node_flow);
 void					clean_flows(t_flow **lst);
 
-char	*handle_onequotes(char **qts, char **result, t_tokens *token);
-char	*handle_doubquotes(char **qts, char **result, t_tokens *token, int is_expand);
-void	handle_var(char **input, char **res, t_tokens *token, int *mode);
-int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand);
-int	count_dollar(char *dollar);
-char	*dupnb_dollar(int nb_dollar);
-int	valid_char(char c);
-int	valid_token(t_tokens *token, char char_input);
-void	append_char(char **input, char **result);
-int	valid_redir(char c);
-int	create_new_token(t_tokens **first_node, t_tokens **node_token);
-int	store_var_element(t_tokens *token, char *parsing, int *mode);
-int	store_parse_argument(t_tokens *node, char *str_parse);
+char					*handle_onequotes(char **qts, char **result,
+							t_tokens *token);
+char					*handle_doubquotes(char **qts, char **result,
+							t_tokens *token, int is_expand);
+void					handle_var(char **input, char **res, t_tokens *token,
+							int *mode);
+int						handle_flow(t_tokens *token, char **input,
+							int *mode_add, int *is_expand);
+int						count_dollar(char *dollar);
+char					*dupnb_dollar(int nb_dollar);
+int						valid_char(char c);
+int						valid_token(t_tokens *token, char char_input);
+void					append_char(char **input, char **result);
+int						valid_redir(char c);
+int						create_new_token(t_tokens **first_node,
+							t_tokens **node_token);
+int						store_var_element(t_tokens *token, char *parsing,
+							int *mode);
+int						store_parse_argument(t_tokens *node, char *str_parse);
 // int	store_parse_redir(t_tokens *node, char *str_parse, int *mode);
-int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode);
+int						store_parse_cmd(t_tokens *node, char *str_parse,
+							int *mode);
 
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
@@ -171,12 +178,10 @@ t_data_env				*hash_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
 
-
 char					*join_onespace(char *s1, char *s2);
 int						count_tab(char **tab);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
-
 
 int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
@@ -191,7 +196,6 @@ int						is_numeric(const char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
 
-
 // Pipe Utils
 void					setup_pipe(int prev_fd, int pipe_fd[2],
 							t_tokens *tokens);
@@ -201,23 +205,22 @@ void					handle_child(int prev_fd, int pipe_fd[2],
 int						handle_parent(int prev_fd, int pipe_fd[2],
 							t_tokens *tokens);
 void					exit_perror(char *message);
-t_tokens *get_prev_token(t_tokens *head, t_tokens *current);
-void	setup_child_process(t_tokens *tokens, t_tokens *current,
-		int prev_fd, int *pipe_fd);
-int	check_command(t_tokens *current);
-void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
-		int *prev_fd, int *pipe_fd);
-void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd);	
-
+t_tokens				*get_prev_token(t_tokens *head, t_tokens *current);
+void					setup_child_process(t_tokens *tokens, t_tokens *current,
+							int prev_fd, int *pipe_fd);
+int						check_command(t_tokens *current);
+void					handle_pipe_fds(t_tokens *tokens, t_tokens *current,
+							int *prev_fd, int *pipe_fd);
+void					execute_command(t_tokens *tokens, t_tokens *current,
+							int *prev_fd);
 
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
-void 					set_signals_pipe(void);
+void					set_signals_pipe(void);
 
-
-int		open_heredoc(t_flow  *flow);
-char    *get_path_tmp(char *file);
-void    delete_file_tmp(char *file_path);
+int						open_heredoc(t_flow *flow);
+char					*getpath_tmp(char *file);
+void					delete_file_tmp(char *file_path);
 
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);
@@ -231,6 +234,7 @@ void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
 
 // Handle_command
-void	handle_path_command(char *cmd, int saved_stdin, int saved_stdout);
+void					handle_path_command(char *cmd, int saved_stdin,
+							int saved_stdout);
 
 #endif

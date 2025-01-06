@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:14:22 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:01:48 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,19 @@ int	open_heredoc(t_flow *flow)
 	char	*delimiter;
 	char	*input_hd;
 	char	*path_name;
+    static int num_file = 0; 
 
 	if ((!flow || !flow->word) && flow->operand != HEREDOC)
 		return (-1);
 	set_folder_tmp(&path_name);
 	if (!path_name)
 		return (-1);
+        
 	path_name = ft_strjoin(path_name, "tmp");
 	input_hd = NULL;
 	delimiter = flow->word;
 	fd_tmp = open(path_name, O_CREAT | O_WRONLY | O_TRUNC);
+    printf("fd: %d\n", fd_tmp);
 	while (fd_tmp >= 0)
 	{
 		input_hd = readline("heredoc► ");

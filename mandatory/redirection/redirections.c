@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/06 14:06:48 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:40:16 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	handle_input_redirection(t_flow *redir, int fd)
 
 	if (redir->operand == HEREDOC)
 	{
-		path_heredoc = get_path_tmp("tmp");
+		path_heredoc = getpath_tmp("tmp");
 		if (!path_heredoc)
 			return (-1);
 		fd = open(path_heredoc, O_RDONLY);
