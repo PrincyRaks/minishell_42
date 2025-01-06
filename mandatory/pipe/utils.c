@@ -6,30 +6,31 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/03 13:32:38 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:48:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens *get_prev_token(t_tokens *head, t_tokens *current)
+t_tokens	*get_prev_token(t_tokens *head, t_tokens *current)
 {
-	t_tokens *prev = NULL;
-	t_tokens *temp = head;
+	t_tokens	*prev;
+	t_tokens	*temp;
 
+	prev = NULL;
+	temp = head;
 	if (current == head)
-		return NULL;
-
+		return (NULL);
 	while (temp && temp != current)
 	{
 		prev = temp;
 		temp = temp->next;
 	}
-	return prev;
+	return (prev);
 }
 
-void	setup_child_process(t_tokens *tokens, t_tokens *current,
-		int prev_fd, int *pipe_fd)
+void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
+		int *pipe_fd)
 {
 	set_signals_noninteractive();
 	if (prev_fd != -1)
@@ -50,17 +51,35 @@ int	check_command(t_tokens *current)
 {
 	if (!current->token_cmd || !current->token_cmd->cmd_str
 		|| (!is_builtin(current->token_cmd->cmd_str)
-		&& !find_executable(current->token_cmd->cmd_str)))
+			&& !find_executable(current->token_cmd->cmd_str)))
 	{
-		ft_putstr_fd(current->token_cmd->cmd_str, 2);
-		ft_putstr_fd(" : command not found\n", 2);
+		if (current->token_cmd->cmd_str[0] == '/' || current->token_cmd->cmd_str[0] == '.')
+		{
+			if (access(current->token_cmd->cmd_str, F_OK) != 0)
+			{
+				ft_putstr_fd(" : ", 2);
+				ft_putstr_fd(current->token_cmd->cmd_str, 2);
+				ft_putstr_fd(": No such file or directory\n", 2);
+			}
+			else if (access(current->token_cmd->cmd_str, X_OK) != 0)
+			{
+				ft_putstr_fd(" : ", 2);
+				ft_putstr_fd(current->token_cmd->cmd_str, 2);
+				ft_putstr_fd(": Permission denied\n", 2);
+			}
+		}
+		else
+		{
+			ft_putstr_fd(current->token_cmd->cmd_str, 2);
+			ft_putstr_fd(" : command not found\n", 2);
+		}
 		return (0);
 	}
 	return (1);
 }
 
-void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
-		int *prev_fd, int *pipe_fd)
+void	handle_pipe_fds(t_tokens *tokens, t_tokens *current, int *prev_fd,
+		int *pipe_fd)
 {
 	if (*prev_fd != -1)
 		close(*prev_fd);

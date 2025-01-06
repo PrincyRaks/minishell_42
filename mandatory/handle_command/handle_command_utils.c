@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:01:42 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/03 11:39:59 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/06 16:46:17 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_child_process(char *executable, t_tokens *data_cmd)
 		    (executable[0] == '.' && executable[1] == '.' && executable[2] == '/'))
 		{
 			ft_putstr_fd(executable, 2);
-			ft_putstr_fd(": Is a directory\n", 2);
+			ft_putstr_fd(" : Is a directory\n", 2);	
 		}
 		// else
 		// 	perror("execve");

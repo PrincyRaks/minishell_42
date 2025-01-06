@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 13:19:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/26 15:12:14 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/06 09:04:17 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*remove_doubquotes(char **qts, int is_expand)
 		result = concat_str(result, ft_substr(start, 0, len));
 	return (result);
 }
-	
+
 char	*remove_onequotes(char **qts)
 {
 	int		is_close;
