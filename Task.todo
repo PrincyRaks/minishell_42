@@ -3,20 +3,20 @@ Parsing:
     ✔ ENV variable @done(24-11-16 15:16)
     ✔ expand ($) @done(24-11-19 16:20)
     ✔ command pour ignorer les leaks readline @done(24-11-29 11:35)
-    ☐ commande dans les variables d'environnements
-    ☐ parse redirection:
-        ☐ Attention erreur si (token_flow->operand != NOTOP && token_flow == NULL)
-        ☐ verifier si cmdstr ou argstr existe deja -> donc argument apres fichier
-        ☐ verifier si operand existe apres ajouter fichier : si operand et fichier existe donc new flow
+    ✔ commande dans les variables d'environnements @done(25-01-06 23:57)
+    ✔ parse redirection: @done(25-01-06 23:57)
+        ✔ Attention erreur si (token_flow->operand != NOTOP && token_flow == NULL) @done(25-01-06 23:57)
+        ✔ verifier si cmdstr ou argstr existe deja -> donc argument apres fichier @done(25-01-06 23:57)
+        ✔ verifier si operand existe apres ajouter fichier : si operand et fichier existe donc new flow @done(25-01-06 23:57)
 
-☐ Implémenter un historique des commandes
+✔ Implémenter un historique des commandes @done(25-01-06 23:57)
 ✔ Gérer les guillemets (quotes) : les simples et les doubles @done(24-12-17 14:46)
-☐ Implémenter les redirections : <, >, <<, >>
+✔ Implémenter les redirections : <, >, <<, >> @done(25-01-06 23:57)
 ✔ Implémenter les pipes : | @done(24-12-18 16:36)
 ✔ Manipuler les variables d'environnement ($) @done(24-11-29 11:45)
 ☐ Gérer les $? et les états de sortie
-☐ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\
-☐ Gérer des built-ins :
+✔ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\ @done(25-01-06 23:58)
+✔ Gérer des built-ins : @done(25-01-06 23:58)
     ✔ echo (avec -n) @done(24-11-29 10:53)
     ✔ cd (seulement avec chemin relatif ou absolu) @done(24-11-19 15:50)
     ✔ pwd (sans option) @done(24-11-19 15:50)
@@ -24,3 +24,8 @@ Parsing:
     ✔ unset (sans option) @done(24-12-02 11:52)
     ✔ env (sans option, ni argument) @done(24-11-19 15:51)
     ✔ exit (sans option) @done(24-11-19 15:50)
+
+HEREDOC:
+    ☐ ao anaty parsing no mitety ny heredoc (fafana le implementation, anaty fonction executor)
+    ☐ atao anaty set sy get le fd farany heredoc avy le izy
+    ☐ Attention heredoc successive mila close le teo aloha de averina @ alohoany le STDIN
