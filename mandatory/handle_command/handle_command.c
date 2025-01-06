@@ -83,6 +83,8 @@ void	handle_command(t_tokens *data_cmd)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
+	set_stdin_dup(saved_stdin);
+	set_stdout_dup(saved_stdout);
 	if (!data_cmd || !data_cmd->token_cmd || !data_cmd->token_cmd->cmd_str)
 		return (restore_stdio(saved_stdin, saved_stdout));
 	if (apply_redirection(data_cmd) == -1)

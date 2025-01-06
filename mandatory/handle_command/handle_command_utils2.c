@@ -30,4 +30,6 @@ void	restore_stdio(int saved_stdin, int saved_stdout)
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdin);
 	close(saved_stdout);
+	set_stdin_dup(-1);
+	set_stdout_dup(-1);
 }

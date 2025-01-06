@@ -65,25 +65,44 @@ void	write_heredoc(char *input, int fd_tmp, int expandable)
 	}
 }
 
+int	create_file_tmp(void)
+{
+	int		fd_tmp;
+	int		fd_closed;
+	char	*path_name;
+    static int num_file = -1;
+
+	set_folder_tmp(&path_name);
+	if (!path_name)
+		return (-1);
+	fd_closed = get_last_fd_heredoc();
+	if (fd_closed >= 0)
+	{
+		// misy ts mety eto eee !!!!!
+		printf("misy ts mety eto\n");
+		dup2(get_stdin_dup(), STDIN_FILENO);
+		close(fd_closed);
+	}
+	num_file++;
+	set_num_file(num_file);
+	path_name = concat_str(path_name, ft_itoa(num_file));
+	printf("path tmp: %s\n", path_name);
+	fd_tmp = open(path_name, O_CREAT | O_WRONLY | O_TRUNC);
+	return (fd_tmp);
+}
+
 //  !!! check signal ctrl + D and display warning !!!
 int	open_heredoc(t_flow *flow)
 {
 	int		fd_tmp;
 	char	*delimiter;
 	char	*input_hd;
-	char	*path_name;
-    static int num_file = 0; 
 
 	if ((!flow || !flow->word) && flow->operand != HEREDOC)
 		return (-1);
-	set_folder_tmp(&path_name);
-	if (!path_name)
-		return (-1);
-        
-	path_name = ft_strjoin(path_name, "tmp");
 	input_hd = NULL;
 	delimiter = flow->word;
-	fd_tmp = open(path_name, O_CREAT | O_WRONLY | O_TRUNC);
+	fd_tmp = create_file_tmp();
     printf("fd: %d\n", fd_tmp);
 	while (fd_tmp >= 0)
 	{
@@ -95,5 +114,6 @@ int	open_heredoc(t_flow *flow)
 		free(input_hd);
 	}
 	close(fd_tmp);
+	set_fd_heredoc(fd_tmp);
 	return (fd_tmp);
 }

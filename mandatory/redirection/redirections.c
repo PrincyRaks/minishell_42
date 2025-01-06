@@ -49,13 +49,16 @@ static int	handle_output_redirection(t_flow *redir, int fd)
 static int	handle_input_redirection(t_flow *redir, int fd)
 {
 	char	*path_heredoc;
+	char	*num_file;
 
 	if (redir->operand == HEREDOC)
 	{
-		path_heredoc = getpath_tmp("tmp");
+		num_file = ft_itoa(get_last_file());
+		path_heredoc = getpath_tmp(num_file);
 		if (!path_heredoc)
 			return (-1);
 		fd = open(path_heredoc, O_RDONLY);
+		free(num_file);
 		free(path_heredoc);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)

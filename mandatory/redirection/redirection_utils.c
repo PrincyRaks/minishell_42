@@ -34,9 +34,16 @@ char	*getpath_tmp(char *file)
 	return (res);
 }
 
-void    delete_file_tmp(char *file_path)
+void    delete_file_tmp(int last_num)
 {
-    if (!file_path)
-        return;
-    unlink(file_path);
+	char	*num_file;
+
+	num_file = NULL;
+	while (last_num > -1)
+	{
+		num_file = ft_itoa(last_num);
+		unlink(num_file);
+		free(num_file);
+		last_num--;
+	}
 }

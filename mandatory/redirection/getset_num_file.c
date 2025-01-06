@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   getset_num_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:26:09 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/06 21:35:47 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/06 22:48:41 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+static int  *static_num_file(void)
 {
-	(void)argc;
-	(void)argv;
-	t_data_env	*data;
-	// aza fafana ty !
-	dup_env(envp);
-	shell_loop();
-	// clean
-	delete_file_tmp(get_last_file());
-	clear_export_env();
-	data = get_data_env();
-	clean_env(&data);
-	return (0);
+    static int  cst = -1;
+    return (&cst);
+}
+
+int get_last_file(void)
+{
+    return (*static_num_file());
+}
+
+void    set_num_file(int num_file)
+{
+    *static_num_file() = num_file;
 }

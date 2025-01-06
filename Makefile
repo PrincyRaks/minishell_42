@@ -3,6 +3,8 @@ CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
+	   mandatory/handle_command/getset_stdin_dup.c \
+	   mandatory/handle_command/getset_stdout_dup.c \
 	   mandatory/handle_command/handle_command_utils.c \
 	   mandatory/handle_command/handle_command_utils2.c \
        mandatory/shell_loop.c \
@@ -45,7 +47,9 @@ SRCS = mandatory/main.c \
 	   mandatory/signals/signals.c \
 	   mandatory/redirection/redirection_utils.c \
 	   mandatory/redirection/heredoc.c \
-	   mandatory/redirection/redirections.c
+	   mandatory/redirection/redirections.c \
+	   mandatory/redirection/getset_num_file.c \
+	   mandatory/redirection/getset_fd_heredoc.c 
 
 OBJS = $(SRCS:.c=.o)
 

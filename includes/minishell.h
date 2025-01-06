@@ -220,11 +220,20 @@ void					set_signals_pipe(void);
 
 int						open_heredoc(t_flow *flow);
 char					*getpath_tmp(char *file);
-void					delete_file_tmp(char *file_path);
+void    delete_file_tmp(int last_num);
+int get_last_file(void);
+void    set_num_file(int num_file);
+int get_last_fd_heredoc(void);
+void    set_fd_heredoc(int fd);
+void    set_stdout_dup(int fd);
+int get_stdout_dup(void);
+void    set_stdin_dup(int fd);
+int get_stdin_dup(void);
 
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);
 void					restore_stdio(int saved_stdin, int saved_stdout);
+
 
 // Signals
 void					signal_reset_prompt(int signo);
