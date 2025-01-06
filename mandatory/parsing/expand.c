@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:41:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 11:37:03 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:11:48 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*dupnb_dollar(int nb_dollar)
 	return (str);
 }
 
-static char	*get_valuekey(char	**var)
+char	*get_valuekey(char **var)
 {
 	int			size;
 	char		*key;
@@ -60,10 +60,10 @@ static char	*get_valuekey(char	**var)
 	return (ft_strdup(data->value));
 }
 
-static char	*expand(char **var)
+char	*expand(char **var)
 {
-	int			size;
-	char		*result;
+	int		size;
+	char	*result;
 
 	if (*var == NULL || **var == ' ' || **var == '\0' || **var == '"')
 		return (ft_strdup("$"));

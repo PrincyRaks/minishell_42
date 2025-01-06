@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/03 17:09:23 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:06:48 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,16 @@ static int	handle_output_redirection(t_flow *redir, int fd)
 
 static int	handle_input_redirection(t_flow *redir, int fd)
 {
-	(void)redir;
+	char	*path_heredoc;
+
+	if (redir->operand == HEREDOC)
+	{
+		path_heredoc = get_path_tmp("tmp");
+		if (!path_heredoc)
+			return (-1);
+		fd = open(path_heredoc, O_RDONLY);
+		free(path_heredoc);
+	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		close(fd);

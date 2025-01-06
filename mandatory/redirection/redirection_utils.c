@@ -3,77 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 11:12:44 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/03 16:01:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:24:07 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_errflow(t_flow *flow)
+char	*get_path_tmp(char *file)
 {
-    if (!flow)
-        return (0);
-    while (flow != NULL)
-    {
-        if (flow->operand == NOTOP || flow->operand == VOIDTOKEN)
-            return (1);
-        if (flow->operand != NOTOP && flow->operand != VOIDTOKEN 
-            && !flow->word)
-            return (1); 
-        flow = flow->next_flow;
-    }
-    return (0);
+	char	*res;
+	char	cwd[PATH_MAX];
+
+	res = ft_calloc(1, sizeof(char));
+	if (!getcwd(cwd, sizeof(cwd)))
+	{
+		perror("getcwd");
+		return (NULL);
+	}
+	res = ft_strjoin(ft_strdup(cwd), "/");
+	res = ft_strjoin(res, file);
+	if (access(res, F_OK) != 0)
+	{
+		free(res);
+		perror("access");
+		return (NULL);
+	}
+	return (res);
 }
 
-// pour un flow
-// void    execute_typeflow(t_flow  *flows, t_tokens *token)
-// {
-// 	while (flows != NULL)
-// 	{
-
-// 		if (flows->operand == OUTPUT)
-// 		{
-// 			apply_redirection(token);
-// 		}
-// 		// else if (flows->operand == APPEND)
-// 		//     apply_append_redirection(token);
-// 		// else if (flows->operand == INPUT)
-// 		//     apply_input_redirection(token);
-// 		flows = flows->next_flow;
-// 	}
-// }
-
-// pour un token
-void	execute_redirection(t_flow	*flows)
+void    delete_file_tmp(char *file_path)
 {
-	// t_flow	*first_flow;
-
-    if (!flows)
-        return ;
-    // first_flow = flows;
-    if (check_errflow(flows))
-    {
-        print_errnum(ERRFLOW);
-        return ;
-    }
-    while (flows != NULL && flows->operand != HEREDOC)
-        flows = flows->next_flow;
-    if (!flows)
-    {
-        printf("pas de heredoc\n");
-        // execute_typeflow(first_flow);
-        return ;
-    }
-    else if (flows != NULL && flows->operand == HEREDOC)
-    {
-        // printf("misy heredoc\n");
-        open_heredoc(flows);
-        if (flows->next_flow != NULL)
-            execute_redirection(flows->next_flow);
-            // printf("bola mitohy apres heredoc\n");
-            // recurssive of function execute_redirection avec argument flows->next_flow 
-    }
+    if (!file_path)
+        return;
+    if (unlink(file_path) != 0)
+	{
+		perror("unlink");
+		return ;
+	}
 }

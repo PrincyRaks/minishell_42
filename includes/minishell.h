@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/03 10:22:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:24:20 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,10 +215,9 @@ void					execute_pipeline(t_tokens *tokens);
 void 					set_signals_pipe(void);
 
 
-int     check_errflow(t_flow *flow);
-// void    execute_typeflow(t_flow  *flows, t_tokens *token);
 int		open_heredoc(t_flow  *flow);
-void	execute_redirection(t_flow	*flows);
+char    *get_path_tmp(char *file);
+void    delete_file_tmp(char *file_path);
 
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);
