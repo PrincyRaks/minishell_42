@@ -21,7 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	dup_env(envp);
 	shell_loop();
 	// clean
-	delete_file_tmp(get_last_file());
 	clear_export_env();
 	data = get_data_env();
 	clean_env(&data);

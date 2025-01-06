@@ -65,5 +65,6 @@ void	shell_loop(void)
 		}
 		handle_input(input);
 		free(input);	
+		delete_file_tmp(get_last_file());
 	}
 }
