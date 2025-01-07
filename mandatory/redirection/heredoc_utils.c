@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-char	*getpath_tmp(char *file)
-{
-	char	*res;
-	char	cwd[PATH_MAX];
-
-	res = ft_calloc(1, sizeof(char));
-	if (!getcwd(cwd, sizeof(cwd)))
-	{
-		perror("getcwd");
-		return (NULL);
-	}
-	res = ft_strjoin(ft_strdup(cwd), "/");
-	res = ft_strjoin(res, file);
-	if (access(res, F_OK) != 0)
-	{
-		free(res);
-		perror("access");
-		return (NULL);
-	}
-	return (res);
-}
 
 void    delete_file_tmp(int last_num)
 {
@@ -86,31 +65,27 @@ void	write_heredoc(char *input, int fd_tmp, int expandable)
 			input++;
 		}
 	}
+	ft_putchar_fd('\n', fd_tmp);
 }
 
-//  !!! check signal ctrl + D and display warning !!!
-// int	open_heredoc(t_flow *flow)
+// char	*getpath_tmp(char *file)
 // {
-// 	int		fd_tmp;
-// 	char	*delimiter;
-// 	char	*input_hd;
+// 	char	*res;
+// 	char	cwd[PATH_MAX];
 
-// 	if ((!flow || !flow->word) && flow->operand != HEREDOC)
-// 		return (-1);
-// 	input_hd = NULL;
-// 	delimiter = flow->word;
-// 	fd_tmp = create_file_tmp();
-//     printf("fd: %d\n", fd_tmp);
-// 	while (fd_tmp >= 0)
+// 	res = ft_calloc(1, sizeof(char));
+// 	if (!getcwd(cwd, sizeof(cwd)))
 // 	{
-// 		input_hd = readline("heredoc► ");
-// 		if (!input_hd || !ft_strcmp(delimiter, input_hd))
-// 			break ;
-// 		write_heredoc(input_hd, fd_tmp, flow->expandable);
-// 		ft_putchar_fd('\n', fd_tmp);
-// 		free(input_hd);
+// 		perror("getcwd");
+// 		return (NULL);
 // 	}
-// 	close(fd_tmp);
-// 	set_fd_heredoc(fd_tmp);
-// 	return (fd_tmp);
+// 	res = ft_strjoin(ft_strdup(cwd), "/");
+// 	res = ft_strjoin(res, file);
+// 	if (access(res, F_OK) != 0)
+// 	{
+// 		free(res);
+// 		perror("access");
+// 		return (NULL);
+// 	}
+// 	return (res);
 // }

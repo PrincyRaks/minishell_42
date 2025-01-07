@@ -69,7 +69,6 @@ static void	handle_heredoc(t_flow *heredoc)
 		if (!ft_strcmp(delimiter, input_hd))
 			break ;
 		write_heredoc(input_hd, fd_tmp, heredoc->expandable);
-		ft_putchar_fd('\n', fd_tmp);
 		free(input_hd);
 	}
 	close(fd_tmp);

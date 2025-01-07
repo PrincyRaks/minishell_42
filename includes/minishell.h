@@ -218,7 +218,7 @@ void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 void					set_signals_pipe(void);
 
-char					*getpath_tmp(char *file);
+// char					*getpath_tmp(char *file);
 void    delete_file_tmp(int last_num);
 void	write_heredoc(char *input, int fd_tmp, int expandable);
 void	parse_heredoc(t_tokens *tokens);
