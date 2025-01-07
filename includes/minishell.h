@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/03 10:22:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:56:35 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ t_tokens *get_prev_token(t_tokens *head, t_tokens *current);
 void	setup_child_process(t_tokens *tokens, t_tokens *current,
 		int prev_fd, int *pipe_fd);
 int	check_command(t_tokens *current);
+// void	check_command(t_tokens *current);
 void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
 		int *prev_fd, int *pipe_fd);
 void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd);	

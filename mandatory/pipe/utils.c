@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/06 16:48:52 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:59:57 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
 
 int	check_command(t_tokens *current)
 {
-	if (!current->token_cmd || !current->token_cmd->cmd_str
-		|| (!is_builtin(current->token_cmd->cmd_str)
-			&& !find_executable(current->token_cmd->cmd_str)))
+	if (!current->token_cmd || (!is_builtin(current->token_cmd->cmd_str)
+		&& !find_executable(current->token_cmd->cmd_str)))
 	{
-		if (current->token_cmd->cmd_str[0] == '/' || current->token_cmd->cmd_str[0] == '.')
+		if (current->token_cmd != NULL && current->token_cmd->cmd_str != NULL 
+			&& (current->token_cmd->cmd_str[0] == '/' || current->token_cmd->cmd_str[0] == '.'))
 		{
 			if (access(current->token_cmd->cmd_str, F_OK) != 0)
 			{

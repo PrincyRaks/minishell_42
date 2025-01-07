@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/07 13:58:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:33:18 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	handle_output_redirection(t_flow *redir, int fd)
 	{
 		close(fd);
 		return (-1);
-	} 
+	}
 	return (0);
 }
 
@@ -60,7 +60,6 @@ static int	apply_single_redirection(t_flow *redir)
 	int	fd;
 	int	ret;
 
-	
 	fd = open_redirection_file(redir);
 	if (fd == -1)
 		return (-1);

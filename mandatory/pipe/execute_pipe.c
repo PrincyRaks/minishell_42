@@ -6,11 +6,24 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/31 11:14:32 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:13:13 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// void	print_data_flow(t_flow *flow)
+// {
+// 	while (flow)
+// 	{
+// 		if (flow->word)
+// 		{
+// 			ft_putstr_fd(">>> ", 2);
+// 			ft_putendl_fd(flow->word, 2);
+// 		}
+// 		flow = flow->next_flow;
+// 	}
+// }
 
 void	execute_pipeline(t_tokens *tokens)
 {
