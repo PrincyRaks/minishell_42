@@ -26,6 +26,6 @@ Parsing:
     ✔ exit (sans option) @done(24-11-19 15:50)
 
 HEREDOC:
-    ☐ ao anaty parsing no mitety ny heredoc (fafana le implementation, anaty fonction executor)
-    ☐ atao anaty set sy get le fd farany heredoc avy le izy
+    ✔ ao anaty parsing no mitety ny heredoc (fafana le implementation, anaty fonction executor) @done(25-01-07 15:31)
+    ✔ atao anaty set sy get le fd farany heredoc avy le izy @done(25-01-07 15:31)
     ☐ Attention heredoc successive mila close le teo aloha de averina @ alohoany le STDIN
