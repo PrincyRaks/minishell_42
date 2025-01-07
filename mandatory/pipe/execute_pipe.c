@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/07 16:13:13 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:49:06 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	execute_pipeline(t_tokens *tokens)
 	last = tokens;
 	while (last->next)
 		last = last->next;
+	/* if (last && last->token_cmd && last->token_cmd->cmd_str && last->token_flow)
+	{
+		apply_redirection(last);
+		set_signals_interactive();
+		return ;
+	} */
 	if (!check_command(last))
 	{
 		set_signals_interactive();
