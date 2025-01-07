@@ -14,6 +14,9 @@
 
 void    print_errnum(t_errnum numerr)
 {
+	int	status;
+
+	status = 2;
 	if (numerr == DEFAULT)
 		return ;
 	else if (numerr == ERRMALLOC)
@@ -25,7 +28,11 @@ void    print_errnum(t_errnum numerr)
 	else if (numerr == ERRPIPE)
 		ft_putstr_fd("Error: syntax error near unexpected token `|'\n", 2);
 	else
+	{
 		ft_putstr_fd("Error: ambiguous redirect\n", 2);
+		status = 1;
+	}
+	set_status(status);
 }
 
 t_errnum	check_errnum(t_tokens *token)
