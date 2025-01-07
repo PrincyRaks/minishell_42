@@ -12,10 +12,18 @@
 
 #include "minishell.h"
 
-void	ft_env(void)
+int	ft_env(t_tokens *token)
 {
 	t_data_env	*env;
+	t_arg	*args;
 
+	args = token->token_arg;
+	if (args && args->arg_str)
+	{
+		ft_putstr_fd(args->arg_str, 2);
+		ft_putendl_fd(" : No such file or directory", 2);
+		return (2);
+	}
 	env = get_data_env();
 	while (env != NULL)
 	{
@@ -23,4 +31,5 @@ void	ft_env(void)
 			printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
+	return (0);
 }

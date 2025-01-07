@@ -23,7 +23,7 @@ void	execute_builtin(t_tokens *tokens, int nb)
 	else if (nb == 4)
 		set_status(ft_echo(tokens));
 	else if (nb == 5)
-		set_status(ft_env());
+		set_status(ft_env(tokens));
 	else if (nb == 6)
 		set_status(ft_export(tokens));
 	else if (nb == 7)

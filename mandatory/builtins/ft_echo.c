@@ -26,7 +26,7 @@ static int	check_option(char *str)
 	return (1);
 }
 
-void	ft_echo(t_tokens *tokens)
+int	ft_echo(t_tokens *tokens)
 {
 	int		option;
 	t_arg	*argt;
@@ -52,4 +52,5 @@ void	ft_echo(t_tokens *tokens)
 	}
 	if (!option)
 		printf("\n");
+	return (0);
 }
