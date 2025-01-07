@@ -45,6 +45,7 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/pipe/utils.c \
 	   mandatory/signals/signals.c \
+	   mandatory/signals/getset_status.c \
 	   mandatory/redirection/heredoc_utils.c \
 	   mandatory/redirection/redirections.c \
 	   mandatory/redirection/handle_heredoc.c \

@@ -69,7 +69,9 @@ char	*expand(char **var)
 		return (ft_strdup("$"));
 	size = 0;
 	result = ft_calloc(sizeof(char), 1);
-	if (ft_isalpha(**var) || **var == '_')
+	if (**var == ?)
+		return(ft_itoa(get_status()));
+	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
 		return (get_valuekey(var));
 	result = ft_strjoin(result, "$");
 	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'

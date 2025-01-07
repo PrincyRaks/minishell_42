@@ -242,6 +242,8 @@ void					ignore_sigquit(void);
 void					set_signals_interactive(void);
 void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
+int						get_status(void);
+void					set_status(int fd);
 
 // Handle_command
 void					handle_path_command(char *cmd, int saved_stdin,
