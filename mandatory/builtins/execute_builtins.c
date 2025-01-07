@@ -15,19 +15,19 @@
 void	execute_builtin(t_tokens *tokens, int nb)
 {
 	if (nb == 1)
-		ft_cd(tokens);
+		set_status(ft_cd(tokens));
 	else if (nb == 2)
-		ft_pwd();
+		set_status(ft_pwd());
 	else if (nb == 3)
-		ft_exit(tokens);
+		set_status(ft_exit(tokens));
 	else if (nb == 4)
-		ft_echo(tokens);
+		set_status(ft_echo(tokens));
 	else if (nb == 5)
-		ft_env();
+		set_status(ft_env());
 	else if (nb == 6)
-		ft_export(tokens);
+		set_status(ft_export(tokens));
 	else if (nb == 7)
-		ft_unset(tokens);
+		set_status(ft_unset(tokens));
 }
 
 int	is_builtin(char *cmd)
