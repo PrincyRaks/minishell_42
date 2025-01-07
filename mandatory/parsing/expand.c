@@ -70,7 +70,10 @@ char	*expand(char **var)
 	size = 0;
 	result = ft_calloc(sizeof(char), 1);
 	if (**var == '?')
+	{
+		(*var)++;
 		return(ft_itoa(get_status()));
+	}
 	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
 		return (get_valuekey(var));
 	result = ft_strjoin(result, "$");
