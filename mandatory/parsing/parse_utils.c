@@ -123,7 +123,7 @@ t_tokens	**store_instruction(char *input)
 		return (NULL);
 	while (*input && node_token->errnum == DEFAULT)
 	{
-		while (*input == ' ')
+		while (ft_isspace(*input))
 			input++;
 		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
@@ -137,6 +137,12 @@ t_tokens	**store_instruction(char *input)
 		}
 		if (*input == '|')
 		{
+			if (!node_token->token_cmd && !node_token->token_flow)
+			{
+				print_errnum(ERRPIPE);
+				clean_tokens(first_node);
+				break ;
+			}
 			input++;
 			while (*input == ' ')
 				input++;
