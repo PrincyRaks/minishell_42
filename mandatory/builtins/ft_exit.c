@@ -12,35 +12,6 @@
 
 #include "minishell.h"
 
-// int	is_numeric(const char *str)
-// {
-// 	if (!str || *str == '\0')
-// 		return (0);
-// 	while (*str)
-// 	{
-// 		if (!ft_isdigit(*str) && !ft_isspace(*str) && *str != '+' && *str != '-')
-// 			return (0);
-// 		while (ft_isspace(*str))
-// 			str++;
-// 		if (*str == '+' || *str == '-')
-// 		{
-// 			str++;
-// 			if (!ft_isdigit(*str))
-// 				return (0);
-// 		}
-// 		if (ft_isdigit(*str))
-// 		{
-// 			while (ft_isdigit(*str))
-// 				str++;
-// 			if (*str && !ft_isspace(*str))
-// 				return (0);
-// 		}
-// 		while (ft_isspace(*str))
-// 			str++;
-// 	}
-// 	return (1);
-// }
-
 int	is_numeric(const char *str)
 {
 	int	flag;
