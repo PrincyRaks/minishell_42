@@ -60,6 +60,8 @@ static void	handle_heredoc(t_flow *heredoc)
 		return ;
 	while (1)
 	{
+		// implements signal here !
+		// signal(SIGINT, stopheredoc);
 		input_hd = readline("heredoc► ");
 		if (!input_hd)
 		{

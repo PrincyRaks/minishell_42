@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 void    delete_file_tmp(int last_num)
 {
 	char	*num_file;
