@@ -45,17 +45,17 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/pipe/utils.c \
 	   mandatory/signals/signals.c \
-	   mandatory/redirection/redirection_utils.c \
-	   mandatory/redirection/heredoc.c \
+	   mandatory/redirection/heredoc_utils.c \
 	   mandatory/redirection/redirections.c \
-	   mandatory/redirection/getset_num_file.c \
-	   mandatory/redirection/getset_fd_heredoc.c 
+	   mandatory/redirection/handle_heredoc.c \
+	   mandatory/redirection/getset_num_file.c 
 
 OBJS = $(SRCS:.c=.o)
 
 INC = -I./includes
 	
 NAME = minishell
+
 LIBFT = libft/libft.a
 
 all: libft $(NAME)

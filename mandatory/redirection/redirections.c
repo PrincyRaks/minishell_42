@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/06 15:40:16 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:42:59 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	open_redirection_file(t_flow *redir)
 		fd = open(redir->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (redir->operand == APPEND)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (redir->operand == HEREDOC)
-		fd = open_heredoc(redir);
 	if (fd == -1)
 		ft_putstr_fd(" : No such file or directory\n", 2);
 	return (fd);
@@ -48,19 +46,7 @@ static int	handle_output_redirection(t_flow *redir, int fd)
 
 static int	handle_input_redirection(t_flow *redir, int fd)
 {
-	char	*path_heredoc;
-	char	*num_file;
-
-	if (redir->operand == HEREDOC)
-	{
-		num_file = ft_itoa(get_last_file());
-		path_heredoc = getpath_tmp(num_file);
-		if (!path_heredoc)
-			return (-1);
-		fd = open(path_heredoc, O_RDONLY);
-		free(num_file);
-		free(path_heredoc);
-	}
+	(void)redir;
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
 		close(fd);

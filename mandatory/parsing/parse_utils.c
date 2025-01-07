@@ -100,7 +100,7 @@ static int	store_token(t_tokens *node_token, char **input)
 // 			{
 // 				free(arg_cmd->arg_str);
 // 				arg_cmd->arg_str = NULL;
-// 				arg_cmd->operand = NOTOP;
+// 			at << 1 <	arg_cmd->operand = NOTOP;
 // 			}
 // 			arg_cmd = arg_cmd->next_arg;
 // 		}
@@ -156,6 +156,7 @@ t_tokens	**store_instruction(char *input)
 				break ;
 		}
 	}
+	parse_heredoc(*first_node);
 	// parse_void_instruction(*first_node);
 	// printf("cmd1: %s\n", (*first_node)->token_cmd->cmd_str);
 	// printf("arg1: %s\n", (*first_node)->token_arg->arg_str);

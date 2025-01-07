@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:37:56 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:52:51 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,13 +218,14 @@ void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 void					set_signals_pipe(void);
 
-int						open_heredoc(t_flow *flow);
 char					*getpath_tmp(char *file);
 void    delete_file_tmp(int last_num);
-int get_last_file(void);
+void	write_heredoc(char *input, int fd_tmp, int expandable);
+void	parse_heredoc(t_tokens *tokens);
+void	print_warning_delimiter(char *str);
 void    set_num_file(int num_file);
-int get_last_fd_heredoc(void);
-void    set_fd_heredoc(int fd);
+int		get_last_file(void);
+
 void    set_stdout_dup(int fd);
 int get_stdout_dup(void);
 void    set_stdin_dup(int fd);
