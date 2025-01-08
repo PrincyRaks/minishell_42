@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/08 06:16:41 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:15:03 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	execute_pipeline(t_tokens *tokens)
 		set_signals_interactive();
 		return;
 	}
-	
 	prev_fd = -1;
+	// Harenasoa is the worst program ever and I'm so sorry for this one line of code
 	current = tokens;
 	// printf("\nDEBUG: Starting pipeline execution\n");
 	while (current)

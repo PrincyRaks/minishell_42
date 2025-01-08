@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/07 16:56:35 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:56:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,5 +234,6 @@ void					set_signals_noninteractive(void);
 
 // Handle_command
 void	handle_path_command(char *cmd, int saved_stdin, int saved_stdout);
+void	handle_dot_command(char *cmd, int saved_stdin, int saved_stdout);
 
 #endif

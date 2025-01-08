@@ -11,3 +11,7 @@ Redirections:
     output (<) :
         ✔ ne pas creer le fichier s'il n'existe pas @done(24-12-24 10:26)
         ✔ marche avec cat seulement @done(24-12-27 09:28)
+
+A gerer:
+    ☐ export | tail -n 20
+    
