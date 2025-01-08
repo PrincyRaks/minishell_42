@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/31 10:55:22 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:17:50 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

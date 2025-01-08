@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/07 14:23:20 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:23:38 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ void	write_heredoc(char *input, int fd_tmp, int expandable)
 		}
 	}
 	ft_putchar_fd('\n', fd_tmp);
+}
+
+void	set_folder_tmp(char **str_folder)
+{
+	char	cwd[PATH_MAX];
+
+	if (!getcwd(cwd, sizeof(cwd)))
+	{
+		perror("Error path");
+		*str_folder = NULL;
+		return ;
+	}
+	*str_folder = ft_strjoin(ft_strdup(cwd), "/");
 }
 
 // char	*getpath_tmp(char *file)

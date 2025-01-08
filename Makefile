@@ -49,7 +49,8 @@ SRCS = mandatory/main.c \
 	   mandatory/redirection/heredoc_utils.c \
 	   mandatory/redirection/redirections.c \
 	   mandatory/redirection/handle_heredoc.c \
-	   mandatory/redirection/getset_num_file.c 
+	   mandatory/redirection/getset_num_file.c \
+	   mandatory/redirection/getset_sigint_heredoc.c
 
 OBJS = $(SRCS:.c=.o)
 

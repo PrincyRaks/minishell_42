@@ -6,38 +6,45 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:57 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/07 14:58:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:57:52 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	set_folder_tmp(char **str_folder)
+void	signal_heredoc(int signal)
 {
-	char	cwd[PATH_MAX];
+	int fd[2];
+	int stdin;
 
-	if (!getcwd(cwd, sizeof(cwd)))
+	stdin = dup(STDIN_FILENO);
+	set_stdin_dup(stdin);
+	if (signal == SIGINT)
 	{
-		perror("Error path");
-		*str_folder = NULL;
-		return ;
+		if (pipe(fd) < 0)
+			perror("pipe");
+		ft_putchar_fd('\n', fd[1]);
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		set_sigint_hd(0);
 	}
-	*str_folder = ft_strjoin(ft_strdup(cwd), "/");
 }
 
-static int	create_file_tmp(t_flow *heredoc)
+int	create_file_tmp(t_flow *heredoc)
 {
 	int			fd_tmp;
 	char		*path_name;
-	static int	num_file = -1;
+	int			next_file;
 
 	set_folder_tmp(&path_name);
 	if (!path_name)
 		return (-1);
-	num_file++;
-	set_num_file(num_file);
-	path_name = concat_str(path_name, ft_itoa(num_file));
-	fd_tmp = open(path_name, O_CREAT | O_WRONLY);
+	next_file = get_last_file();
+	next_file++;
+	set_num_file(next_file);
+	path_name = concat_str(path_name, ft_itoa(get_last_file()));
+	fd_tmp = open(path_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_tmp < 0)
 		return (-1);
 	heredoc->word = path_name;
@@ -58,10 +65,9 @@ static void	handle_heredoc(t_flow *heredoc)
 	fd_tmp = create_file_tmp(heredoc);
 	if (fd_tmp < 0)
 		return ;
-	while (1)
+	while (get_sigint_hd())
 	{
-		// implements signal here !
-		// signal(SIGINT, stopheredoc);
+		signal(SIGINT, signal_heredoc);
 		input_hd = readline("heredoc► ");
 		if (!input_hd)
 		{
@@ -69,7 +75,10 @@ static void	handle_heredoc(t_flow *heredoc)
 			break ;
 		}
 		if (!ft_strcmp(delimiter, input_hd))
+		{
+			free(input_hd);
 			break ;
+		}
 		write_heredoc(input_hd, fd_tmp, heredoc->expandable);
 		free(input_hd);
 	}
@@ -83,15 +92,22 @@ void	parse_heredoc(t_tokens *tokens)
 	if (!tokens)
 		return ;
 	flows = NULL;
-	while (tokens != NULL)
+	while (tokens != NULL && get_sigint_hd())
 	{
+		printf("in-1 ihany\n");
 		flows = tokens->token_flow;
-		while (flows != NULL)
+		while (flows != NULL && get_sigint_hd())
 		{
 			if (flows->operand == HEREDOC)
 				handle_heredoc(flows);
 			flows = flows->next_flow;
 		}
 		tokens = tokens->next;
+	}
+	if (get_stdin_dup() > 0)
+	{
+		dup2(get_stdin_dup(), STDIN_FILENO);
+		close(get_stdin_dup());
+		set_stdin_dup(-1);
 	}
 }

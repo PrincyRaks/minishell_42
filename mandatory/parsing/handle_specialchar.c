@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 17:58:28 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/04 12:20:19 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 10:35:54 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,11 @@ void	handle_var(char **input, char **res, t_tokens *token, int *mode)
 	if (*(*input + 1) == '"' || *(*input + 1) == '\'')
 	{
 		(*input)++;
+		return ;
+	}
+	if (ft_isdigit(*(*input + 1)))
+	{
+		(*input) += 2;
 		return ;
 	}
 	expand = handle_dollar(input);

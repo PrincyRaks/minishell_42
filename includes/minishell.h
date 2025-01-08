@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/07 14:52:51 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:45:10 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,8 @@ void					print_errnum(t_errnum numerr);
 int						ft_cd(t_tokens *tokens);
 int						ft_pwd(void);
 int						ft_exit(t_tokens *tokens);
-int	ft_env(t_tokens *token);
-int	ft_echo(t_tokens *tokens);
+int						ft_env(t_tokens *token);
+int						ft_echo(t_tokens *tokens);
 int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
@@ -219,22 +219,23 @@ void					execute_pipeline(t_tokens *tokens);
 void					set_signals_pipe(void);
 
 // char					*getpath_tmp(char *file);
-void    delete_file_tmp(int last_num);
-void	write_heredoc(char *input, int fd_tmp, int expandable);
-void	parse_heredoc(t_tokens *tokens);
-void	print_warning_delimiter(char *str);
-void    set_num_file(int num_file);
-int		get_last_file(void);
+void					delete_file_tmp(int last_num);
+void					write_heredoc(char *input, int fd_tmp, int expandable);
+void					parse_heredoc(t_tokens *tokens);
+void					print_warning_delimiter(char *str);
+void					set_num_file(int num_file);
+int						get_last_file(void);
+void					set_folder_tmp(char **str_folder);
+int						create_file_tmp(t_flow *heredoc);
 
-void    set_stdout_dup(int fd);
-int get_stdout_dup(void);
-void    set_stdin_dup(int fd);
-int get_stdin_dup(void);
+void					set_stdout_dup(int fd);
+int						get_stdout_dup(void);
+void					set_stdin_dup(int fd);
+int						get_stdin_dup(void);
 
 int						open_redirection_file(t_flow *redir);
 int						apply_redirection(t_tokens *token);
 void					restore_stdio(int saved_stdin, int saved_stdout);
-
 
 // Signals
 void					signal_reset_prompt(int signo);
@@ -244,6 +245,8 @@ void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
 int						get_status(void);
 void					set_status(int fd);
+int						get_sigint_hd(void);
+void					set_sigint_hd(int signal);
 
 // Handle_command
 void					handle_path_command(char *cmd, int saved_stdin,
