@@ -6,24 +6,11 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/07 18:49:06 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/08 05:03:31 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	print_data_flow(t_flow *flow)
-// {
-// 	while (flow)
-// 	{
-// 		if (flow->word)
-// 		{
-// 			ft_putstr_fd(">>> ", 2);
-// 			ft_putendl_fd(flow->word, 2);
-// 		}
-// 		flow = flow->next_flow;
-// 	}
-// }
 
 void	execute_pipeline(t_tokens *tokens)
 {
@@ -35,24 +22,31 @@ void	execute_pipeline(t_tokens *tokens)
 	last = tokens;
 	while (last->next)
 		last = last->next;
-	/* if (last && last->token_cmd && last->token_cmd->cmd_str && last->token_flow)
-	{
-		apply_redirection(last);
-		set_signals_interactive();
-		return ;
-	} */
-	if (!check_command(last))
+	
+	// Only validate command if it doesn't have redirection
+	if (!last->token_flow && last->token_cmd && !check_command(last))
 	{
 		set_signals_interactive();
-		return ;
+		return;
 	}
+	
 	prev_fd = -1;
-	current = last;
+	current = tokens;
+	printf("\nDEBUG: Starting pipeline execution\n");
 	while (current)
 	{
+		printf("DEBUG: Processing command: %s\n",
+			current->token_cmd ? current->token_cmd->cmd_str : "NULL");
 		execute_command(tokens, current, &prev_fd);
-		current = get_prev_token(tokens, current);
+		current = current->next;
 	}
+	
+	if (prev_fd != -1)
+	{
+		printf("DEBUG: Closing final prev_fd %d\n", prev_fd);
+		close(prev_fd);
+	}
+	printf("DEBUG: Waiting for all children to finish\n");
 	while (wait(NULL) > 0)
 		;
 	set_signals_interactive();
