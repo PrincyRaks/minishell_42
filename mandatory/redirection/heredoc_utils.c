@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 10:23:38 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:42:48 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    delete_file_tmp(int last_num)
+void	delete_file_tmp(int last_num)
 {
 	char	*num_file;
 
@@ -28,8 +28,7 @@ void    delete_file_tmp(int last_num)
 
 void	print_warning_delimiter(char *str)
 {
-	printf("warning: here-document delimited \
-    by end-of-file (wanted `%s')\n", str);
+	printf("warning: here-document delimited by end-of-file (wanted `%s')\n", str);
 }
 
 void	write_heredoc(char *input, int fd_tmp, int expandable)
