@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:57 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 13:57:52 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:00:18 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	parse_heredoc(t_tokens *tokens)
 	flows = NULL;
 	while (tokens != NULL && get_sigint_hd())
 	{
-		printf("in-1 ihany\n");
 		flows = tokens->token_flow;
 		while (flows != NULL && get_sigint_hd())
 		{

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/07 13:42:59 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:02:28 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	open_redirection_file(t_flow *redir)
 		return (-1);
 	}
 	if (redir->operand == INPUT)
+	{
+		printf("hehe: %s\n", redir->word);
 		fd = open(redir->word, O_RDONLY);
+	}
 	else if (redir->operand == OUTPUT)
 		fd = open(redir->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (redir->operand == APPEND)
