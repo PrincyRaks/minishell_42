@@ -72,10 +72,10 @@ char	*expand(char **var)
 	if (**var == '?')
 	{
 		(*var)++;
-		return(ft_itoa(get_status()));
+		return(free(result), ft_itoa(get_status()));
 	}
 	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
-		return (get_valuekey(var));
+		return (free(result), get_valuekey(var));
 	result = ft_strjoin(result, "$");
 	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
 		&& **var != '\'' && **var != '"')
@@ -106,7 +106,10 @@ char	*handle_dollar(char **var)
 	*var = *var + nb_dollar;
 	extend = expand(var);
 	if (!extend && !*result)
+	{
+		free(result);
 		return (NULL);
+	}
 	result = concat_str(result, extend);
 	return (result);
 }

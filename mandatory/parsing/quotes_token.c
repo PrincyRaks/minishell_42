@@ -57,7 +57,11 @@ char	**parse_specific(char  **str, char **res, t_tokens *token, int is_expand)
 	if (**str == '\'' && !handle_onequotes(str, res, token))
 		return (NULL);
 	if (valid_char(**str))
-		append_char(str, res);
+	{
+		// misy leaks
+		*res = concat_str(*res, ft_substr(*str, 0, 1));
+		(*str)++;
+	}
 	return (res);
 }
 

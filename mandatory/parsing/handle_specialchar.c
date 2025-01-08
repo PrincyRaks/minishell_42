@@ -136,8 +136,7 @@ void	handle_var(char **input, char **res, t_tokens *token, int *mode)
 	expand = handle_dollar(input);
 	if (!expand && (**input == ' ' || **input == '\0' || **input == '|'))
 		set_void_operand(token, *mode);
-	if (!expand)
-		expand = ft_calloc(1, sizeof(char));
+	if (expand != NULL)
+		*res = concat_str(*res, expand);
 	set_option3(mode, token, expand);
-	*res = concat_str(*res, expand);
 }

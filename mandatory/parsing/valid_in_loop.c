@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 19:24:22 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/02 21:40:42 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 00:15:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	valid_token(t_tokens *token, char char_input)
 			&& char_input != '|' && token->errnum == DEFAULT);
 }
 
-void	append_char(char **input, char **result)
-{
-	*result = concat_str(*result, ft_substr(*input, 0, 1));
-	(*input)++;
-}
+// void	append_char(char **input, char **result)
+// {
+// 	*result = concat_str(*result, ft_substr(*input, 0, 1));
+// 	(*input)++;
+// }
 
 int	valid_redir(char c)
 {

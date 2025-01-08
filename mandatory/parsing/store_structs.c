@@ -86,6 +86,8 @@ int	store_var_element(t_tokens *token, char *parsing, int *mode)
 	len_data = count_tab(data);
 	if (len_data <= 0 && parsing && *parsing == '\0')
 	{
+		free(parsing);
+		free_array(data);
 		set_void_str(token, parsing, mode);
 		return (token->errnum);
 	}

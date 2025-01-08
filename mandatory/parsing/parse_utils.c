@@ -127,11 +127,9 @@ t_tokens	**store_instruction(char *input)
 			input++;
 		if (*input != ' ' && *input != '\0' && *input != '|')
 		{
-			// stop minishell print error num and clean all allocations
 			if (store_token(node_token, &input) != DEFAULT)
 			{
 				print_errnum(node_token->errnum);
-				clean_tokens(first_node);
 				break ;
 			}
 		}

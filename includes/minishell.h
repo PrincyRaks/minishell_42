@@ -151,7 +151,7 @@ int						count_dollar(char *dollar);
 char					*dupnb_dollar(int nb_dollar);
 int						valid_char(char c);
 int						valid_token(t_tokens *token, char char_input);
-void					append_char(char **input, char **result);
+// void					append_char(char **input, char **result);
 int						valid_redir(char c);
 int						create_new_token(t_tokens **first_node,
 							t_tokens **node_token);

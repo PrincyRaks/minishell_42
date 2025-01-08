@@ -26,27 +26,10 @@ static void	handle_input(char *input)
 		}
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL && get_sigint_hd() > 0)
-		{
 			handle_command(*data_cmd);
-			clean_tokens(data_cmd);
-		}
+		clean_tokens(data_cmd);
 	}
 }
-
-/* static void	process_input(void)
-{
-	char	*input;
-
-	set_signals_interactive();
-	input = readline(PROMPT);
-	if (!input)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(0);
-	}
-	handle_input(input);
-	free(input);
-} */
 
 void	shell_loop(void)
 {
@@ -68,3 +51,18 @@ void	shell_loop(void)
 		set_sigint_hd(1);
 	}
 }
+
+/* static void	process_input(void)
+{
+	char	*input;
+
+	set_signals_interactive();
+	input = readline(PROMPT);
+	if (!input)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		exit(0);
+	}
+	handle_input(input);
+	free(input);
+} */

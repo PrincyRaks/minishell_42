@@ -32,13 +32,13 @@ char	*find_executable(char *command)
 {
 	char		*full_path;
 	int			i;
-	char		*path_tmp;
+	// char		*path_tmp;
 	char		**paths;
 	t_data_env	*path_exec;
 
 	full_path = NULL;
 	i = 0;
-	path_tmp = NULL;
+	// path_tmp = NULL;
 	paths = NULL;
 	if (command[0] == '/' || command[0] == '.')
 	{
@@ -53,29 +53,29 @@ char	*find_executable(char *command)
 		paths = ft_split(path_exec->value, ':');
 	while (paths && paths[i])
 	{
-		path_tmp = ft_strjoin(paths[i], "/");
-		if (!path_tmp)
-		{
-			// free_array(paths);
-			// return (NULL);
-			break ;
-		}
-		full_path = ft_strjoin(path_tmp, command);
+		full_path = ft_strjoin(ft_strdup(paths[i]), "/");
+		// if (!path_tmp)
+		// {
+		// 	// free_array(paths);
+		// 	// return (NULL);
+		// 	break ;
+		// }
+		full_path = ft_strjoin(full_path, command);
 		// free(path_tmp);
-		path_tmp = NULL;
-		if (!full_path)
-		{
-			// free_array(paths);
-			// return (NULL);
-			break ;
-		}
+		// path_tmp = NULL;
+		// if (!full_path)
+		// {
+		// 	// free_array(paths);
+		// 	// return (NULL);
+		// 	break ;
+		// }
 		if (access(full_path, F_OK | X_OK) == 0)
 		{
 			free_array(paths);
 			return (full_path);
 		}
 		free(full_path);
-		full_path = NULL;
+		// full_path = NULL;
 		i++;
 	}
 	if (paths)

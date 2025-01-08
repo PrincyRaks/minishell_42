@@ -72,6 +72,8 @@ void	clean_tokens(t_tokens **lst)
 {
 	t_tokens *tmp;
 
+	if (!lst)
+		return ;
 	while (*lst != NULL)
 	{
 		clean_cmd((*lst)->token_cmd);
@@ -81,4 +83,5 @@ void	clean_tokens(t_tokens **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+	free(lst);
 }
