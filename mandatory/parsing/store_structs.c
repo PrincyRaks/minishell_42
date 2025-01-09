@@ -145,17 +145,17 @@ int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode)
 	return (node->errnum);
 }
 
-// // misy blem
-// int	store_parse_redir(t_tokens *node, char *str_parse, int *mode)
-// {
-// 	t_flow	*last_redir;
+int	store_parse_redir(t_tokens *node, char *str_parse, int *mode)
+{
+	t_flow	*last_redir;
 
-// 	last_redir = last_flow(node->token_flow);
-// 	last_redir->word = str_parse;
-// 	if (node->token_cmd != NULL &&  (node->token_cmd->cmd_str == NULL
-// 		|| node->token_cmd->operand == VOIDTOKEN))
-// 		*mode = 1;
-// 	else if (node->token_cmd != NULL && node->token_cmd->operand == NOTOP)
-// 		*mode = 2;
-// 	return (node->errnum);
-// }
+	last_redir = last_flow(node->token_flow);
+	set_expandable_var_heredoc(node, last_redir);
+	last_redir->word = str_parse;
+	if (node->token_cmd != NULL && (node->token_cmd->cmd_str == NULL 
+		|| node->token_cmd->operand == VOIDTOKEN))
+		*mode = 1;
+	else if (node->token_cmd != NULL && node->token_cmd->operand == NOTOP)
+		*mode = 2;
+	return (node->errnum);
+}

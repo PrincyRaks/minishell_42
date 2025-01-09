@@ -39,12 +39,12 @@ void	clean_node_env(t_data_env *node)
 	free(node);
 }
 
-void    clear_export_env(void)
+void	clear_export_env(void)
 {
-    char    **data_export;
-    
-    data_export = get_data_export();
-    if (!data_export)
-        return;
-    free_array(data_export);
+	char	**data_export;
+
+	data_export = get_data_export();
+	if (!data_export)
+		return ;
+	free_array(data_export);
 }

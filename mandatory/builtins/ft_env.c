@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 20:15:44 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/13 23:01:19 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:25:03 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_option(char *str)
 	return (4);
 }
 
-static void	show_env()
+static void	show_env(void)
 {
 	t_data_env	*env;
 

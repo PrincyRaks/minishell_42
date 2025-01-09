@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 10:35:53 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:22:55 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,11 @@ static int	safe_chdir(char *dir)
 	return (1);
 }
 
-// static int safe_getcwd(){}
-
 int	ft_cd(t_tokens *tokens)
 {
 	int			len_arg;
 	char		cwd[PATH_MAX];
 
-	// if (!tokens)
-	// 	return (1);
 	len_arg = count_arg(tokens->token_arg);
 	if (len_arg > 1)
 	{

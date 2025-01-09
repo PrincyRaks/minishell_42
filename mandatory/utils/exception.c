@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:26:56 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/22 11:31:01 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:06:18 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    print_errnum(t_errnum numerr)
 		ft_putstr_fd("Error: syntax error near unexpected token `redirection'\n", 2);
 	else if (numerr == ERRPIPE)
 		ft_putstr_fd("Error: syntax error near unexpected token `|'\n", 2);
-	else
+	else if (numerr == AMBIGUOUS)
 	{
 		ft_putstr_fd("Error: ambiguous redirect\n", 2);
 		status = 1;

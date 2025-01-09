@@ -72,7 +72,7 @@ char	*expand(char **var)
 	if (**var == '?')
 	{
 		(*var)++;
-		return(free(result), ft_itoa(get_status()));
+		return (free(result), ft_itoa(get_status()));
 	}
 	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
 		return (free(result), get_valuekey(var));

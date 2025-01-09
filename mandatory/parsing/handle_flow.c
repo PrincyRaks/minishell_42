@@ -34,19 +34,19 @@ static int	valid_operand(char *str, int nb_operator, int iter, int *expand)
 
 static int	check_operand(char **str, int *is_expand)
 {
-    int i;
+	int	i;
 	int	nb_op;
 
 	if (!str && !*str)
 		return (-1);
-    i = 0;
+	i = 0;
 	nb_op = 0;
 	while (**str == ' ' || **str == '<' || **str == '>')
 	{
 		if (**str == '<' || **str == '>')
 			nb_op++;
-        (*str)++;
-        i++;
+		(*str)++;
+		i++;
 	}
 	return (valid_operand(*str, nb_op, i, is_expand));
 }
@@ -69,7 +69,7 @@ static void	store_operator(t_flow **node_flow, int operator)
 
 int	handle_flow(t_tokens *token, char **input, int *mode_add, int *is_expand)
 {
-    int	operand;
+	int	operand;
 
 	if (!input && !token)
 		return (0);

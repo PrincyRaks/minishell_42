@@ -17,6 +17,7 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/handle_specialchar.c \
 	   mandatory/parsing/valid_in_loop.c \
 	   mandatory/parsing/store_structs.c \
+	   mandatory/parsing/setter_utils.c \
 	   mandatory/utils/free_memory.c \
 	   mandatory/utils/counter.c \
 	   mandatory/utils/exception.c \
@@ -44,6 +45,7 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/execute_pipe_utils.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/pipe/utils.c \
+	   mandatory/pipe/getset_sigpipe.c \
 	   mandatory/signals/signals.c \
 	   mandatory/signals/getset_status.c \
 	   mandatory/redirection/heredoc_utils.c \

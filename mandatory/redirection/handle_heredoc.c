@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:57 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 14:00:18 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:48:05 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_heredoc(int signal)
+void	stop_instruction(int signal)
 {
 	int fd[2];
 	int stdin;
@@ -67,7 +67,7 @@ static void	handle_heredoc(t_flow *heredoc)
 		return ;
 	while (get_sigint_hd())
 	{
-		signal(SIGINT, signal_heredoc);
+		signal(SIGINT, stop_instruction);
 		input_hd = readline("heredoc► ");
 		if (!input_hd)
 		{

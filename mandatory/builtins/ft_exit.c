@@ -3,43 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/24 13:22:00 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:51:53 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_numeric(const char *str)
+int	is_numeric(const char *s)
 {
 	int	flag;
 
 	flag = 0;
-	if (!str || *str == '\0')
-		return (0);
-	while (*str)
+	while (*s)
 	{
-		if (!ft_isdigit(*str) && !ft_isspace(*str) && *str != '+' && *str != '-')
+		if (!ft_isdigit(*s) && !ft_isspace(*s) && *s != '+' && *s != '-')
 			return (0);
-		while (ft_isspace(*str))
-			str++;
-		if (*str == '+' || *str == '-')
-		{
-			if (!ft_isdigit(*(str + 1)))
-				return (0);
-			str++;
-		}
-		if (ft_isdigit(*str))
+		while (ft_isspace(*s))
+			s++;
+		if ((*s == '+' || *s == '-') && !ft_isdigit(*(s + 1)))
+			return (0);
+		if ((*s == '+' || *s == '-') && ft_isdigit(*(s + 1)))
+			s++;
+		if (ft_isdigit(*s))
 			flag++;
-		while (ft_isdigit(*str))
+		while (ft_isdigit(*s))
 		{
 			if (flag > 1)
 				return (0);
-			str++;
+			s++;
 		}
 	}
+	if (!flag)
+		return (0);
 	return (1);
 }
 
@@ -76,10 +74,9 @@ int	ft_exit(t_tokens *tokens)
 	long long	exit_code;
 
 	printf("exit\n");
+	len_arg = 0;
 	if (tokens && tokens->token_arg)
 		len_arg = count_arg(tokens->token_arg);
-	else
-		len_arg = 0;
 	if (len_arg == 0)
 		exit(0);
 	str_arg = tokens->token_arg->arg_str;

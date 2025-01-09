@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:33:25 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/12/12 11:27:09 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 13:40:21 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ int	create_new_token(t_tokens **first_node, t_tokens **node_token)
 		return (0);
 	*node_token = new_token();
 	if (!node_token)
-	{
-		// mila gerer-na ny clean
-		clean_tokens(first_node);
 		return (0);
-	}
 	addback_token(first_node, *node_token);
 	return (1);
 }

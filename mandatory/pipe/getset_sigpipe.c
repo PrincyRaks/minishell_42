@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   getset_sigpipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 14:28:09 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/08/26 14:28:11 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/09 13:56:21 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/09 13:57:29 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static int  *static_sigpipe(void)
 {
-	char	*new_s;
-	char	*tmp_s1;
-	size_t	len;
+    static int  cst = 1;
+    return (&cst);
+}
 
-	len = ft_strlen(s1) + ft_strlen(s2);
-	new_s = ft_calloc((len + 1), sizeof(char));
-	if (!new_s)
-	{
-		free((char *)s1);
-		return (NULL);
-	}
-	tmp_s1 = (char *)s1;
-	while (*tmp_s1)
-		*(new_s++) = *(tmp_s1++);
-	while (*s2)
-		*(new_s++) = *(s2++);
-	free((char *)s1);
-	return (new_s - len);
+int get_sigpipe(void)
+{
+    return (*static_sigpipe());
+}
+
+void    set_sigpipe(int num_file)
+{
+    *static_sigpipe() = num_file;
 }

@@ -17,33 +17,18 @@ static int	store_token(t_tokens *node_token, char **input)
 		return (node_token->errnum);
 	// commande in variable (3)
 	if (mode_add == 3)
-	{
-		store_var_element(node_token, parsing);
-		return (node_token->errnum);
-	}
+		return (store_var_element(node_token, parsing, &mode_add));
 	// arguments (2)
-	if (node_token->token_cmd != NULL && mode_add == 2 
-		&& node_token->token_cmd->operand == NOTOP && parsing != NULL)
-	{
-		if (!node_token->token_arg)
-			node_token->token_arg = new_arg();
-		else if (last_arg(node_token->token_arg)->operand != VOIDTOKEN)
-			last_arg(node_token->token_arg)->next_arg = new_arg();
-		last_arg(node_token->token_arg)->arg_str = parsing;
-		return (node_token->errnum);
-	}
-	// if (node_token->token_cmd->operand == VOIDTOKEN && mode_add != 4)
-	// 	mode_add = 1;
+	if (valid_arguments(node_token, mode_add, parsing))
+		return (store_parse_argument(node_token, parsing));
 	if (mode_add == 1 && parsing != NULL)
-	{
-		node_token->token_cmd->cmd_str = parsing;
-		if (node_token->token_cmd->operand != VOIDTOKEN && mode_add != 4)
-			mode_add = 2;
-	}
+		return (store_parse_cmd(node_token, parsing, &mode_add));
 	// redirections (4)
 	if (mode_add == 4 && node_token->token_flow != NULL && parsing != NULL)
 	{
 		last_redir = last_flow(node_token->token_flow);
+		// veririfier si heredoc peut faire un parsing du $variable ou non
+		set_expandable_var_heredoc(node_token, last_redir);
 		last_redir->word = parsing;
 		if (node_token->token_cmd != NULL && (node_token->token_cmd->cmd_str == NULL 
 			|| node_token->token_cmd->operand == VOIDTOKEN))
@@ -55,39 +40,51 @@ static int	store_token(t_tokens *node_token, char **input)
 	return (node_token->errnum);
 }
 
-void write_heredoc(char *input, int fd_tmp, int expandable)
+
+t_tokens	**store_instruction(char *input)
 {
-    char *expand;
+	t_tokens	*node_token;
+	t_tokens	**first_node;
+	char		*new_input;
 
-    expand = NULL;
-    while (*input)
-    {
-        // Si le caractère est '$' et que l'expansion est activée
-        if (*input == '$' && expandable)
-        {
-            // Si c'est suivi par une quote (double ou simple)
-            if (*(input + 1) == '"' || *(input + 1) == '\'')
-            {
-                // Sauter les quotes et les autres caractères avant de continuer
-                while (*input && (*input == '"' || *input == '\''))
-                {
-                    ft_putchar_fd(*input, fd_tmp);
-                    input++;
-                }
-                continue; // Reprendre la boucle sans analyser le '$' de nouveau
-            }
-            // Expansion de la variable (si nécessaire)
-            expand = handle_dollar(&input);
-            if (expand != NULL)
-            {
-                ft_putstr_fd(expand, fd_tmp);
-                free(expand);
-                continue; // Passer à l'itération suivante
-            }
-        }
-
-        // Cas général: si ce n'est pas un '$' ou que l'expansion n'est pas activée
-        ft_putchar_fd(*input, fd_tmp);
-        input++;
-    }
+	first_node = malloc(sizeof(t_tokens *));
+	if (!first_node)
+		return (NULL);
+	node_token = new_token();
+	*first_node = node_token;
+	if (!node_token)
+		return (NULL);
+	while (*input && node_token->errnum == DEFAULT)
+	{
+		while (*input == ' ')
+			input++;
+		if (*input != ' ' && *input != '\0' && *input != '|' 
+			&& store_token(node_token, &input) != DEFAULT)
+		{
+			print_errnum(node_token->errnum);
+			break ;
+		}
+		if (*input == '|')
+		{
+			input++;
+			while (*input == ' ')
+				input++;
+			if (*input == '\0')
+			{
+				new_input = readline("> ");
+				while (new_input && *new_input == '\0')
+					new_input = readline("pipe▷ ");
+				if (!new_input)
+				{
+					clean_tokens(first_node);
+					return (NULL);
+				}
+				input = new_input;
+			}
+			if (!create_new_token(first_node, &node_token))
+				break ;
+		}
+	}
+	parse_heredoc(*first_node);
+	return (first_node);
 }
