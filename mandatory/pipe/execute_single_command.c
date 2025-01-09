@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 17:01:42 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:34:20 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	execute_single_command(t_tokens *tokens)
 	char	*cmd;
 
 	cmd = tokens->token_cmd->cmd_str;
-	if (is_builtin(cmd))	
+	if (is_builtin(cmd))
 	{
 		execute_builtin(tokens, is_builtin(cmd));
-		
-		// exit(0); // esorina refa anao exit status
+		exit(0); // esorina refa anao exit status
 	}
-	
 	executable = find_executable(cmd);
 	if (!executable && !is_builtin(cmd))
 	{
@@ -51,7 +49,7 @@ void	execute_single_command(t_tokens *tokens)
 		handle_dot_command(cmd, -1, -1);
 		free(executable);
 		free_array(argv);
-		exit(2);		
+		exit(2);
 	}
 	if (execve(executable, argv, get_tabenv()) == -1)
 	{
