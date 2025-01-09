@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 16:10:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:22:29 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,8 @@ int						store_parse_cmd(t_tokens *node, char *str_parse,
 void					set_inquotes(t_tokens *token);
 void					set_option3(int *mode, t_tokens *token, char *expand);
 void					set_void_operand(t_tokens *token, int mode);
+void					set_void_str(t_tokens *token, char *void_str,
+							int *mode);
 void					set_expandable_var_heredoc(t_tokens *node,
 							t_flow *end_flow);
 int						get_sigpipe(void);

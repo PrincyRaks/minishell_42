@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:09:25 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 11:13:12 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:22:11 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,23 @@ void	set_expandable_var_heredoc(t_tokens *node, t_flow *end_flow)
 		end_flow->expandable = 0;
 		end_arg->operand = NOTOP;
 	}
+}
+
+// set void str(i.e: "") cmd or args verify with inquotes
+void	set_void_str(t_tokens *token, char *void_str, int *mode)
+{
+	t_cmd	*cmd;
+	t_arg	*end_arg;
+
+	cmd = token->token_cmd;
+	if (cmd && !cmd->cmd_str && cmd->operand == INQUOTES)
+	{
+		cmd->cmd_str = void_str;
+		*mode = 2;
+		return ;
+	}
+	end_arg = last_arg(token->token_arg);
+	if (end_arg && !end_arg->arg_str && end_arg->operand == INQUOTES)
+		end_arg->arg_str = void_str;
+	*mode = 2;
 }

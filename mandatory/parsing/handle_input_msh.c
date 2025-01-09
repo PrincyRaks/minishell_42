@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes_token.c                                     :+:      :+:    :+:   */
+/*   handle_input_msh.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 10:17:21 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/03 16:04:12 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:18:35 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,14 @@ static void	set_notop_element(t_tokens *token, int mode, char *res)
 
 	len_res = ft_strlen(res);
 	end_arg = last_arg(token->token_arg);
-	// printf("mode:%d len: %zu\n", mode, len_res);
 	if (mode == 1 && token->token_cmd->operand == VOIDTOKEN && len_res > 0)
 		token->token_cmd->operand = NOTOP;
-	else if (token->token_arg != NULL && mode == 2 && end_arg->operand == VOIDTOKEN 
-		&& len_res > 0)
+	else if (token->token_arg != NULL && mode == 2
+		&& end_arg->operand == VOIDTOKEN && len_res > 0)
 		end_arg->operand = NOTOP;
 }
 
-char	**parse_specific(char  **str, char **res, t_tokens *token, int is_expand)
+char	**parse_specific(char **str, char **res, t_tokens *token, int is_expand)
 {
 	if (**str == '"' && !handle_doubquotes(str, res, token, is_expand))
 		return (NULL);
@@ -72,11 +71,11 @@ char	*parse_input(t_tokens *token, char **input, int *mode)
 
 	exp = 1;
 	result = ft_calloc(1, sizeof(char));
-	while(valid_token(token, **input))
+	while (valid_token(token, **input))
 	{
 		if ((**input == '"' || **input == '\'' || valid_char(**input))
 			&& !parse_specific(input, &result, token, exp))
-			return(NULL);
+			return (NULL);
 		if (**input == '$')
 		{
 			if (exp)

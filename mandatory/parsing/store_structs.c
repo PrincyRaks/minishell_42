@@ -51,25 +51,6 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 	*mode = 2;
 }
 
-// verifier a partir de inquotes
-void	set_void_str(t_tokens *token, char *void_str, int *mode)
-{
-	t_cmd	*cmd;
-	t_arg	*end_arg;
-
-	cmd = token->token_cmd;
-	if (cmd && !cmd->cmd_str && cmd->operand == INQUOTES)
-	{
-		cmd->cmd_str = void_str;
-		*mode = 2;
-		return ;
-	}
-	end_arg = last_arg(token->token_arg);
-	if (end_arg && !end_arg->arg_str && end_arg->operand == INQUOTES)
-		end_arg->arg_str = void_str;
-	*mode = 2;
-}
-
 int	store_var_element(t_tokens *token, char *parsing, int *mode)
 {
 	char	**data;

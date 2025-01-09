@@ -9,7 +9,7 @@ SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command_utils2.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
-	   mandatory/parsing/quotes_token.c \
+	   mandatory/parsing/handle_input_msh.c \
 	   mandatory/parsing/parse_utils.c \
 	   mandatory/parsing/expand.c \
 	   mandatory/parsing/handle_quotes.c \
