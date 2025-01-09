@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/03 13:27:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:14:43 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*find_executable(char *command)
 	i = 0;
 	// path_tmp = NULL;
 	paths = NULL;
+	if (!command)
+		return (NULL);
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, F_OK | X_OK) == 0)

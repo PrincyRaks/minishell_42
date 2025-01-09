@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 09:41:55 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/12/20 16:54:27 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:34:32 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	execute_builtin(t_tokens *tokens, int nb)
 {
+	int exit_status;
+
+	exit_status = 0;
 	if (nb == 1)
 		set_status(ft_cd(tokens));
 	else if (nb == 2)

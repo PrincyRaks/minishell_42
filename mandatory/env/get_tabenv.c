@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tabenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 15:42:35 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 09:59:50 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:02:30 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

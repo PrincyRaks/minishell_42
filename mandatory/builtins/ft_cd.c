@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:46:43 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 10:22:55 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:34:52 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

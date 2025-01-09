@@ -104,7 +104,7 @@ t_tokens	**store_instruction(char *input)
 		return (NULL);
 	while (*input && node->errnum == DEFAULT)
 	{
-		while (*input == ' ')
+		while (ft_isspace(*input))
 			input++;
 		if (!handle_token(&input, node, first_node))
 			break ;

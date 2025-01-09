@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 16:04:57 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:37:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static void	handle_input(char *input)
 	if (*input)
 	{
 		add_history(input);
-		if (*input == '|')
-		{
-			printf(": syntax error near unexpected token `|'\n");
-			return ;
-		}
+		// if (*input == '|')
+		// {
+		// 	printf(": syntax error near unexpected token `|'\n");
+		// 	return ;
+		// }
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL && get_sigint_hd() > 0
 			&& get_sigpipe() > 0 && (*data_cmd)->errnum == DEFAULT)
