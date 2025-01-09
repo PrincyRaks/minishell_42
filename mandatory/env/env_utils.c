@@ -81,3 +81,15 @@ void	dup_env(char **env)
 	set_data_env(fisrt_data);
 	load_data_export();
 }
+
+void	display_env_export(void)
+{
+	char	**env;
+
+	env = get_data_export();
+	while (*env != NULL)
+	{
+		printf("%s\n", *env);
+		env++;
+	}
+}

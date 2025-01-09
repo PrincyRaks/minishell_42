@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	is_numeric(const char *s)
+int	is_numeric(char *s)
 {
 	int	flag;
 
@@ -41,7 +41,7 @@ int	is_numeric(const char *s)
 	return (1);
 }
 
-static int	check_range(const char *str, long long *n_exit)
+static int	check_range(char *str, long long *n_exit)
 {
 	int	i;
 	int	negative;
@@ -74,6 +74,17 @@ void	print_error_exit(char *str)
 	ft_putendl_fd(": numeric argument required", 2);
 }
 
+void	clean_up_exit(int n_exit)
+{
+	t_data_env	*data;
+
+	clean_tokens(get_first_token());
+	clear_export_env();
+	data = get_data_env();
+	clean_env(&data);
+	exit(n_exit);
+}
+
 int	ft_exit(t_tokens *tokens)
 {
 	int			len_arg;
@@ -82,10 +93,11 @@ int	ft_exit(t_tokens *tokens)
 
 	printf("exit\n");
 	len_arg = 0;
+	exit_code = 0;
 	if (tokens && tokens->token_arg)
 		len_arg = count_arg(tokens->token_arg);
 	if (len_arg == 0)
-		exit(0);
+		clean_up_exit(0);
 	str_arg = tokens->token_arg->arg_str;
 	if (len_arg > 1)
 	{
@@ -96,8 +108,8 @@ int	ft_exit(t_tokens *tokens)
 		}
 	}
 	if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
-		exit(exit_code % 256);
+		clean_up_exit(exit_code % 256);
 	print_error_exit(str_arg);
-	exit(2);
+	clean_up_exit(2);
 	return (0);
 }

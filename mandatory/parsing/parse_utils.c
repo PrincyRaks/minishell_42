@@ -99,6 +99,7 @@ t_tokens	**store_instruction(char *input)
 	t_tokens	**first_node;
 
 	first_node = malloc(sizeof(t_tokens *));
+	set_first_token(first_node);
 	if (!first_node)
 		return (NULL);
 	node = new_token();

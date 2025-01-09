@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-static void	display_env(void)
-{
-	char	**env;
-
-	env = get_data_export();
-	while (*env != NULL)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
-}
-
 static int	check_argv_export(char *arg_str)
 {
 	if (!ft_isalpha(*arg_str) && *arg_str != '_' && *arg_str != '-')
@@ -69,30 +57,41 @@ static void	export_to_env(char *value, int type_argv)
 	load_data_export();
 }
 
+void	print_error_export(char *str, int type_check)
+{
+	if (type_check == -1)
+	{
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putendl_fd("': not a valid identifier", 2);
+		return ;
+	}
+	ft_putstr_fd("export: ", 2);
+	ft_putchar_fd(*str, 2);
+	ft_putchar_fd(*(str + 1), 2);
+	ft_putendl_fd(": invalid option", 2);
+}
+
 static int	handle_arg_export(char *value, int type_arg)
 {
 	int	flag;
-	int	nexit;
+	int	n_exit;
 
 	flag = 0;
-	nexit = 0;
+	n_exit = 0;
 	if (type_arg == -1)
 	{
 		flag = 1;
-		nexit = 1;
-		printf("export: `%s': not a valid identifier\n", value);
+		n_exit = 1;
+		print_error_export(value, type_arg);
 	}
 	else if (type_arg == -2 && !flag)
 	{
-		printf("export: %c%c: invalid option\n", *(value), *(value + 1));
+		print_error_export(value, type_arg);
 		return (2);
 	}
-	else
-	{
-		flag = 1;
-		export_to_env(value, type_arg);
-	}
-	return (nexit);
+	export_to_env(value, type_arg);
+	return (n_exit);
 }
 
 int	ft_export(t_tokens *tokens)
@@ -107,7 +106,7 @@ int	ft_export(t_tokens *tokens)
 	len_arg = count_arg(argv);
 	if (len_arg < 1 || !argv->arg_str)
 	{
-		display_env();
+		display_env_export();
 		return (status);
 	}
 	while (argv != NULL)

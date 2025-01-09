@@ -29,6 +29,7 @@ SRCS = mandatory/main.c \
 	   mandatory/env/getset_export.c \
 	   mandatory/token/ft_args.c \
 	   mandatory/token/token_utils.c \
+	   mandatory/token/getset_first_token.c \
 	   mandatory/token/ft_cmd.c \
 	   mandatory/token/ft_token.c \
 	   mandatory/token/ft_flow.c \

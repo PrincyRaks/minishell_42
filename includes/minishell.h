@@ -171,7 +171,9 @@ int						get_sigint_hd(void);
 void					set_sigint_hd(int signal);
 int						get_status(void);
 void					set_status(int fd);
-
+void	display_env_export(void);
+t_tokens    **get_first_token(void);
+void    set_first_token(t_tokens **first);
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
@@ -200,7 +202,7 @@ int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
-int						is_numeric(const char *str);
+int						is_numeric(char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
 void					setup_pipe(int prev_fd, int pipe_fd[2],
