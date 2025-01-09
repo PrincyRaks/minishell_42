@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getset_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 22:17:26 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/07 22:18:37 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:42:56 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

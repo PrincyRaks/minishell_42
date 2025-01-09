@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 16:32:55 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:45:05 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,10 @@ void					set_expandable_var_heredoc(t_tokens *node,
 int						get_sigpipe(void);
 void					set_sigpipe(int num_file);
 void					stop_instruction(int signal);
+int						get_sigint_hd(void);
+void					set_sigint_hd(int signal);
+int						get_status(void);
+void					set_status(int fd);
 
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
@@ -207,14 +211,14 @@ void					handle_child(int prev_fd, int pipe_fd[2],
 int						handle_parent(int prev_fd, int pipe_fd[2],
 							t_tokens *tokens);
 void					exit_perror(char *message);
-t_tokens *get_prev_token(t_tokens *head, t_tokens *current);
-void	setup_child_process(t_tokens *tokens, t_tokens *current,
-		int prev_fd, int *pipe_fd);
-int	check_command(t_tokens *current);
-void	handle_pipe_fds(t_tokens *tokens, t_tokens *current,
-		int *prev_fd, int *pipe_fd);
-void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd);	
-
+t_tokens				*get_prev_token(t_tokens *head, t_tokens *current);
+void					setup_child_process(t_tokens *tokens, t_tokens *current,
+							int prev_fd, int *pipe_fd);
+int						check_command(t_tokens *current);
+void					handle_pipe_fds(t_tokens *tokens, t_tokens *current,
+							int *prev_fd, int *pipe_fd);
+void					execute_command(t_tokens *tokens, t_tokens *current,
+							int *prev_fd);
 
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
@@ -242,7 +246,9 @@ void					set_signals_interactive(void);
 void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
 
-// Handle_command
-void	handle_path_command(char *cmd, int saved_stdin, int saved_stdout);
+// void					handle_path_command(char *cmd, int saved_stdin,
+// 							int saved_stdout);
+void					handle_dot_command(char *cmd, int saved_stdin,
+							int saved_stdout);
 
 #endif
