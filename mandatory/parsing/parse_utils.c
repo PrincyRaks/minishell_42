@@ -52,7 +52,10 @@ int	parse_pipe(char **input, t_tokens **node, t_tokens **first)
 		signal(SIGINT, stop_instruction);
 		new_input = readline("pipe▷ ");
 		while (new_input && *new_input == '\0' && get_sigint_hd() > 0)
+		{
+			free(new_input);
 			new_input = readline("pipe▷ ");
+		}
 		if (!new_input && get_sigint_hd() > 0)
 		{
 			ft_putendl_fd("syntax error: unexpected end of file \nexit", 2);

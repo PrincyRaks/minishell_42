@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 14:31:19 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:26:09 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:13:39 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	main(int argc, char **argv, char **envp)
 	clear_export_env();
 	data = get_data_env();
 	clean_env(&data);
-	return (0);
+	return (get_status());
 }

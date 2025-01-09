@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 10:51:53 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:27:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ static int	check_range(const char *str, long long *n_exit)
 	return (1);
 }
 
+void	print_error_exit(char *str)
+{
+	ft_putstr_fd("exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(": numeric argument required", 2);
+}
+
 int	ft_exit(t_tokens *tokens)
 {
 	int			len_arg;
@@ -84,13 +91,13 @@ int	ft_exit(t_tokens *tokens)
 	{
 		if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
 		{
-			printf("exit: too many arguments\n");
+			ft_putstr_fd("exit: too many arguments\n", 2);
 			return (1);
 		}
 	}
 	if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
 		exit(exit_code % 256);
-	printf("exit: %s: numeric argument required\n", str_arg);
+	print_error_exit(str_arg);
 	exit(2);
 	return (0);
 }
