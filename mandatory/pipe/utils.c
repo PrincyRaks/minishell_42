@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/08 13:15:06 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 20:22:37 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,62 +67,30 @@ void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
 	execute_single_command(current);
 }
 
-// int	check_command(t_tokens *current)
-// {
-// 	if (!current->token_cmd && current->token_flow)
-// 		return (1);
-
-// 	if (!current->token_cmd || !current->token_cmd->cmd_str
-// 		|| (!is_builtin(current->token_cmd->cmd_str)
-// 			&& !find_executable(current->token_cmd->cmd_str)))
-// 	{
-// 		if (!current->token_flow)
-// 		{
-// 			if (current->token_cmd != NULL && current->token_cmd->cmd_str != NULL 
-// 				&& (current->token_cmd->cmd_str[0] == '/' || current->token_cmd->cmd_str[0] == '.'))
-// 			{
-// 				if (access(current->token_cmd->cmd_str, F_OK) != 0)
-// 				{
-// 					ft_putstr_fd(" : ", 2);
-// 					ft_putstr_fd(current->token_cmd->cmd_str, 2);
-// 					ft_putstr_fd(": No such file or directory\n", 2);
-// 				}
-// 				else if (access(current->token_cmd->cmd_str, X_OK) != 0)
-// 				{
-// 					ft_putstr_fd(" : ", 2);
-// 					ft_putstr_fd(current->token_cmd->cmd_str, 2);
-// 					ft_putstr_fd(": Permission denied\n", 2);
-// 				}
-// 			}
-// 			else
-// 			{
-// 				ft_putstr_fd(current->token_cmd->cmd_str, 2);
-// 				ft_putstr_fd(" : command not found\n", 2);
-// 			}
-// 		}
-// 		return (0);
-// 	}
-// 	return (1);
-// }
-
 int check_command(t_tokens *current)
 {
     t_tokens *temp = current;
     t_tokens *cmd_token = NULL;
+    struct stat path_stat;
     
     while (temp) 
-	{
+    {
         if (temp->token_cmd && temp->token_cmd->cmd_str)
-		{
+        {
             cmd_token = temp;
             break;
         }
         temp = temp->next;
     }
-    // if (!cmd_token) {
-    //     ft_putstr_fd("syntax error: command not found\n", 2);
-    //     return (0);
-    // }
+
+    if (!cmd_token || !cmd_token->token_cmd->cmd_str)
+        return (0);
+    if (stat(cmd_token->token_cmd->cmd_str, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
+    {
+        ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
+        ft_putstr_fd(": Is a directory\n", 2);
+        return (0);
+    }
     if (!is_builtin(cmd_token->token_cmd->cmd_str) 
         && !find_executable(cmd_token->token_cmd->cmd_str))
     {
@@ -147,7 +115,6 @@ int check_command(t_tokens *current)
 
     return (1);
 }
-
 
 void	handle_pipe_fds(t_tokens *tokens, t_tokens *current, int *prev_fd,
 		int *pipe_fd)

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 18:34:20 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 17:02:46 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,16 @@ void	execute_single_command(t_tokens *tokens)
 	}
 	argv = array_tokens(tokens);
 	if (tokens->token_flow)
-		apply_redirection(tokens);
+	{
+		printf("DEBUG [PID %d]: Applying redirections for command: %s\n", 
+			getpid(), cmd);
+		if (apply_redirection(tokens) == -1)
+		{
+			free(executable);
+			free_array(argv);
+			exit(1);
+		}
+	}
 	if (cmd && cmd[0] == '\0')
 	{
 		ft_putendl_fd("Command '' not found.", 2);
