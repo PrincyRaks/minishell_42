@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 16:45:05 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 10:06:43 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void					set_status(int fd);
 void	display_env_export(void);
 t_tokens    **get_first_token(void);
 void    set_first_token(t_tokens **first);
+void	clean_up_exit(int n_exit);
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);

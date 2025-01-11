@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/08 13:15:03 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 11:24:46 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	execute_pipeline(t_tokens *tokens)
 	last = tokens;
 	while (last->next)
 		last = last->next;
-	
 	if (!last->token_flow && last->token_cmd && !check_command(last))
 	{
 		set_signals_interactive();

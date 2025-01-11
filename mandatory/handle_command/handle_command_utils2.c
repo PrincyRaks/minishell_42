@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_command_utils2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 21:16:39 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/08 13:05:35 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 12:21:23 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	handle_external_command(t_tokens *data_cmd)
 {
 	char	*executable;
 
-	ft_putendl_fd("HEHEHEHEHE\n", 2);
 	executable = find_executable(data_cmd->token_cmd->cmd_str);
 	if (executable)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/08 13:15:06 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 12:18:49 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,19 +132,21 @@ int check_command(t_tokens *current)
             if (access(cmd_token->token_cmd->cmd_str, F_OK) != 0) {
                 ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
                 ft_putstr_fd(": No such file or directory\n", 2);
+				set_status(2);
             }
             else if (access(cmd_token->token_cmd->cmd_str, X_OK) != 0) {
                 ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
                 ft_putstr_fd(": Permission denied\n", 2);
+				set_status(1);
             }
         }
         else {
             ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
             ft_putstr_fd(": command not found\n", 2);
+			set_status(127);
         }
         return (0);
     }
-
     return (1);
 }
 
@@ -184,6 +186,7 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
+	int	status = 0;
 
 	if (current->next)
 	{
@@ -203,13 +206,23 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 		pipe_fd[0] = -1;
 		pipe_fd[1] = -1;
 	}
-
 	pid = fork();
 	if (pid == -1)
 		exit_perror("fork");
 	if (pid == 0)
 		setup_child_process(tokens, current, *prev_fd, pipe_fd);
-	
+	else
+	{
+		waitpid(pid, &status, 0);
+	// Princy
+		// if (WIFEXITED(status))
+		// 	set_status(WEXITSTATUS(status));
+		// else if(WIFSIGNALED(status))
+		// 	set_status(WTERMSIG(status) + 128);
+		// ft_putstr_fd("status:", 2);
+		// ft_putnbr_fd(status, 2);
+		// ft_putchar_fd('\n',2);
+	}
 	if (*prev_fd != -1)
 		close(*prev_fd);
 	if (current->next)
@@ -217,4 +230,7 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 		close(pipe_fd[1]);
 		*prev_fd = pipe_fd[0];
 	}
+// Princy
+	// if (get_status() == 131)
+	// 	ft_putstr_fd("Quit :Core dumped\n", 2);
 }

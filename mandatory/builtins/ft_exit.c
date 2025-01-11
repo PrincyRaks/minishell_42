@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 18:27:27 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/11 10:42:46 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static int	check_range(char *str, long long *n_exit)
 			*n_exit = *n_exit * 10 + (str[i] - '0');
 		i++;
 	}
+	if (negative)
+		*n_exit *= -1;
 	return (1);
 }
 
@@ -72,17 +74,6 @@ void	print_error_exit(char *str)
 	ft_putstr_fd("exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(": numeric argument required", 2);
-}
-
-void	clean_up_exit(int n_exit)
-{
-	t_data_env	*data;
-
-	clean_tokens(get_first_token());
-	clear_export_env();
-	data = get_data_env();
-	clean_env(&data);
-	exit(n_exit);
 }
 
 int	ft_exit(t_tokens *tokens)

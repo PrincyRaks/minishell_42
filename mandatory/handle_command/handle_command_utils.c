@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_command_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 10:01:42 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/06 16:46:17 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/11 11:30:27 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	handle_parent_process(pid_t pid)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		ft_putstr_fd("STATUS SETTED\n", 2);
+		set_status(WEXITSTATUS(status));
+	}
 	set_signals_interactive();
 	if (status & 0x7F)
 	{
