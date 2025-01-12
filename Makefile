@@ -49,11 +49,12 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/getset_sigpipe.c \
 	   mandatory/signals/signals.c \
 	   mandatory/signals/getset_status.c \
+	   mandatory/signals/handler_signal.c \
+	   mandatory/signals/getset_sigint.c \
 	   mandatory/redirection/heredoc_utils.c \
 	   mandatory/redirection/redirections.c \
 	   mandatory/redirection/handle_heredoc.c \
-	   mandatory/redirection/getset_num_file.c \
-	   mandatory/redirection/getset_sigint_heredoc.c
+	   mandatory/redirection/getset_num_file.c 
 
 OBJS = $(SRCS:.c=.o)
 

@@ -25,17 +25,38 @@ static void	handle_input(char *input)
 		// 	return ;
 		// }
 		data_cmd = store_instruction(input);
-		if (data_cmd && *data_cmd != NULL && get_sigint_hd() > 0
+		if (data_cmd && *data_cmd != NULL && get_sigint() > 0
 			&& get_sigpipe() > 0 && (*data_cmd)->errnum == DEFAULT)
 			handle_command(*data_cmd);
 		clean_tokens(data_cmd);
 	}
 }
 
+void	reboot_data(void)
+{
+	t_data_env	*data;
+
+	delete_file_tmp(get_last_file());
+	set_num_file(-1);
+	set_sigint(1);
+	if (get_stdin_dup() > 0)
+	{
+		dup2(get_stdin_dup(), STDIN_FILENO);
+		close(get_stdin_dup());
+		set_stdin_dup(-1);
+	}
+	if (!get_sigpipe())
+	{
+		clear_export_env();
+		data = get_data_env();
+		clean_env(&data);
+		exit(2);
+	}
+}
+
 void	shell_loop(void)
 {
 	char		*input;
-	t_data_env	*data;
 
 	set_signals_interactive();
 	while (1)
@@ -47,17 +68,9 @@ void	shell_loop(void)
 			break ;
 		}
 		handle_input(input);
-		free(input);
-		delete_file_tmp(get_last_file());
-		set_num_file(-1);
-		set_sigint_hd(1);
-		if (!get_sigpipe())
-		{
-			clear_export_env();
-			data = get_data_env();
-			clean_env(&data);
-			exit(2);
-		}
+		if (input)
+			free(input);
+		reboot_data();
 	}
 }
 

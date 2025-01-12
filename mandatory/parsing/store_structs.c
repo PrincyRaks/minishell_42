@@ -65,7 +65,7 @@ int	store_var_element(t_tokens *token, char *parsing, int *mode)
 		return (token->errnum);
 	}
 	len_data = count_tab(data);
-	if (len_data <= 0 && parsing && *parsing == '\0')
+	if (len_data <= 0 && parsing && (*parsing == '\0' || is_onlyspace(parsing)))
 	{
 		free(parsing);
 		free_array(data);
