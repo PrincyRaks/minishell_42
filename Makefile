@@ -74,7 +74,7 @@ $(NAME): $(OBJS) $(LIBFT)
 libft:
 	make -C libft/
 
-vlg: all
+leaks: all
 	valgrind --vgdb=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignore_readline.supp -s ./$(NAME)
 
 clean:
@@ -87,4 +87,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean libft all re vlg
+.PHONY: clean fclean libft all re leaks
