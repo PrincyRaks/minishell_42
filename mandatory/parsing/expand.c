@@ -51,12 +51,9 @@ char	*get_valuekey(char **var)
 	}
 	key = ft_substr((*var) - size, 0, size);
 	data = ft_getenv(key);
-	if ((!data || !data->value))
-	{
-		free(key);
-		return (NULL);
-	}
 	free(key);
+	if ((!data || !data->value))
+		return (NULL);
 	return (ft_strdup(data->value));
 }
 
@@ -72,7 +69,8 @@ char	*expand(char **var)
 	if (**var == '?')
 	{
 		(*var)++;
-		return (free(result), ft_itoa(get_status()));
+		free(result);
+		return (ft_itoa(get_status()));
 	}
 	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
 		return (free(result), get_valuekey(var));

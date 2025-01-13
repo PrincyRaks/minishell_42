@@ -34,9 +34,8 @@ char	**get_tabenv(void)
 			var = ft_strjoin(var, "");
 		else
 			var = ft_strjoin(var, data_env->value);
-		env[i] = var;
+		env[i++] = var;
 		data_env = data_env->next;
-		i++;
 	}
 	env[i] = NULL;
 	return (env);

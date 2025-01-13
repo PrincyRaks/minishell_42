@@ -61,7 +61,6 @@ void	addback_arg(t_arg **first_arg, t_arg *node_arg)
 		else
 		{
 			end = last_arg(*first_arg);
-			printf("%p\n", end);
 			if (end)
 			{
 				end->next_arg = node_arg;

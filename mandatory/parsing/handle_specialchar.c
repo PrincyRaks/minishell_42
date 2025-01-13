@@ -19,7 +19,6 @@ char	*handle_onequotes(char **qts, char **result, t_tokens *token)
 	trim = remove_onequotes(qts);
 	if (!trim)
 	{
-		free(trim);
 		free(*result);
 		token->errnum = UNQUOTES;
 		return (NULL);
@@ -37,7 +36,6 @@ char	*handle_doubquotes(char **qts, char **result, t_tokens *token,
 	trim = remove_doubquotes(qts, is_expand);
 	if (!trim)
 	{
-		free(trim);
 		free(*result);
 		token->errnum = UNQUOTES;
 		return (NULL);

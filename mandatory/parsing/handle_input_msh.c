@@ -57,7 +57,6 @@ char	**parse_specific(char **str, char **res, t_tokens *token, int is_expand)
 		return (NULL);
 	if (valid_char(**str))
 	{
-		// misy leaks
 		*res = concat_str(*res, ft_substr(*str, 0, 1));
 		(*str)++;
 	}
@@ -94,7 +93,7 @@ char	*parse_input(t_tokens *token, char **input, int *mode)
 
 int	open_pipeline(char **input)
 {
-	char	*new_input;
+	char		*new_input;
 	static char	*free_prev = NULL;
 
 	new_input = ft_calloc(sizeof(char), 1);

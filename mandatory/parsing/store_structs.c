@@ -44,7 +44,6 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
 		{
 			arg_cmd->arg_str = data[i++];
-			// addback_arg(first_arg, arg_cmd);
 			arg_cmd = arg_cmd->next_arg;
 		}
 	}
@@ -68,7 +67,7 @@ int	store_var_element(t_tokens *token, char *parsing, int *mode)
 	len_data = count_tab(data);
 	if (len_data <= 0 && parsing && (*parsing == '\0' || is_onlyspace(parsing)))
 	{
-		set_void_str(token, parsing, mode);
+		set_void_str(token, mode);
 		free(parsing);
 		free_array(data);
 		return (token->errnum);
@@ -93,7 +92,6 @@ int	store_parse_argument(t_tokens *node, char *str_parse)
 		|| (end_arg->operand == INQUOTES && end_arg->arg_str != NULL) 
 		|| ft_strlen(end_arg->arg_str) > 0))
 		end_arg->next_arg = new_arg();
-	// averina NULL rah toa ka $notexit
 	if (end_arg->operand == VOIDTOKEN && end_arg->arg_str 
 		&& !ft_strlen(end_arg->arg_str) && !ft_strlen(str_parse))
 	{
@@ -112,7 +110,6 @@ int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode)
 	t_cmd	*cmd;
 
 	cmd = node->token_cmd;
-	// averina NULL rah toa ka $notexit
 	if (cmd && cmd->operand == VOIDTOKEN && !cmd->cmd_str 
 		&& !ft_strlen(cmd->cmd_str) && !ft_strlen(str_parse))
 	{
