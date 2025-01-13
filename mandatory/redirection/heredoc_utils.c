@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 13:34:31 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:07:31 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	delete_file_tmp(int last_num)
 	num_file = NULL;
 	while (last_num > -1)
 	{
-		num_file = ft_itoa(last_num);
+		num_file = ft_strjoin(ft_strdup("."), ft_itoa(last_num));
 		unlink(num_file);
 		free(num_file);
 		last_num--;
@@ -28,7 +28,8 @@ void	delete_file_tmp(int last_num)
 
 void	print_warning_delimiter(char *str)
 {
-	printf("warning: here-document delimited by end-of-file (wanted `%s')\n", str);
+	printf("warning: here-document delimited by end-of-file (wanted `%s')\n",
+		str);
 }
 
 void	write_heredoc(char *input, int fd_tmp, int expandable)

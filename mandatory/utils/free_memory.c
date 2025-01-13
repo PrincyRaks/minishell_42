@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/11 10:06:12 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:30:42 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

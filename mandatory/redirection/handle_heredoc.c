@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 10:43:57 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 15:48:05 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:03:01 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	create_file_tmp(t_flow *heredoc)
 {
-	int			fd_tmp;
-	char		*path_name;
-	int			next_file;
+	int		fd_tmp;
+	char	*path_name;
+	int		next_file;
 
 	set_folder_tmp(&path_name);
 	if (!path_name)
@@ -24,7 +24,8 @@ int	create_file_tmp(t_flow *heredoc)
 	next_file = get_last_file();
 	next_file++;
 	set_num_file(next_file);
-	path_name = concat_str(path_name, ft_itoa(get_last_file()));
+	path_name = concat_str(path_name, ft_strjoin(ft_strdup("."),
+				ft_itoa(get_last_file())));
 	fd_tmp = open(path_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd_tmp < 0)
 		return (-1);
