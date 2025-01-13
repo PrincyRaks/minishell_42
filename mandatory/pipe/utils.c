@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 13:59:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:26:38 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,9 +164,7 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 	if (pid == -1)
 		exit_perror("fork");
 	if (pid == 0)
-	{
 		setup_child_process(tokens, current, *prev_fd, pipe_fd);
-	}
 	else if (pid > 0)
 	{
 

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 13:57:58 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:19:35 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	execute_pipeline(t_tokens *tokens)
 		execute_command(tokens, current, &prev_fd);
 		current = current->next;
 	}
-	
 	if (prev_fd != -1)
 		close(prev_fd);
 	while (wait(NULL) > 0)
