@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 15:26:38 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:54:33 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 		setup_child_process(tokens, current, *prev_fd, pipe_fd);
 	else if (pid > 0)
 	{
-
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);

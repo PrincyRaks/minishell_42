@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 11:12:30 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:42:02 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	export_to_env(char *value, int type_argv)
 	else if (var && node->value != NULL)
 	{
 		if (type_argv == 1 && var->value != NULL)
-			var->value = ft_strjoin(var->value, node->value);
+			var->value = concat_str(var->value, node->value);
 		else
 		{
 			free(var->value);

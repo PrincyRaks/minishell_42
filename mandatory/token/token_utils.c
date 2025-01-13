@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:33:25 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 13:40:21 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:02:15 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	**array_tokens(t_tokens *token)
 	if (!argv)
 		return (NULL);
 	i = 0;
-	argv[i] = token->token_cmd->cmd_str;
+	argv[i] = ft_strdup(token->token_cmd->cmd_str);
 	i++;
 	tmp = token->token_arg;
 	while (tmp != NULL && i < len_arg)
 	{
-		argv[i] = tmp->arg_str;
+		argv[i] = ft_strdup(tmp->arg_str);
 		tmp = tmp->next_arg;
 		i++;
 	}
