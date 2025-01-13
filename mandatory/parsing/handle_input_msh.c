@@ -91,3 +91,31 @@ char	*parse_input(t_tokens *token, char **input, int *mode)
 	set_notop_element(token, *mode, result);
 	return (result);
 }
+
+int	open_pipeline(char **input)
+{
+	char	*new_input;
+	static char	*free_prev = NULL;
+
+	new_input = ft_calloc(sizeof(char), 1);
+	while (*new_input == '\0' && get_sigint() > 0)
+	{
+		free(new_input);
+		new_input = readline("pipe▷ ");
+		if (!new_input && get_sigint() > 0)
+		{
+			free(new_input);
+			ft_putendl_fd("syntax error: unexpected end of file \nexit", 2);
+			set_sigpipe(0);
+			return (-1);
+		}
+	}
+	if (new_input != NULL)
+	{
+		if (free_prev)
+			free(free_prev);
+		*input = new_input;
+		free_prev = new_input;
+	}
+	return (0);
+}

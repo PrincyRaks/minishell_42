@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_memory.c                                      :+:      :+:    :+:   */
+/*   getset_first_token.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/11 10:06:12 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/09 20:58:05 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/09 21:16:37 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_array(char **array) {
-    int i;
-
-    if (!array)
-        return;
-    i = 0;
-    while (array[i] != NULL) 
-	{
-        if (array[i] != NULL)
-            free(array[i]);
-        i++;
-    }
-    free(array);
+static t_tokens  ***static_first_token(void)
+{
+    static t_tokens   **cst = NULL;
+    return (&cst);
 }
 
-void	clean_up_exit(int n_exit)
+t_tokens    **get_first_token(void)
 {
-	t_data_env	*data;
+    return (*static_first_token());
+}
 
-	clean_tokens(get_first_token());
-	clear_export_env();
-	data = get_data_env();
-	clean_env(&data);
-	exit(n_exit);
+void    set_first_token(t_tokens **first)
+{
+    *static_first_token() = first;
 }

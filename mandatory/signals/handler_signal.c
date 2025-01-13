@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_memory.c                                      :+:      :+:    :+:   */
+/*   handler_signal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/11 10:06:12 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/11 23:38:26 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/11 23:40:28 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void free_array(char **array) {
-    int i;
-
-    if (!array)
-        return;
-    i = 0;
-    while (array[i] != NULL) 
-	{
-        if (array[i] != NULL)
-            free(array[i]);
-        i++;
-    }
-    free(array);
-}
-
-void	clean_up_exit(int n_exit)
+void	stop_instruction(int signal)
 {
-	t_data_env	*data;
+	int fd[2];
+	int stdin;
 
-	clean_tokens(get_first_token());
-	clear_export_env();
-	data = get_data_env();
-	clean_env(&data);
-	exit(n_exit);
+	stdin = dup(STDIN_FILENO);
+	set_stdin_dup(stdin);
+	if (signal == SIGINT)
+	{
+		if (pipe(fd) < 0)
+			perror("pipe");
+		ft_putchar_fd('\n', fd[1]);
+		close(fd[1]);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		set_sigint(0);
+	}
 }

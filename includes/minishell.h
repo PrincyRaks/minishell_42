@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 13:28:57 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:56:00 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void					handle_command(t_tokens *data_cmd);
 void					free_array(char **array);
 bool					is_only_dots(const char *command);
 char					*find_executable(char *command);
-t_tokens				**store_instruction(char *input);
 char					*parse_input(t_tokens *token, char **input,
 							int *mode_add);
 char					*remove_onequotes(char **start_quotes);
@@ -167,11 +166,15 @@ void					set_expandable_var_heredoc(t_tokens *node,
 int						get_sigpipe(void);
 void					set_sigpipe(int num_file);
 void					stop_instruction(int signal);
-int						get_sigint_hd(void);
-void					set_sigint_hd(int signal);
+int						get_sigint(void);
+void					set_sigint(int signal);
 int						get_status(void);
 void					set_status(int fd);
-
+void					display_env_export(void);
+t_tokens				**get_first_token(void);
+void					set_first_token(t_tokens **first);
+void					clean_up_exit(int n_exit);
+int						open_pipeline(char **input);
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
@@ -179,16 +182,17 @@ void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
+int						count_data_env_exist(t_data_env *node);
 char					**get_tabenv(void);
 void					load_data_export(void);
 char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);
-t_data_env				*hash_env(char *data);
+t_data_env				*map_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
-char					*join_onespace(char *s1, char *s2);
 int						count_tab(char **tab);
+int						is_onlyspace(char *str);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
 int						ft_cd(t_tokens *tokens);
@@ -200,7 +204,7 @@ int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
 
-int						is_numeric(const char *str);
+int						is_numeric(char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
 void					setup_pipe(int prev_fd, int pipe_fd[2],

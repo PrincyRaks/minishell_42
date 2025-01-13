@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 13:34:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:59:58 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,4 +189,7 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 		close(pipe_fd[1]);
 		*prev_fd = pipe_fd[0];
 	}
+// Princy
+	// if (get_status() == 131)
+	// 	ft_putstr_fd("Quit :Core dumped\n", 2);
 }

@@ -28,6 +28,7 @@ SRCS = mandatory/main.c \
 	   mandatory/env/getset_export.c \
 	   mandatory/token/ft_args.c \
 	   mandatory/token/token_utils.c \
+	   mandatory/token/getset_first_token.c \
 	   mandatory/token/ft_cmd.c \
 	   mandatory/token/ft_token.c \
 	   mandatory/token/ft_flow.c \
@@ -47,11 +48,12 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/getset_sigpipe.c \
 	   mandatory/signals/signals.c \
 	   mandatory/signals/getset_status.c \
+	   mandatory/signals/handler_signal.c \
+	   mandatory/signals/getset_sigint.c \
 	   mandatory/redirection/heredoc_utils.c \
 	   mandatory/redirection/redirections.c \
 	   mandatory/redirection/handle_heredoc.c \
-	   mandatory/redirection/getset_num_file.c \
-	   mandatory/redirection/getset_sigint_heredoc.c
+	   mandatory/redirection/getset_num_file.c 
 
 OBJS = $(SRCS:.c=.o)
 
@@ -73,7 +75,7 @@ libft:
 	make -C libft/
 
 vlg: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignore_readline.supp -s ./$(NAME)
+	valgrind --vgdb=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignore_readline.supp -s ./$(NAME)
 
 clean:
 	make clean -C libft/

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 13:31:54 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:58:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	execute_single_command(t_tokens *tokens)
 	if (is_builtin(cmd))
 	{
 		execute_builtin(tokens, is_builtin(cmd));
-		exit(0);
+		if (count_token(tokens) > 1)
+			clean_up_exit(get_status());
+		// exit(0); // esorina refa anao exit status
 	}
 	executable = find_executable(cmd);
 

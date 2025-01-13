@@ -12,25 +12,6 @@
 
 #include "minishell.h"
 
-void	stop_instruction(int signal)
-{
-	int fd[2];
-	int stdin;
-
-	stdin = dup(STDIN_FILENO);
-	set_stdin_dup(stdin);
-	if (signal == SIGINT)
-	{
-		if (pipe(fd) < 0)
-			perror("pipe");
-		ft_putchar_fd('\n', fd[1]);
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		set_sigint_hd(0);
-	}
-}
-
 int	create_file_tmp(t_flow *heredoc)
 {
 	int			fd_tmp;
@@ -65,7 +46,7 @@ static void	handle_heredoc(t_flow *heredoc)
 	fd_tmp = create_file_tmp(heredoc);
 	if (fd_tmp < 0)
 		return ;
-	while (get_sigint_hd())
+	while (get_sigint())
 	{
 		signal(SIGINT, stop_instruction);
 		input_hd = readline("heredoc► ");
@@ -92,10 +73,10 @@ void	parse_heredoc(t_tokens *tokens)
 	if (!tokens)
 		return ;
 	flows = NULL;
-	while (tokens != NULL && get_sigint_hd())
+	while (tokens != NULL && get_sigint())
 	{
 		flows = tokens->token_flow;
-		while (flows != NULL && get_sigint_hd())
+		while (flows != NULL && get_sigint())
 		{
 			if (flows->operand == HEREDOC)
 				handle_heredoc(flows);
