@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:25:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 13:30:39 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:32:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static void	execute_command_type(t_tokens *data_cmd, t_cmd	*cmd, int saved_stdin
 	return ;
 	restore_stdio(saved_stdin, saved_stdout);
 }
-
-
 
 void	handle_command(t_tokens *data_cmd)
 {

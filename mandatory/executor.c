@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 14:50:19 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:25:55 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,23 @@ bool	is_only_dots(const char *command)
 	return (true);
 }
 
-char	*find_executable(char *command)
+static char	*check_direct_path(char *command)
 {
-	char		*full_path;
-	int			i;
-	char		**paths;
-	t_data_env	*path_exec;
-
-	full_path = NULL;
-	i = 0;
-	paths = NULL;
-	if (!command)
-		return (NULL);
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (access(command, F_OK | X_OK) == 0)
 			return (ft_strdup(command));
 		return (NULL);
 	}
-	path_exec = ft_getenv("PATH");
-	if (path_exec)
-		paths = ft_split(path_exec->value, ':');
+	return (NULL);
+}
+
+static char	*search_in_path(char *command, char **paths)
+{
+	char	*full_path;
+	int		i;
+
+	i = 0;
 	while (paths && paths[i])
 	{
 		full_path = ft_strjoin(ft_strdup(paths[i]), "/");
@@ -64,4 +60,22 @@ char	*find_executable(char *command)
 	if (paths)
 		free_array(paths);
 	return (NULL);
+}
+
+char	*find_executable(char *command)
+{
+	t_data_env	*path_exec;
+	char		**paths;
+	char		*result;
+
+	if (!command)
+		return (NULL);
+	result = check_direct_path(command);
+	if (result)
+		return (result);
+	path_exec = ft_getenv("PATH");
+	paths = NULL;
+	if (path_exec)
+		paths = ft_split(path_exec->value, ':');
+	return (search_in_path(command, paths));
 }
