@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 16:45:05 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:28:57 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					shell_loop(void);
-void					handle_child_process(char *executable,
+/* void					handle_child_process(char *executable,
 							t_tokens *data_cmd);
 void					handle_parent_process(pid_t pid);
 void					execute_external_command(char *executable,
 							t_tokens *data_cmd);
 int						is_invalid_command(t_tokens *data_cmd);
-void					handle_external_command(t_tokens *data_cmd);
+void					handle_external_command(t_tokens *data_cmd); */
 void					handle_command(t_tokens *data_cmd);
 void					free_array(char **array);
 bool					is_only_dots(const char *command);
@@ -248,7 +248,8 @@ void					set_signals_noninteractive(void);
 
 // void					handle_path_command(char *cmd, int saved_stdin,
 // 							int saved_stdout);
-void					handle_dot_command(char *cmd, int saved_stdin,
+void					handle_one_dot(char *cmd, int saved_stdin,
 							int saved_stdout);
+
 
 #endif

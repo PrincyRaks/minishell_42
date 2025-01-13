@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 16:37:00 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:30:56 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	open_redirection_file(t_flow *redir)
 	if (!redir || !redir->word || redir->word[0] == '\0')
 	{
 		ft_putstr_fd(" : No such file or directory\n", 2);
-		return (-1);
+ 		return (-1);
 	}
 	if (redir->operand == INPUT)
 		fd = open(redir->word, O_RDONLY);
@@ -41,6 +41,7 @@ static int	handle_output_redirection(t_flow *redir, int fd)
 		close(fd);
 		return (-1);
 	}
+	close(fd);
 	return (0);
 }
 
@@ -52,6 +53,7 @@ static int	handle_input_redirection(t_flow *redir, int fd)
 		close(fd);
 		return (-1);
 	}
+	close(fd);
 	return (0);
 }
 
@@ -88,3 +90,4 @@ int	apply_redirection(t_tokens *token)
 	}
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/09 16:37:49 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:35:25 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ static void	handle_input(char *input)
 	if (*input)
 	{
 		add_history(input);
-		// if (*input == '|')
-		// {
-		// 	printf(": syntax error near unexpected token `|'\n");
-		// 	return ;
-		// }
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL && get_sigint_hd() > 0
 			&& get_sigpipe() > 0 && (*data_cmd)->errnum == DEFAULT)
@@ -60,18 +55,3 @@ void	shell_loop(void)
 		}
 	}
 }
-
-/* static void	process_input(void)
-{
-	char	*input;
-
-	set_signals_interactive();
-	input = readline(PROMPT);
-	if (!input)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(0);
-	}
-	handle_input(input);
-	free(input);
-} */

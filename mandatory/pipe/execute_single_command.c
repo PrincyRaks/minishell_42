@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/11 17:02:46 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:31:54 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,13 @@ void	execute_single_command(t_tokens *tokens)
 	if (is_builtin(cmd))
 	{
 		execute_builtin(tokens, is_builtin(cmd));
-		exit(0); // esorina refa anao exit status
+		exit(0);
 	}
 	executable = find_executable(cmd);
-	if (!executable && !is_builtin(cmd))
-	{
-		if (cmd[0] != '/' && cmd[0] != '.')
-		{
-			ft_putstr_fd(cmd, 2);
-			ft_putstr_fd(" : command not found\n", 2);
-		}
-		exit(127);
-	}
+
 	argv = array_tokens(tokens);
 	if (tokens->token_flow)
 	{
-		printf("DEBUG [PID %d]: Applying redirections for command: %s\n", 
-			getpid(), cmd);
 		if (apply_redirection(tokens) == -1)
 		{
 			free(executable);
@@ -53,16 +43,8 @@ void	execute_single_command(t_tokens *tokens)
 		free_array(argv);
 		exit(127);
 	}
-	if (!ft_strcmp(cmd, "."))
+	if (!executable || !argv || execve(executable, argv, get_tabenv()) == -1)
 	{
-		handle_dot_command(cmd, -1, -1);
-		free(executable);
-		free_array(argv);
-		exit(2);
-	}
-	if (execve(executable, argv, get_tabenv()) == -1)
-	{
-		// perror(cmd);
 		free(executable);
 		free_array(argv);
 		exit(126);

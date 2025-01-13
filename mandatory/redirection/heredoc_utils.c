@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 17:42:48 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:34:31 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,3 @@ void	set_folder_tmp(char **str_folder)
 	}
 	*str_folder = ft_strjoin(ft_strdup(cwd), "/");
 }
-
-// char	*getpath_tmp(char *file)
-// {
-// 	char	*res;
-// 	char	cwd[PATH_MAX];
-
-// 	res = ft_calloc(1, sizeof(char));
-// 	if (!getcwd(cwd, sizeof(cwd)))
-// 	{
-// 		perror("getcwd");
-// 		return (NULL);
-// 	}
-// 	res = ft_strjoin(ft_strdup(cwd), "/");
-// 	res = ft_strjoin(res, file);
-// 	if (access(res, F_OK) != 0)
-// 	{
-// 		free(res);
-// 		perror("access");
-// 		return (NULL);
-// 	}
-// 	return (res);
-// }

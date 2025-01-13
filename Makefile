@@ -5,7 +5,6 @@ SRCS = mandatory/main.c \
 	   mandatory/handle_command/handle_command.c \
 	   mandatory/handle_command/getset_stdin_dup.c \
 	   mandatory/handle_command/getset_stdout_dup.c \
-	   mandatory/handle_command/handle_command_utils.c \
 	   mandatory/handle_command/handle_command_utils2.c \
        mandatory/shell_loop.c \
 	   mandatory/executor.c \
