@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:16:03 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/26 13:58:07 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:46:02 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,32 @@ int	count_char(char *str, int c)
 		i++;
 	}
 	return (j);
+}
+
+int	count_data_env(t_data_env *node)
+{
+	int	i;
+
+	i = 0;
+	while (node != NULL)
+	{
+		node = node->next;
+		i++;
+	}
+	return (i);
+}
+
+// count en varaible env. when value is not null
+int	count_data_env_exist(t_data_env *node)
+{
+	int	i;
+
+	i = 0;
+	while (node != NULL)
+	{
+		if (node->value != NULL)
+			i++;
+		node = node->next;
+	}
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/11 10:06:43 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 12:45:43 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,11 +170,11 @@ int						get_sigint(void);
 void					set_sigint(int signal);
 int						get_status(void);
 void					set_status(int fd);
-void	display_env_export(void);
-t_tokens    **get_first_token(void);
-void    set_first_token(t_tokens **first);
-void	clean_up_exit(int n_exit);
-int	open_pipeline(char **input);
+void					display_env_export(void);
+t_tokens				**get_first_token(void);
+void					set_first_token(t_tokens **first);
+void					clean_up_exit(int n_exit);
+int						open_pipeline(char **input);
 void					addback_env(t_data_env **lst, t_data_env *node);
 void					dup_env(char **envp);
 void					clean_env(t_data_env **lst);
@@ -182,16 +182,17 @@ void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
+int						count_data_env_exist(t_data_env *node);
 char					**get_tabenv(void);
 void					load_data_export(void);
 char					**get_tabkeys(void);
 char					**get_data_export(void);
 void					set_data_export(char **value);
-t_data_env				*hash_env(char *data);
+t_data_env				*map_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
 int						count_tab(char **tab);
-int	is_onlyspace(char *str);
+int						is_onlyspace(char *str);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
 int						ft_cd(t_tokens *tokens);

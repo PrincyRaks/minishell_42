@@ -49,6 +49,7 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 		}
 	}
 	*mode = 2;
+	free(data);
 }
 
 int	store_var_element(t_tokens *token, char *parsing, int *mode)

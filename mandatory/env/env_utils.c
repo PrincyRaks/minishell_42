@@ -6,7 +6,7 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:45:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/28 10:36:41 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:02:33 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	addback_env(t_data_env **lst, t_data_env *node)
 	}
 }
 
-t_data_env	*hash_env(char *data)
+t_data_env	*map_env(char *data)
 {
 	int			i;
 	int			j;
@@ -77,7 +77,7 @@ void	dup_env(char **env)
 	i = -1;
 	fisrt_data = NULL;
 	while (env[++i] != NULL)
-		addback_env(&fisrt_data, hash_env(env[i]));
+		addback_env(&fisrt_data, map_env(env[i]));
 	set_data_env(fisrt_data);
 	load_data_export();
 }

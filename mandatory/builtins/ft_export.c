@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 08:20:53 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/13 11:12:30 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ static void	export_to_env(char *value, int type_argv)
 	t_data_env	*node;
 	t_data_env	*var;
 	t_data_env	*env;
-	t_data_env	**tmp;
 
-	node = hash_env(value);
+	node = map_env(value);
 	var = ft_getenv(node->key);
 	if (!var)
 	{
@@ -47,11 +46,14 @@ static void	export_to_env(char *value, int type_argv)
 	}
 	else if (var && node->value != NULL)
 	{
-		tmp = &var;
-		if (type_argv == 1 && (*tmp)->value != NULL)
-			(*tmp)->value = ft_strjoin((*tmp)->value, node->value);
+		if (type_argv == 1 && var->value != NULL)
+			var->value = ft_strjoin(var->value, node->value);
 		else
-			(*tmp)->value = node->value;
+		{
+			free(var->value);
+			var->value = node->value;
+		}
+		free(node->key);
 		free(node);
 	}
 	load_data_export();
