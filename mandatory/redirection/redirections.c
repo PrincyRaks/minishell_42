@@ -20,7 +20,7 @@ int	open_redirection_file(t_flow *redir)
 	if (!redir || !redir->word || redir->word[0] == '\0')
 	{
 		ft_putstr_fd(" : No such file or directory\n", 2);
- 		return (-1);
+		return (-1);
 	}
 	if (redir->operand == INPUT)
 		fd = open(redir->word, O_RDONLY);
@@ -90,4 +90,3 @@ int	apply_redirection(t_tokens *token)
 	}
 	return (0);
 }
-

@@ -51,7 +51,7 @@ void	reboot_data(void)
 
 void	shell_loop(void)
 {
-	char		*input;
+	char	*input;
 
 	set_signals_interactive();
 	while (1)

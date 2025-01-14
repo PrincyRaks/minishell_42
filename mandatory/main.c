@@ -14,10 +14,10 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_data_env	*data;
+
 	(void)argc;
 	(void)argv;
-	t_data_env	*data;
-	
 	dup_env(envp);
 	shell_loop();
 	clear_export_env();

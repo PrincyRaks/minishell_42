@@ -38,8 +38,9 @@ void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 void	wait_for_children(void)
 {
 	int	status;
-	int last_status = 0;
+	int	last_status;
 
+	last_status = 0;
 	while (wait(&status) > 0)
 	{
 		if (WIFEXITED(status))
