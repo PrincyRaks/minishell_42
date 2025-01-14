@@ -22,7 +22,11 @@
         "tuple": "c",
         "type_traits": "c",
         "utility": "c",
-        "stat.h": "c"
+        "stat.h": "c",
+        "charconv": "c",
+        "chrono": "c",
+        "format": "c",
+        "ratio": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

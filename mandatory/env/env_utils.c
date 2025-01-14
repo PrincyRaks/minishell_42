@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 15:45:58 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 10:02:33 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:45:46 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

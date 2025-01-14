@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/14 10:49:18 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:52:36 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ static void	export_to_env(char *value, int type_argv)
 			free(var->value);
 			var->value = node->value;
 		}
+		free(node->key);
+		free(node);
+	}
+	else if (var && node->value == NULL)
+	{
 		free(node->key);
 		free(node);
 	}
