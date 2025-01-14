@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 15:19:35 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:48:24 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	execute_pipeline(t_tokens *tokens)
 {
 	int			prev_fd;
 	t_tokens	*current;
-	t_tokens	*last;
+	// t_tokens	*last;
 
 	set_signals_pipe();
-	last = tokens;
-	while (last->next)
-		last = last->next;
+	// last = tokens;
+	// while (last->next)
+	// 	last = last->next;
 	prev_fd = -1;
 	current = tokens;
 	while (current)

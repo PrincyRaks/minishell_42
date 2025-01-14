@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 12:52:17 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:08:05 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static char	*check_direct_path(char *command)
 
 static char	*search_in_path(char *command, char **paths)
 {
-	char	*full_path;
 	int		i;
+	char	*full_path;
 
 	i = 0;
 	while (paths && paths[i])
@@ -75,7 +75,7 @@ char	*find_executable(char *command)
 		return (result);
 	path_exec = ft_getenv("PATH");
 	paths = NULL;
-	if (path_exec)
+	if (path_exec && path_exec->value)
 		paths = ft_split(path_exec->value, ':');
 	return (search_in_path(command, paths));
 }
