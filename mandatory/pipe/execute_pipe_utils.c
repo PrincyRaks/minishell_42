@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
+/* void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
 	if (prev_fd != -1)
 	{
@@ -33,9 +33,9 @@ void	setup_pipe(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 		}
 		close(pipe_fd[1]);
 	}
-}
+} */
 
-void	wait_for_children(void)
+/* void	wait_for_children(void)
 {
 	int	status;
 	int	last_status;
@@ -48,9 +48,9 @@ void	wait_for_children(void)
 	}
 	if (last_status != 0)
 		exit(last_status);
-}
+} */
 
-void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
+/* void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
 	setup_pipe(prev_fd, pipe_fd, tokens);
 	if (tokens->token_cmd == NULL || tokens->token_cmd->cmd_str == NULL)
@@ -65,9 +65,9 @@ void	handle_child(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 	else
 		execute_single_command(tokens);
 	exit(127);
-}
+} */
 
-int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens)
+/* int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 {
 	if (prev_fd != -1)
 		close(prev_fd);
@@ -77,7 +77,7 @@ int	handle_parent(int prev_fd, int pipe_fd[2], t_tokens *tokens)
 		return (pipe_fd[0]);
 	}
 	return (-1);
-}
+} */
 
 void	exit_perror(char *message)
 {

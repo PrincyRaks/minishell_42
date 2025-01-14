@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 20:42:30 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:49:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	handle_empty_command(char *executable, char **argv)
 	ft_putendl_fd("Command '' not found.", 2);
 	free(executable);
 	free_array(argv);
-	exit(127);
+	clean_up_exit(127);
 }
 
 static void	execute_the_command(char *executable, char **argv, char **tab_env)
@@ -53,7 +53,7 @@ void	execute_single_command(t_tokens *tokens)
 	{
 		free(executable);
 		free_array(argv);
-		exit(1);
+		clean_up_exit(1);
 	}
 	if (cmd && cmd[0] == '\0')
 		handle_empty_command(executable, argv);

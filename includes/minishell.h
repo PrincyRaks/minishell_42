@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 13:56:00 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:39:37 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,13 +207,13 @@ int						is_builtin(char *cmd);
 int						is_numeric(char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
-void					setup_pipe(int prev_fd, int pipe_fd[2],
+/* void					setup_pipe(int prev_fd, int pipe_fd[2],
 							t_tokens *tokens);
 void					wait_for_children(void);
 void					handle_child(int prev_fd, int pipe_fd[2],
 							t_tokens *tokens);
 int						handle_parent(int prev_fd, int pipe_fd[2],
-							t_tokens *tokens);
+							t_tokens *tokens); */
 void					exit_perror(char *message);
 t_tokens				*get_prev_token(t_tokens *head, t_tokens *current);
 void					setup_child_process(t_tokens *tokens, t_tokens *current,
