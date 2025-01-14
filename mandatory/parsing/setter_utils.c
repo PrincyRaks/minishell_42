@@ -55,7 +55,7 @@ void	set_option3(int *mode, t_tokens *token, char *expand)
 		*mode = 3;
 }
 
-// create new arg if not exist & parse operand to type VOIDTOKEN
+// create new arg if not exist & set operand to VOIDTOKEN
 void	set_void_operand(t_tokens *token, int mode)
 {
 	t_arg	*end_arg;
@@ -111,7 +111,7 @@ void	set_expandable_var_heredoc(t_tokens *node, t_flow *end_flow)
 }
 
 // set void str(i.e: "") cmd or args verify with inquotes
-void	set_void_str(t_tokens *token, char *void_str, int *mode)
+void	set_void_str(t_tokens *token, int *mode)
 {
 	t_cmd	*cmd;
 	t_arg	*end_arg;
@@ -119,12 +119,12 @@ void	set_void_str(t_tokens *token, char *void_str, int *mode)
 	cmd = token->token_cmd;
 	if (cmd && !cmd->cmd_str && cmd->operand == INQUOTES)
 	{
-		cmd->cmd_str = void_str;
+		cmd->cmd_str = ft_strdup("");
 		*mode = 2;
 		return ;
 	}
 	end_arg = last_arg(token->token_arg);
 	if (end_arg && !end_arg->arg_str && end_arg->operand == INQUOTES)
-		end_arg->arg_str = void_str;
+		end_arg->arg_str = ft_strdup("");
 	*mode = 2;
 }

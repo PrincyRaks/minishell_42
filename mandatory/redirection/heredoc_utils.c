@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:41:00 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 15:07:31 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:57:42 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	delete_file_tmp(int last_num)
 	num_file = NULL;
 	while (last_num > -1)
 	{
-		num_file = ft_strjoin(ft_strdup("."), ft_itoa(last_num));
+		num_file = concat_str(ft_strdup("."), ft_itoa(last_num));
 		unlink(num_file);
 		free(num_file);
 		last_num--;

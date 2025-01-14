@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 17:42:02 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:49:18 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,34 +74,35 @@ void	print_error_export(char *str, int type_check)
 	ft_putendl_fd(": invalid option", 2);
 }
 
-static int	handle_arg_export(char *value, int type_arg)
+static int	handle_arg_export(char *value, int type_arg, int *flag)
 {
-	int	flag;
 	int	n_exit;
 
-	flag = 0;
 	n_exit = 0;
-	if (type_arg == -1)
+	if (type_arg == -1 || (type_arg == -2 && *flag == 1))
 	{
-		flag = 1;
+		*flag = 1;
 		n_exit = 1;
-		print_error_export(value, type_arg);
+		print_error_export(value, -1);
 	}
-	else if (type_arg == -2 && !flag)
+	else if (type_arg == -2 && !*flag)
 	{
-		print_error_export(value, type_arg);
+		print_error_export(value, -2);
+		*flag = 0;
 		return (2);
 	}
-	export_to_env(value, type_arg);
+	if (type_arg >= 0)
+		export_to_env(value, type_arg);
 	return (n_exit);
 }
 
 int	ft_export(t_tokens *tokens)
 {
-	int		len_arg;
-	int		type_arg;
-	int		status;
-	t_arg	*argv;
+	int			len_arg;
+	int			type_arg;
+	int			status;
+	t_arg		*argv;
+	static int	flag = 0;
 
 	status = 0;
 	argv = tokens->token_arg;
@@ -114,10 +115,11 @@ int	ft_export(t_tokens *tokens)
 	while (argv != NULL)
 	{
 		type_arg = check_argv_export(argv->arg_str);
-		status = handle_arg_export(argv->arg_str, type_arg);
+		status = handle_arg_export(argv->arg_str, type_arg, &flag);
 		if (status == 2)
 			return (status);
 		argv = argv->next_arg;
 	}
+	flag = 0;
 	return (status);
 }

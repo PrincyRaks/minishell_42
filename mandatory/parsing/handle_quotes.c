@@ -57,7 +57,6 @@ char	*remove_doubquotes(char **qts, int is_expand)
 	return (result);
 }
 
-
 char	*remove_onequotes(char **qts)
 {
 	int		is_close;
