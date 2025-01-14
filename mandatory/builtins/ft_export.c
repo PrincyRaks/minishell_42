@@ -44,20 +44,15 @@ static void	export_to_env(char *value, int type_argv)
 		env = get_data_env();
 		addback_env(&env, node);
 	}
-	else if (var && node->value != NULL)
+	else
 	{
-		if (type_argv == 1 && var->value != NULL)
+		if (type_argv == 1 && var->value && node->value)
 			var->value = concat_str(var->value, node->value);
-		else
+		else if (type_argv == 0 && var->value && node->value)
 		{
 			free(var->value);
 			var->value = node->value;
 		}
-		free(node->key);
-		free(node);
-	}
-	else if (var && node->value == NULL)
-	{
 		free(node->key);
 		free(node);
 	}

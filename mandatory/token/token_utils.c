@@ -30,7 +30,10 @@ char	**array_tokens(t_tokens *token)
 	tmp = token->token_arg;
 	while (tmp != NULL && i < len_arg)
 	{
-		argv[i] = ft_strdup(tmp->arg_str);
+		if (!tmp->arg_str)
+			argv[i] = NULL;
+		else
+			argv[i] = ft_strdup(tmp->arg_str);
 		tmp = tmp->next_arg;
 		i++;
 	}

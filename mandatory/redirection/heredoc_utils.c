@@ -32,6 +32,20 @@ void	print_warning_delimiter(char *str)
 		str);
 }
 
+void	write_specific_heredoc(char **input, int fd_tmp, int expandable)
+{
+	if (**input == '$' && expandable && ((*((*input) + 1)) == '"' 
+		|| *((*input) + 1) == '\''))
+	{
+		while (**input != '$' && **input != '\0' && **input != '"'
+			&& **input == '\'')
+		{
+			ft_putchar_fd(**input, fd_tmp);
+			(*input)++;
+		}
+	}
+}
+
 void	write_heredoc(char *input, int fd_tmp, int expandable)
 {
 	char	*expand;
@@ -39,16 +53,7 @@ void	write_heredoc(char *input, int fd_tmp, int expandable)
 	expand = NULL;
 	while (*input)
 	{
-		if (*input == '$' && expandable && (*(input + 1) == '"' || *(input
-					+ 1) == '\''))
-		{
-			while (*input != '$' && *input != '\0' && *input != '"'
-				&& *input == '\'')
-			{
-				ft_putchar_fd(*input, fd_tmp);
-				input++;
-			}
-		}
+		write_specific_heredoc(&input, fd_tmp, expandable);
 		if (*input == '$' && expandable)
 		{
 			expand = handle_dollar(&input);

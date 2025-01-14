@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void set_array_element(t_tokens *token, char **data, int len_data, int *mode)
+static void	set_array_element(t_tokens *token, char **dt, int len, int *m)
 {
 	int		i;
 	t_arg	*arg_cmd;
@@ -21,41 +21,31 @@ static void set_array_element(t_tokens *token, char **data, int len_data, int *m
 
 	i = 0;
 	arg_new = NULL;
-	arg_cmd = token->token_arg;
 	first_arg = &token->token_arg;
-	if (token->token_cmd != NULL && token->token_cmd->cmd_str == NULL)
-		token->token_cmd->cmd_str = data[i++];
-	if (!token->token_arg)
-	{
-		arg_cmd = new_arg();
-		arg_cmd->arg_str = data[i++];
-		addback_arg(first_arg, arg_cmd);
-	}
-	while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
-		arg_cmd = arg_cmd->next_arg;
-	while (i < len_data)
+	arg_cmd = array_first_element(token, first_arg, dt, &i);
+	while (i < len)
 	{
 		if (!arg_cmd)
 		{
 			arg_new = new_arg();
-			arg_new->arg_str = data[i++];
+			arg_new->arg_str = dt[i++];
 			addback_arg(first_arg, arg_new);
 		}
 		if (arg_cmd != NULL && arg_cmd->arg_str == NULL)
 		{
-			arg_cmd->arg_str = data[i++];
+			arg_cmd->arg_str = dt[i++];
 			arg_cmd = arg_cmd->next_arg;
 		}
 	}
-	*mode = 2;
-	free(data);
+	*m = 2;
+	free(dt);
 }
 
 int	store_var_element(t_tokens *token, char *parsing, int *mode)
 {
 	char	**data;
 	int		len_data;
-	
+
 	if (!parsing || !token)
 		return (token->errnum);
 	data = ft_split(parsing, ' ');
@@ -87,9 +77,9 @@ int	store_parse_argument(t_tokens *node, char *str_parse)
 		node->token_arg = new_arg();
 		end_arg = node->token_arg;
 	}
-	else if (end_arg && 
-		((end_arg->operand == NOTOP && end_arg->arg_str != NULL) 
-		|| (end_arg->operand == INQUOTES && end_arg->arg_str != NULL) 
+	else if (end_arg
+		&& ((end_arg->operand == NOTOP && end_arg->arg_str != NULL)
+		|| (end_arg->operand == INQUOTES && end_arg->arg_str != NULL)
 		|| ft_strlen(end_arg->arg_str) > 0))
 		end_arg->next_arg = new_arg();
 	if (end_arg->operand == VOIDTOKEN && end_arg->arg_str 

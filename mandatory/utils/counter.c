@@ -53,17 +53,3 @@ int	count_data_env(t_data_env *node)
 	return (i);
 }
 
-// count en varaible env. when value is not null
-int	count_data_env_exist(t_data_env *node)
-{
-	int	i;
-
-	i = 0;
-	while (node != NULL)
-	{
-		if (node->value != NULL)
-			i++;
-		node = node->next;
-	}
-	return (i);
-}

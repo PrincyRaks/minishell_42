@@ -12,6 +12,32 @@
 
 #include "minishell.h"
 
+void	set_inquotes(t_tokens *token)
+{
+	t_arg	*end_arg;
+
+	if (!token->token_cmd)
+		token->token_cmd = new_cmd();
+	if (token->token_cmd && !token->token_cmd->cmd_str)
+	{
+		token->token_cmd->operand = INQUOTES;
+		return ;
+	}
+	end_arg = last_arg(token->token_arg);
+	if (!end_arg)
+	{
+		token->token_arg = new_arg();
+		end_arg = token->token_arg;
+	}
+	if (end_arg && !end_arg->arg_str)
+		end_arg->operand = INQUOTES;
+	if (end_arg && end_arg->operand == INQUOTES && end_arg->arg_str)
+	{
+		end_arg->next_arg = new_arg();
+		end_arg->next_arg->operand = INQUOTES;
+	}
+}
+
 char	*handle_onequotes(char **qts, char **result, t_tokens *token)
 {
 	char	*trim;

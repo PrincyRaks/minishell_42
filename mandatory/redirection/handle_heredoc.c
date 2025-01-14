@@ -34,6 +34,21 @@ int	create_file_tmp(t_flow *heredoc)
 	return (fd_tmp);
 }
 
+int	handle_delimiter(char *input_hd, char *delimiter)
+{
+	if (!input_hd)
+	{
+		print_warning_delimiter(delimiter);
+		return(0);
+	}
+	if (!ft_strcmp(delimiter, input_hd))
+	{
+		free(input_hd);
+		return(0);
+	}
+	return (1);
+}
+
 static void	handle_heredoc(t_flow *heredoc)
 {
 	int		fd_tmp;
@@ -51,16 +66,8 @@ static void	handle_heredoc(t_flow *heredoc)
 	{
 		signal(SIGINT, stop_instruction);
 		input_hd = readline("heredoc► ");
-		if (!input_hd)
-		{
-			print_warning_delimiter(delimiter);
+		if (!handle_delimiter(input_hd, delimiter))
 			break ;
-		}
-		if (!ft_strcmp(delimiter, input_hd))
-		{
-			free(input_hd);
-			break ;
-		}
 		write_heredoc(input_hd, fd_tmp, heredoc->expandable);
 		free(input_hd);
 	}

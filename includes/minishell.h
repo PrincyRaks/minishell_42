@@ -138,6 +138,7 @@ int						valid_char(char c);
 int						valid_token(t_tokens *token, char char_input);
 int						valid_redir(char c);
 int						valid_store(char c);
+t_arg	*array_first_element(t_tokens *token, t_arg **first, char **data, int *i);
 int						valid_arguments(t_tokens *node, int mode_add,
 							char *str_parsing);
 int						create_new_token(t_tokens **first_node,
@@ -149,7 +150,6 @@ int						store_parse_redir(t_tokens *node, char *str_parse,
 							int *mode);
 int						store_parse_cmd(t_tokens *node, char *str_parse,
 							int *mode);
-void					set_inquotes(t_tokens *token);
 void					set_option3(int *mode, t_tokens *token, char *expand);
 void					set_void_operand(t_tokens *token, int mode);
 void					set_void_str(t_tokens *token, int *mode);
@@ -174,7 +174,6 @@ void					set_data_env(t_data_env *value);
 t_data_env				*get_data_env(void);
 t_data_env				*ft_getenv(char *var);
 int						count_data_env(t_data_env *node);
-int						count_data_env_exist(t_data_env *node);
 char					**get_tabenv(void);
 void					load_data_export(void);
 char					**get_tabkeys(void);
