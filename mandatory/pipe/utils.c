@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 14:11:40 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:04:16 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
 	if (current->next)
 	{
 		if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+		{
 			perror("dup2 pipe_fd");
+			close(pipe_fd[1]);
+		}
 	}
 	if (pipe_fd[0] != -1)
 		close(pipe_fd[0]);

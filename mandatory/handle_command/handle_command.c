@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:25:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/13 20:32:25 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:07:16 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	handle_one_dot(char *cmd, int saved_stdin, int saved_stdout)
 	restore_stdio(saved_stdin, saved_stdout);
 }
 
-static void	execute_command_type(t_tokens *data_cmd, t_cmd	*cmd, int saved_stdin,
-		int saved_stdout)
+static void	execute_command_type(t_tokens *data_cmd, t_cmd *cmd,
+		int saved_stdin, int saved_stdout)
 {
 	int	nb_builtin;
 
@@ -29,14 +29,15 @@ static void	execute_command_type(t_tokens *data_cmd, t_cmd	*cmd, int saved_stdin
 	if (nb_builtin > 0 && !data_cmd->next)
 	{
 		execute_builtin(data_cmd, nb_builtin);
-		return (restore_stdio(saved_stdin, saved_stdout));
+		restore_stdio(saved_stdin, saved_stdout);
+		return ;
 	}
 	if (data_cmd)
 	{
 		execute_pipeline(data_cmd);
-		return (restore_stdio(saved_stdin, saved_stdout));
+		restore_stdio(saved_stdin, saved_stdout);
+		return ;
 	}
-	return ;
 	restore_stdio(saved_stdin, saved_stdout);
 }
 
@@ -48,10 +49,14 @@ void	handle_command(t_tokens *data_cmd)
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
+	set_stdin_dup(saved_stdin);
+	set_stdout_dup(saved_stdout);
 	if (!data_cmd)
-		return (restore_stdio(saved_stdin, saved_stdout));
+	{
+		restore_stdio(saved_stdin, saved_stdout);
+		return;
+	}
 	node_cmd = data_cmd->token_cmd;
 	execute_command_type(data_cmd, node_cmd, saved_stdin, saved_stdout);
 	restore_stdio(saved_stdin, saved_stdout);
 }
-

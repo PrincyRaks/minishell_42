@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/13 14:30:42 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:52:33 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	clean_up_exit(int n_exit)
 {
 	t_data_env	*data;
 
+    restore_stdio(get_stdin_dup(), get_stdout_dup());
 	clean_tokens(get_first_token());
 	clear_export_env();
 	data = get_data_env();

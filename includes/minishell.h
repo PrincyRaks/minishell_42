@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/14 12:39:37 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:55:30 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,6 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					shell_loop(void);
-/* void					handle_child_process(char *executable,
-							t_tokens *data_cmd);
-void					handle_parent_process(pid_t pid);
-void	execute_external_command(char *executable,
-							t_tokens *data_cmd);
-int						is_invalid_command(t_tokens *data_cmd);
-void	handle_external_command(t_tokens *data_cmd); */
 void					handle_command(t_tokens *data_cmd);
 void					free_array(char **array);
 bool					is_only_dots(const char *command);
@@ -159,7 +152,7 @@ int						store_parse_cmd(t_tokens *node, char *str_parse,
 void					set_inquotes(t_tokens *token);
 void					set_option3(int *mode, t_tokens *token, char *expand);
 void					set_void_operand(t_tokens *token, int mode);
-void	set_void_str(t_tokens *token, int *mode);
+void					set_void_str(t_tokens *token, int *mode);
 void					set_expandable_var_heredoc(t_tokens *node,
 							t_flow *end_flow);
 int						get_sigpipe(void);
@@ -202,17 +195,9 @@ int						ft_echo(t_tokens *tokens);
 int						ft_export(t_tokens *tokens);
 int						ft_unset(t_tokens *tokens);
 int						is_builtin(char *cmd);
-
 int						is_numeric(char *str);
 int						ft_strcmp(char *s1, char *s2);
 void					execute_builtin(t_tokens *tokens, int nb);
-/* void					setup_pipe(int prev_fd, int pipe_fd[2],
-							t_tokens *tokens);
-void					wait_for_children(void);
-void					handle_child(int prev_fd, int pipe_fd[2],
-							t_tokens *tokens);
-int						handle_parent(int prev_fd, int pipe_fd[2],
-							t_tokens *tokens); */
 void					exit_perror(char *message);
 t_tokens				*get_prev_token(t_tokens *head, t_tokens *current);
 void					setup_child_process(t_tokens *tokens, t_tokens *current,
@@ -222,12 +207,9 @@ void					handle_pipe_fds(t_tokens *tokens, t_tokens *current,
 							int *prev_fd, int *pipe_fd);
 void					execute_command(t_tokens *tokens, t_tokens *current,
 							int *prev_fd);
-
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 void					set_signals_pipe(void);
-
-// char					*getpath_tmp(char *file);
 void					delete_file_tmp(int last_num);
 void					write_heredoc(char *input, int fd_tmp, int expandable);
 void					parse_heredoc(t_tokens *tokens);
@@ -248,10 +230,9 @@ void					ignore_sigquit(void);
 void					set_signals_interactive(void);
 void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
-
-// void					handle_path_command(char *cmd, int saved_stdin,
-// 							int saved_stdout);
 void					handle_one_dot(char *cmd, int saved_stdin,
 							int saved_stdout);
+int my_dup(int fd);
+void my_close(int fd);
 
 #endif
