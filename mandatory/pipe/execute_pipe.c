@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 11:10:10 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:06:32 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	execute_pipeline(t_tokens *tokens)
 		current = current->next;
 	}
 	if (prev_fd != -1)
-	{
-		ft_putstr_fd("ATO VEE\n", 2);
 		close(prev_fd);
-	}
 	while (wait(NULL) > 0)
 		;
 	set_signals_interactive();
