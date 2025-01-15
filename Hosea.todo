@@ -13,5 +13,5 @@ Redirections:
         ✔ marche avec cat seulement @done(24-12-27 09:28)
 
 A gerer:
-    ☐ export | tail -n 20
+    ✔ export | tail -n 20 @done(25-01-15 12:04)
     
