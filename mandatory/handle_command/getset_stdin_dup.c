@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static int  *static_stdin_dup(void)
+static int	*static_stdin_dup(void)
 {
-    static int  cst = -1;
-    return (&cst);
+	static int	cst = -1;
+
+	return (&cst);
 }
 
-int get_stdin_dup(void)
+int	get_stdin_dup(void)
 {
-    return (*static_stdin_dup());
+	return (*static_stdin_dup());
 }
 
-void    set_stdin_dup(int fd)
+void	set_stdin_dup(int fd)
 {
-    *static_stdin_dup() = fd;
+	*static_stdin_dup() = fd;
 }

@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static int  *static_sigpipe(void)
+static int	*static_sigpipe(void)
 {
-    static int  cst = 1;
-    return (&cst);
+	static int	cst = 1;
+
+	return (&cst);
 }
 
-int get_sigpipe(void)
+int	get_sigpipe(void)
 {
-    return (*static_sigpipe());
+	return (*static_sigpipe());
 }
 
-void    set_sigpipe(int num_file)
+void	set_sigpipe(int num_file)
 {
-    *static_sigpipe() = num_file;
+	*static_sigpipe() = num_file;
 }

@@ -48,6 +48,7 @@ SRCS = mandatory/main.c \
 	   mandatory/pipe/check_command.c \
 	   mandatory/pipe/execute_command.c \
 	   mandatory/signals/signals.c \
+	   mandatory/signals/signals_utils.c \
 	   mandatory/signals/getset_status.c \
 	   mandatory/signals/handler_signal.c \
 	   mandatory/signals/getset_sigint.c \

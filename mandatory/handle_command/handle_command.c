@@ -56,7 +56,7 @@ void	handle_command(t_tokens *data_cmd)
 	if (!data_cmd)
 	{
 		restore_stdio(saved_stdin, saved_stdout);
-		return;
+		return ;
 	}
 	node_cmd = data_cmd->token_cmd;
 	execute_command_type(data_cmd, node_cmd, saved_stdin, saved_stdout);

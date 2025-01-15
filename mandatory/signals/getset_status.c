@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static int  *static_status(void)
+static int	*static_status(void)
 {
-    static int  cst = 0;
-    return (&cst);
+	static int	cst = 0;
+
+	return (&cst);
 }
 
-int get_status(void)
+int	get_status(void)
 {
-    return (*static_status());
+	return (*static_status());
 }
 
-void    set_status(int fd)
+void	set_status(int fd)
 {
-    *static_status() = fd;
+	*static_status() = fd;
 }

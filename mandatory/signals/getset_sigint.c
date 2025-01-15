@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static int  *static_sigint(void)
+static int	*static_sigint(void)
 {
-    static int  cst = 1;
-    return (&cst);
+	static int	cst = 1;
+
+	return (&cst);
 }
 
-int get_sigint(void)
+int	get_sigint(void)
 {
-    return (*static_sigint());
+	return (*static_sigint());
 }
 
-void    set_sigint(int signal)
+void	set_sigint(int signal)
 {
-    *static_sigint() = signal;
+	*static_sigint() = signal;
 }

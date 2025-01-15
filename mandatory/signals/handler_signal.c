@@ -14,8 +14,8 @@
 
 void	stop_instruction(int signal)
 {
-	int fd[2];
-	int stdin;
+	int	fd[2];
+	int	stdin;
 
 	stdin = dup(STDIN_FILENO);
 	set_stdin_dup(stdin);

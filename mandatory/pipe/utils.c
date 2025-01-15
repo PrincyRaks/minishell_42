@@ -52,7 +52,7 @@ void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
 		close(pipe_fd[1]);
 	if (current->token_cmd && current->token_cmd->cmd_str)
 	{
-		if (!check_command(current) && count_token(tokens) == 1) 
+		if (!check_command(current) && count_token(tokens) == 1)
 			clean_up_exit(get_status());
 	}
 	execute_single_command(current);

@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-static int  *static_stdout_dup(void)
+static int	*static_stdout_dup(void)
 {
-    static int  cst = -1;
-    return (&cst);
+	static int	cst = -1;
+
+	return (&cst);
 }
 
-int get_stdout_dup(void)
+int	get_stdout_dup(void)
 {
-    return (*static_stdout_dup());
+	return (*static_stdout_dup());
 }
 
-void    set_stdout_dup(int fd)
+void	set_stdout_dup(int fd)
 {
-    *static_stdout_dup() = fd;
+	*static_stdout_dup() = fd;
 }

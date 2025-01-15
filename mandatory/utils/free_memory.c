@@ -36,8 +36,8 @@ void	clean_up_exit(int n_exit)
 	clear_export_env();
 	data = get_data_env();
 	clean_env(&data);
-    close(0);
-    close(1);
+	close(0);
+	close(1);
 	restore_stdio(get_stdin_dup(), get_stdout_dup());
 	exit(n_exit);
 }
