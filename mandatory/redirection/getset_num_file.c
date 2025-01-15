@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static int  *static_num_file(void)
+static int	*static_num_file(void)
 {
-    static int  cst = -1;
-    return (&cst);
+	static int	cst = -1;
+
+	return (&cst);
 }
 
-int get_last_file(void)
+int	get_last_file(void)
 {
-    return (*static_num_file());
+	return (*static_num_file());
 }
 
-void    set_num_file(int num_file)
+void	set_num_file(int num_file)
 {
-    *static_num_file() = num_file;
+	*static_num_file() = num_file;
 }

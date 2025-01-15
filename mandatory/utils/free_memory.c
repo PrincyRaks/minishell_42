@@ -12,26 +12,27 @@
 
 #include "minishell.h"
 
-void free_array(char **array) {
-    int i;
+void	free_array(char **array)
+{
+	int	i;
 
-    if (!array)
-        return;
-    i = 0;
-    while (array[i] != NULL) 
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i] != NULL)
 	{
-        if (array[i] != NULL)
-            free(array[i]);
-        i++;
-    }
-    free(array);
+		if (array[i] != NULL)
+			free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
 void	clean_up_exit(int n_exit)
 {
 	t_data_env	*data;
 
-    restore_stdio(get_stdin_dup(), get_stdout_dup());
+	restore_stdio(get_stdin_dup(), get_stdout_dup());
 	clean_tokens(get_first_token());
 	clear_export_env();
 	data = get_data_env();

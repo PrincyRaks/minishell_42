@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int valid_store(char c)
+int	valid_store(char c)
 {
-	return (c != ' ' && c != '\0' && c != '|' );
+	return (c != ' ' && c != '\0' && c != '|');
 }
 
 int	valid_arguments(t_tokens *node, int mode_add, char *str_parsing)
@@ -24,14 +24,14 @@ int	valid_arguments(t_tokens *node, int mode_add, char *str_parsing)
 
 int	valid_char(char c)
 {
-	return (c != '"' && c != '\'' && c != '\0' 
-	&& c != '$' && c != ' ' && c != '>' && c != '<');
+	return (c != '"' && c != '\'' && c != '\0' && c != '$' && c != ' '
+		&& c != '>' && c != '<');
 }
 
 int	valid_token(t_tokens *token, char char_input)
 {
-	return (char_input != ' ' && char_input != '\0' 
-			&& char_input != '|' && token->errnum == DEFAULT);
+	return (char_input != ' ' && char_input != '\0' && char_input != '|'
+		&& token->errnum == DEFAULT);
 }
 
 int	valid_redir(char c)

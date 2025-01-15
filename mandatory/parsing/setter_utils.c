@@ -12,30 +12,27 @@
 
 #include "minishell.h"
 
-void	set_inquotes(t_tokens *token)
+t_arg	*array_first_element(t_tokens *token, t_arg **first, char **data,
+		int *i)
 {
-	t_arg	*end_arg;
+	t_arg	*arg_cmd;
 
-	if (!token->token_cmd)
-		token->token_cmd = new_cmd();
-	if (token->token_cmd && !token->token_cmd->cmd_str)
+	arg_cmd = token->token_arg;
+	if (token->token_cmd != NULL && !token->token_cmd->cmd_str)
 	{
-		token->token_cmd->operand = INQUOTES;
-		return ;
+		token->token_cmd->cmd_str = data[*i];
+		(*i)++;
 	}
-	end_arg = last_arg(token->token_arg);
-	if (!end_arg)
+	if (!arg_cmd)
 	{
-		token->token_arg = new_arg();
-		end_arg = token->token_arg;
+		arg_cmd = new_arg();
+		arg_cmd->arg_str = data[*i];
+		addback_arg(first, arg_cmd);
+		(*i)++;
 	}
-	if (end_arg && !end_arg->arg_str)
-		end_arg->operand = INQUOTES;
-	if (end_arg && end_arg->operand == INQUOTES && end_arg->arg_str)
-	{
-		end_arg->next_arg = new_arg();
-		end_arg->next_arg->operand = INQUOTES;
-	}
+	while (arg_cmd != NULL && arg_cmd->arg_str != NULL)
+		arg_cmd = arg_cmd->next_arg;
+	return (arg_cmd);
 }
 
 void	set_option3(int *mode, t_tokens *token, char *expand)

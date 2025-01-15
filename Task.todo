@@ -28,4 +28,4 @@ Parsing:
 HEREDOC:
     ✔ ao anaty parsing no mitety ny heredoc (fafana le implementation, anaty fonction executor) @done(25-01-07 15:31)
     ✔ atao anaty set sy get le fd farany heredoc avy le izy @done(25-01-07 15:31)
-    ☐ Attention heredoc successive mila close le teo aloha de averina @ alohoany le STDIN
+    ✔ Attention heredoc successive mila close le teo aloha de averina @ alohoany le STDIN @done(25-01-13 23:15)

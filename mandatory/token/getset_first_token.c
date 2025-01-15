@@ -12,18 +12,19 @@
 
 #include "minishell.h"
 
-static t_tokens  ***static_first_token(void)
+static t_tokens	***static_first_token(void)
 {
-    static t_tokens   **cst = NULL;
-    return (&cst);
+	static t_tokens	**cst = NULL;
+
+	return (&cst);
 }
 
-t_tokens    **get_first_token(void)
+t_tokens	**get_first_token(void)
 {
-    return (*static_first_token());
+	return (*static_first_token());
 }
 
-void    set_first_token(t_tokens **first)
+void	set_first_token(t_tokens **first)
 {
-    *static_first_token() = first;
+	*static_first_token() = first;
 }

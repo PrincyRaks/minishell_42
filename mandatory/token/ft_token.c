@@ -70,7 +70,7 @@ int	count_token(t_tokens *lst)
 
 void	clean_tokens(t_tokens **lst)
 {
-	t_tokens *tmp;
+	t_tokens	*tmp;
 
 	if (!lst)
 		return ;
