@@ -34,8 +34,8 @@ void	print_warning_delimiter(char *str)
 
 void	write_specific_heredoc(char **input, int fd_tmp, int expandable)
 {
-	if (**input == '$' && expandable && ((*((*input) + 1)) == '"' 
-		|| *((*input) + 1) == '\''))
+	if (**input == '$' && expandable && ((*((*input) + 1)) == '"' || *((*input)
+				+ 1) == '\''))
 	{
 		while (**input != '$' && **input != '\0' && **input != '"'
 			&& **input == '\'')

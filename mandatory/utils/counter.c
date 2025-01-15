@@ -52,4 +52,3 @@ int	count_data_env(t_data_env *node)
 	}
 	return (i);
 }
-

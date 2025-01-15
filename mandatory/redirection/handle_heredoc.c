@@ -39,12 +39,12 @@ int	handle_delimiter(char *input_hd, char *delimiter)
 	if (!input_hd)
 	{
 		print_warning_delimiter(delimiter);
-		return(0);
+		return (0);
 	}
 	if (!ft_strcmp(delimiter, input_hd))
 	{
 		free(input_hd);
-		return(0);
+		return (0);
 	}
 	return (1);
 }

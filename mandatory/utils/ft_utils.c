@@ -39,7 +39,7 @@ int	is_onlyspace(char *str)
 		return (0);
 	while (ft_isspace(*str))
 		str++;
-	if (*str== '\0')
+	if (*str == '\0')
 		return (1);
 	return (0);
 }

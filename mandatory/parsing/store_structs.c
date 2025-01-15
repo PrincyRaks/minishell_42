@@ -77,12 +77,11 @@ int	store_parse_argument(t_tokens *node, char *str_parse)
 		node->token_arg = new_arg();
 		end_arg = node->token_arg;
 	}
-	else if (end_arg
-		&& ((end_arg->operand == NOTOP && end_arg->arg_str != NULL)
-		|| (end_arg->operand == INQUOTES && end_arg->arg_str != NULL)
-		|| ft_strlen(end_arg->arg_str) > 0))
+	else if (end_arg && ((end_arg->operand == NOTOP && end_arg->arg_str != NULL)
+			|| (end_arg->operand == INQUOTES && end_arg->arg_str != NULL)
+			|| ft_strlen(end_arg->arg_str) > 0))
 		end_arg->next_arg = new_arg();
-	if (end_arg->operand == VOIDTOKEN && end_arg->arg_str 
+	if (end_arg->operand == VOIDTOKEN && end_arg->arg_str
 		&& !ft_strlen(end_arg->arg_str) && !ft_strlen(str_parse))
 	{
 		free(end_arg->arg_str);
@@ -100,7 +99,7 @@ int	store_parse_cmd(t_tokens *node, char *str_parse, int *mode)
 	t_cmd	*cmd;
 
 	cmd = node->token_cmd;
-	if (cmd && cmd->operand == VOIDTOKEN && !cmd->cmd_str 
+	if (cmd && cmd->operand == VOIDTOKEN && !cmd->cmd_str
 		&& !ft_strlen(cmd->cmd_str) && !ft_strlen(str_parse))
 	{
 		free(cmd->cmd_str);
@@ -121,8 +120,8 @@ int	store_parse_redir(t_tokens *node, char *str_parse, int *mode)
 	last_redir = last_flow(node->token_flow);
 	set_expandable_var_heredoc(node, last_redir);
 	last_redir->word = str_parse;
-	if (node->token_cmd != NULL && (node->token_cmd->cmd_str == NULL 
-		|| node->token_cmd->operand == VOIDTOKEN))
+	if (node->token_cmd != NULL && (node->token_cmd->cmd_str == NULL
+			|| node->token_cmd->operand == VOIDTOKEN))
 		*mode = 1;
 	else if (node->token_cmd != NULL && node->token_cmd->operand == NOTOP)
 		*mode = 2;

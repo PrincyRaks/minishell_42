@@ -138,7 +138,8 @@ int						valid_char(char c);
 int						valid_token(t_tokens *token, char char_input);
 int						valid_redir(char c);
 int						valid_store(char c);
-t_arg	*array_first_element(t_tokens *token, t_arg **first, char **data, int *i);
+t_arg					*array_first_element(t_tokens *token, t_arg **first,
+							char **data, int *i);
 int						valid_arguments(t_tokens *node, int mode_add,
 							char *str_parsing);
 int						create_new_token(t_tokens **first_node,
@@ -231,7 +232,7 @@ void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
 void					handle_one_dot(char *cmd, int saved_stdin,
 							int saved_stdout);
-int my_dup(int fd);
-void my_close(int fd);
+int						my_dup(int fd);
+void					my_close(int fd);
 
 #endif

@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-t_arg	*array_first_element(t_tokens *token, t_arg **first, char **data, int *i)
+t_arg	*array_first_element(t_tokens *token, t_arg **first, char **data,
+		int *i)
 {
 	t_arg	*arg_cmd;
 

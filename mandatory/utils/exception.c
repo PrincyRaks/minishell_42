@@ -6,13 +6,13 @@
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 09:26:56 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 14:06:18 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:32:36 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    print_errnum(t_errnum numerr)
+void	print_errnum(t_errnum numerr)
 {
 	int	status;
 
@@ -21,10 +21,13 @@ void    print_errnum(t_errnum numerr)
 		return ;
 	else if (numerr == ERRMALLOC)
 		ft_putstr_fd("Error: allocation of memory\n", 2);
-    else if (numerr == UNQUOTES)
-        ft_putstr_fd("Error: unclosed quotes\n", 2);
+	else if (numerr == UNQUOTES)
+		ft_putstr_fd("Error: unclosed quotes\n", 2);
 	else if (numerr == ERRFLOW)
-		ft_putstr_fd("Error: syntax error near unexpected token `redirection'\n", 2);
+	{
+		ft_putstr_fd("Error: syntax error near unexpected", 2);
+		ft_putendl_fd("token `redirection'", 2);
+	}
 	else if (numerr == ERRPIPE)
 		ft_putstr_fd("Error: syntax error near unexpected token `|'\n", 2);
 	else if (numerr == AMBIGUOUS)
