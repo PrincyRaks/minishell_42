@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 16:07:11 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:25:23 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	handle_input(char *input)
 	if (*input)
 	{
 		add_history(input);
+		if (is_onlyspace(input))
+			return ;
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL && get_sigint() > 0
 			&& get_sigpipe() > 0 && (*data_cmd)->errnum == DEFAULT)
