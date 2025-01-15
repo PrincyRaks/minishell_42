@@ -3,52 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:33:25 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/12 15:20:32 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:02:15 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_tokens	*last_token(t_tokens *token)
+char	**array_tokens(t_tokens *token)
 {
-	while (token)
-	{
-		if (!token->next)
-			return (token);
-		token = token->next;
-	}
-	return (NULL);
-}
+	int		i;
+	char	**argv;
+	int		len_arg;
+	t_arg	*tmp;
 
-void	addback_token(t_tokens **first_token, t_tokens *token)
-{
-	t_tokens	*end;
-
-	if (first_token)
-	{
-		if (!*first_token)
-			*first_token = token;
-		else
-		{
-			end = last_token(*first_token);
-			if (end)
-				end->next = token;
-		}
-	}
-}
-
-int	count_token(t_tokens *lst)
-{
-	int i;
-
+	len_arg = count_arg(token->token_arg);
+	len_arg += 2;
+	argv = malloc(sizeof(char *) * len_arg);
+	if (!argv)
+		return (NULL);
 	i = 0;
-	while (lst != NULL)
+	argv[i] = ft_strdup(token->token_cmd->cmd_str);
+	i++;
+	tmp = token->token_arg;
+	while (tmp != NULL && i < len_arg)
 	{
-		lst = lst->next;
+		if (!tmp->arg_str)
+			argv[i] = NULL;
+		else
+			argv[i] = ft_strdup(tmp->arg_str);
+		tmp = tmp->next_arg;
 		i++;
 	}
-	return (i);
+	argv[i] = NULL;
+	return (argv);
+}
+
+int	create_new_token(t_tokens **first_node, t_tokens **node_token)
+{
+	if (!node_token && !*node_token)
+		return (0);
+	*node_token = new_token();
+	if (!node_token)
+		return (0);
+	addback_token(first_node, *node_token);
+	return (1);
 }

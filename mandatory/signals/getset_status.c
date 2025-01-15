@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   getset_status.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 16:27:06 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/10/29 16:27:57 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/07 22:17:26 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/09 16:42:56 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char    **(char *input)
+static int	*static_status(void)
 {
-    
+	static int	cst = 0;
+
+	return (&cst);
+}
+
+int	get_status(void)
+{
+	return (*static_status());
+}
+
+void	set_status(int fd)
+{
+	*static_status() = fd;
 }

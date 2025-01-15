@@ -1,0 +1,17 @@
+Redirections:
+    input (>) :
+        ✔ creer fichier avec le type word du structure @done(24-12-23 16:32)
+        ✔ Gerer operateur successive > out > out1 > out2 @done(24-12-23 16:32)
+        ✔ ECRIRE la sortie du COMMANDE dans le dernier fichier cree @done(24-12-24 10:25)
+        ✔ Gerer les erreurs @done(24-12-27 09:28)
+    append (>>) :
+        ✔ creer fichier avec le type word du structure @done(24-12-24 10:26)
+        ✔ Gerer >> out > out1 >> out2 @done(24-12-24 10:26)
+        ✔ AJOUTER la sortie du commande dans le dernier fichier cree @done(24-12-24 10:26)
+    output (<) :
+        ✔ ne pas creer le fichier s'il n'existe pas @done(24-12-24 10:26)
+        ✔ marche avec cat seulement @done(24-12-27 09:28)
+
+A gerer:
+    ✔ export | tail -n 20 @done(25-01-15 12:04)
+    

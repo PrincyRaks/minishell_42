@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_token.c                                       :+:      :+:    :+:   */
+/*   getset_first_token.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 15:59:16 by rrakotos          #+#    #+#             */
-/*   Updated: 2024/11/08 16:45:14 by rrakotos         ###   ########.fr       */
+/*   Created: 2025/01/09 20:58:05 by rrakotos          #+#    #+#             */
+/*   Updated: 2025/01/09 21:16:37 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tokens	*create_node(void)
+static t_tokens	***static_first_token(void)
 {
-	t_tokens	*instr;
+	static t_tokens	**cst = NULL;
 
-	instr = malloc(sizeof(t_tokens));
-	if (!instr)
-		return (NULL);
-	// cmd
-	instr->token_cmd = NULL;
-	// arguments
-	instr->token_arg = NULL;
-	return (instr);
+	return (&cst);
+}
+
+t_tokens	**get_first_token(void)
+{
+	return (*static_first_token());
+}
+
+void	set_first_token(t_tokens **first)
+{
+	*static_first_token() = first;
 }

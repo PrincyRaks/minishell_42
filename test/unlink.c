@@ -2,7 +2,7 @@
 
 int	main(void)
 {
-	if (unlink("test.tmp"))
+	if (unlink("tmp"))
 	{
 		perror("Error removing file!");
 		return (EXIT_FAILURE);

@@ -1,16 +1,16 @@
 #include "minishell.h"
 
-int main(void)
+int main(int argc, char **argv)
 {
     DIR *dir_ptr;
 
     struct dirent *read_dir;
 
-    dir_ptr = opendir("/");
+    dir_ptr = opendir(argv[1]);
 
     if (!dir_ptr)
     {
-        perror("Error");
+        perror("opendir");
         return (-1);
     }
 

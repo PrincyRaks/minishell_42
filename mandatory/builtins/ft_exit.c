@@ -3,50 +3,104 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:05:47 by mrazanad          #+#    #+#             */
-/*   Updated: 2024/11/11 14:23:39 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:20:26 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_numeric(const char *str)
+int	is_numeric(char *s)
 {
-	if (!str || *str == '\0')
-		return (0);
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str)
+	int	flag;
+
+	flag = 0;
+	while (*s)
 	{
-		if (!ft_isdigit(*str))
+		if (!ft_isdigit(*s) && !ft_isspace(*s) && *s != '+' && *s != '-')
 			return (0);
-		str++;
+		while (ft_isspace(*s))
+			s++;
+		if ((*s == '+' || *s == '-') && !ft_isdigit(*(s + 1)))
+			return (0);
+		if ((*s == '+' || *s == '-') && ft_isdigit(*(s + 1)))
+			s++;
+		if (ft_isdigit(*s))
+			flag++;
+		while (ft_isdigit(*s))
+		{
+			if (flag > 1)
+				return (0);
+			s++;
+		}
 	}
+	if (!flag)
+		return (0);
 	return (1);
 }
 
-int	ft_exit(char **args)
+static int	check_range(char *str, long long *n_exit)
 {
-	int	exit_code;
+	int	i;
+	int	negative;
 
-	exit_code = 0;
-	printf("exit\n");
-	if (args[1])
+	negative = str[0] == '-';
+	i = str[0] == '-' || str[0] == '+';
+	while (str[i] != '\0')
 	{
-		if (!is_numeric(args[1]))
-		{
-			printf("exit: %s: numeric argument required\n", args[1]);
-			return (1);
-		}
-		exit_code = ft_atoi(args[1]);
-		if (args[2])
-		{
-			printf("exit: too many arguments\n");
-			return (1);
-		}
-		exit(exit_code % 256);
+		while (ft_isspace(str[i]))
+			i++;
+		if (*n_exit > 922337203685477580)
+			return (*n_exit = 0);
+		else if (!negative && *n_exit == 922337203685477580 && (str[i] - '0')
+			% 10 > 7)
+			return (*n_exit = 0);
+		else if (negative && *n_exit == 922337203685477580 && (str[i] - '0')
+			% 10 > 8)
+			return (*n_exit = 0);
+		if (ft_isdigit(str[i]))
+			*n_exit = *n_exit * 10 + (str[i] - '0');
+		i++;
 	}
-	exit(exit_code);
+	if (negative)
+		*n_exit *= -1;
+	return (1);
+}
+
+void	print_error_exit(char *str)
+{
+	ft_putstr_fd("exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(": numeric argument required", 2);
+}
+
+int	ft_exit(t_tokens *tokens)
+{
+	int			len_arg;
+	char		*str_arg;
+	long long	exit_code;
+
+	printf("exit\n");
+	len_arg = 0;
+	exit_code = 0;
+	if (tokens && tokens->token_arg)
+		len_arg = count_arg(tokens->token_arg);
+	if (len_arg == 0)
+		clean_up_exit(0);
+	str_arg = tokens->token_arg->arg_str;
+	if (len_arg > 1)
+	{
+		if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
+		{
+			ft_putstr_fd("exit: too many arguments\n", 2);
+			return (1);
+		}
+	}
+	if (is_numeric(str_arg) && check_range(str_arg, &exit_code))
+		clean_up_exit(exit_code % 256);
+	print_error_exit(str_arg);
+	clean_up_exit(2);
+	return (0);
 }
