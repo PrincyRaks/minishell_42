@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/14 16:55:30 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:02:02 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,5 @@ void					signal_print_newline(int signal);
 void					set_signals_noninteractive(void);
 void					handle_one_dot(char *cmd, int saved_stdin,
 							int saved_stdout);
-int						my_dup(int fd);
-void					my_close(int fd);
 
 #endif
