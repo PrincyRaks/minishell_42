@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 14:33:48 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 15:03:26 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:26:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	open_redirection_file(t_flow *redir)
 	if (!redir || !redir->word || redir->word[0] == '\0')
 	{
 		ft_putstr_fd(" : No such file or directory\n", 2);
+		set_status(1);
 		return (-1);
 	}
 	if (redir->operand == INPUT)
@@ -29,7 +30,10 @@ int	open_redirection_file(t_flow *redir)
 	else if (redir->operand == APPEND)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
+	{
 		ft_putstr_fd(" : No such file or directory\n", 2);
+		set_status(1);
+	}
 	return (fd);
 }
 

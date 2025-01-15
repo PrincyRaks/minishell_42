@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:58:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 11:11:09 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:35:16 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ static void	handle_parent_signals(pid_t pid, int status)
 	signal(SIGQUIT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	set_signals_interactive();
-	if (status & 0x7F)
+	if (WIFEXITED(status))
+		set_status(WEXITSTATUS(status));
+	else if (status & 0x7F)
 	{
 		if ((status & 0x7F) == SIGINT)
 			write(STDOUT_FILENO, "\n", 1);

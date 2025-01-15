@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:12:14 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 11:54:30 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:36:00 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ void	setup_child_process(t_tokens *tokens, t_tokens *current, int prev_fd,
 		close(pipe_fd[1]);
 	if (current->token_cmd && current->token_cmd->cmd_str)
 	{
-		// check_command(current);
-		if (!check_command(current) && count_token(tokens) == 1)
-			return ;
-		
+		if (!check_command(current) && count_token(tokens) == 1) 
+			clean_up_exit(get_status());
 	}
 	execute_single_command(current);
 }

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:54:31 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 11:35:08 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:22:29 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	handle_dots_check(t_tokens *cmd_token)
 		}
 		ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 		ft_putstr_fd(": command not found\n", 2);
+		set_status(127);
 		return (0);
 	}
 	return (1);
@@ -52,6 +53,7 @@ static int	handle_directory_check(t_tokens *cmd_token)
 	{
 		ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 		ft_putstr_fd(": Is a directory\n", 2);
+		set_status(126);
 		return (0);
 	}
 	return (1);
@@ -66,17 +68,20 @@ static int	handle_command_errors(t_tokens *cmd_token)
 		{
 			ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
+			set_status(1);
 		}
 		else if (access(cmd_token->token_cmd->cmd_str, X_OK) != 0)
 		{
 			ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 			ft_putstr_fd(": Permission denied\n", 2);
+			set_status(126);
 		}
 	}
 	else
 	{
 		ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 		ft_putstr_fd(": command not found\n", 2);
+		set_status(127);
 	}
 	return (0);
 }

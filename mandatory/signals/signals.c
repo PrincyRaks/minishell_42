@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/11 12:23:46 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:29:21 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	signal_reset_prompt(int signo)
 {
 	(void)signo;
-// Princy
-	// if(signo == SIGINT)
-	// 	set_status(130);
+	if(signo == SIGINT)
+		set_status(130);
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 10:11:50 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:07:11 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,6 @@ void	reboot_data(void)
 	delete_file_tmp(get_last_file());
 	set_num_file(-1);
 	set_sigint(1);
-	if (get_stdin_dup() > 0)
-	{
-		dup2(get_stdin_dup(), STDIN_FILENO);
-		close(get_stdin_dup());
-		set_stdin_dup(-1);
-	}
 	if (!get_sigpipe())
 	{
 		clear_export_env();

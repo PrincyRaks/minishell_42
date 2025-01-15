@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 11:48:27 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:25:28 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ static void	execute_the_command(char *executable, char **argv, char **tab_env)
 {
 	if (!executable || !argv || execve(executable, argv, tab_env) == -1)
 	{
+		if (!executable)
+			set_status(0);
+		else
+			set_status(127);
 		free(executable);
 		free_array(argv);
 		free_array(tab_env);
-		clean_up_exit(127);
+		clean_up_exit(get_status());
 	}
 	free(executable);
 	free_array(tab_env);
@@ -53,6 +57,7 @@ void	execute_single_command(t_tokens *tokens)
 	{
 		free(executable);
 		free_array(argv);
+		set_status(1);
 		clean_up_exit(1);
 	}
 	if (cmd && cmd[0] == '\0')

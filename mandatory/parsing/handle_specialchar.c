@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_specialchar.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 17:58:28 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/09 11:10:28 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:24:53 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
