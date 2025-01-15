@@ -25,7 +25,7 @@ void	print_errnum(t_errnum numerr)
 		ft_putstr_fd("Error: unclosed quotes\n", 2);
 	else if (numerr == ERRFLOW)
 	{
-		ft_putstr_fd("Error: syntax error near unexpected", 2);
+		ft_putstr_fd("Error: syntax error near unexpected ", 2);
 		ft_putendl_fd("token `redirection'", 2);
 	}
 	else if (numerr == ERRPIPE)

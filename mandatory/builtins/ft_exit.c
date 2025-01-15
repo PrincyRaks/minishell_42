@@ -82,7 +82,7 @@ int	ft_exit(t_tokens *tokens)
 	char		*str_arg;
 	long long	exit_code;
 
-	printf("exit\n");
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	len_arg = 0;
 	exit_code = 0;
 	if (tokens && tokens->token_arg)

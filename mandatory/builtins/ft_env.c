@@ -32,7 +32,11 @@ static void	show_env(void)
 	while (env != NULL)
 	{
 		if (env->key != NULL && env->value != NULL)
-			printf("%s=%s\n", env->key, env->value);
+		{
+			ft_putstr_fd(env->key, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putendl_fd(env->value, STDOUT_FILENO);
+		}
 		env = env->next;
 	}
 }

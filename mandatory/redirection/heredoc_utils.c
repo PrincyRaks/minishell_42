@@ -28,8 +28,10 @@ void	delete_file_tmp(int last_num)
 
 void	print_warning_delimiter(char *str)
 {
-	printf("warning: here-document delimited by end-of-file (wanted `%s')\n",
-		str);
+	ft_putstr_fd("warning: here-document delimited by end-of-file (wanted `",
+		STDOUT_FILENO);
+	ft_putstr_fd(str, STDOUT_FILENO);
+	ft_putendl_fd("')", STDOUT_FILENO);
 }
 
 void	write_specific_heredoc(char **input, int fd_tmp, int expandable)

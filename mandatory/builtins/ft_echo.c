@@ -42,13 +42,14 @@ int	ft_echo(t_tokens *tokens)
 	{
 		if (!argt->next_arg)
 		{
-			printf("%s", argt->arg_str);
+			ft_putstr_fd(argt->arg_str, STDOUT_FILENO);
 			break ;
 		}
-		printf("%s ", argt->arg_str);
+		ft_putstr_fd(argt->arg_str, STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
 		argt = argt->next_arg;
 	}
 	if (!option)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }

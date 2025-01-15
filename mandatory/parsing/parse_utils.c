@@ -44,14 +44,8 @@ int	parse_pipe(char **input, t_tokens **node, t_tokens **first)
 	(*input)++;
 	while (ft_isspace(**input))
 		(*input)++;
-	if (**input == '|')
+	if (**input == '|' || **input == '\0')
 		return (ERRPIPE);
-	if (**input == '\0')
-	{
-		signal(SIGINT, stop_instruction);
-		if (open_pipeline(input) < 0)
-			return (-1);
-	}
 	if (!create_new_token(first, node))
 		return (ERRMALLOC);
 	return (DEFAULT);
@@ -95,15 +89,18 @@ t_tokens	**store_instruction(char *input)
 	*first_node = node;
 	if (!node)
 		return (NULL);
-	while (*input && node->errnum == DEFAULT)
+	while (*input && (node->errnum == DEFAULT || node->errnum == AMBIGUOUS))
 	{
 		while (ft_isspace(*input))
 			input++;
+		if (node->errnum == AMBIGUOUS)
+			print_errnum(node->errnum);
 		if (!handle_token(&input, node, first_node))
 			break ;
 		if (*input == '|' && !handle_inline_pipe(&input, &node, first_node))
 			break ;
 	}
-	parse_heredoc(*first_node);
+	if (node->errnum == DEFAULT || node->errnum == AMBIGUOUS)
+		parse_heredoc(*first_node);
 	return (first_node);
 }

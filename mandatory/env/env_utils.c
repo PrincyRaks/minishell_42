@@ -89,7 +89,7 @@ void	display_env_export(void)
 	env = get_data_export();
 	while (*env != NULL)
 	{
-		printf("%s\n", *env);
+		ft_putendl_fd(*env, STDOUT_FILENO);
 		env++;
 	}
 }

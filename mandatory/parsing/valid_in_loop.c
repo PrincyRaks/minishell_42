@@ -25,7 +25,7 @@ int	valid_arguments(t_tokens *node, int mode_add, char *str_parsing)
 int	valid_char(char c)
 {
 	return (c != '"' && c != '\'' && c != '\0' && c != '$' && c != ' '
-		&& c != '>' && c != '<');
+		&& c != '>' && c != '<' && c != '|');
 }
 
 int	valid_token(t_tokens *token, char char_input)
