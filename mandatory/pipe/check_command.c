@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:54:31 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 14:15:02 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:35:08 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int	check_command(t_tokens *current)
 
 	path_exec = NULL;
 	cmd_token = find_cmd_token(current);
-	if (!cmd_token || !cmd_token->token_cmd->cmd_str)
-		return (0);
 	if (!handle_dots_check(cmd_token))
 		return (0);
 	if (!handle_directory_check(cmd_token))

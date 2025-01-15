@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 09:10:45 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:48:27 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	execute_the_command(char *executable, char **argv, char **tab_env)
 		free(executable);
 		free_array(argv);
 		free_array(tab_env);
-		clean_up_exit(errno);
+		clean_up_exit(127);
 	}
 	free(executable);
 	free_array(tab_env);

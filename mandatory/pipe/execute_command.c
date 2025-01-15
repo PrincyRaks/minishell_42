@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:58:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 09:06:04 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 11:11:09 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 	setup_the_pipe(*prev_fd, pipe_fd, current);
 	pid = fork();
 	if (pid == -1)
-		exit_perror("fork");
+	{
+		perror("fork");
+		clean_up_exit(EXIT_FAILURE);
+	}
 	if (pid == 0)
 		setup_child_process(tokens, current, *prev_fd, pipe_fd);
 	else if (pid > 0)
