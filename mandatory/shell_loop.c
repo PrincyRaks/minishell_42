@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:38:53 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 18:46:34 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/15 10:11:50 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ void	reboot_data(void)
 		close(get_stdin_dup());
 		set_stdin_dup(-1);
 	}
-	// if(get_stdout_dup() > 0)
-	// {
-	// 	dup2(get_stdout_dup(), STDOUT_FILENO);
-	// 	close(get_stdout_dup());
-	// 	set_stdout_dup(-1);
-	// }
 	if (!get_sigpipe())
 	{
 		clear_export_env();

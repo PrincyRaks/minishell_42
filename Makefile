@@ -42,7 +42,6 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/execute_builtins.c \
 	   mandatory/utils/ft_utils.c \
 	   mandatory/pipe/execute_pipe.c \
-	   mandatory/pipe/execute_pipe_utils.c \
 	   mandatory/pipe/execute_single_command.c \
 	   mandatory/pipe/utils.c \
 	   mandatory/pipe/getset_sigpipe.c \

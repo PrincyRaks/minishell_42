@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getset_stdin_dup.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 23:32:42 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 23:32:54 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/15 09:00:07 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
