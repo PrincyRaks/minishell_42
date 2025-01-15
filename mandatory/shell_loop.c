@@ -23,7 +23,7 @@ static void	handle_input(char *input)
 			return ;
 		data_cmd = store_instruction(input);
 		if (data_cmd && *data_cmd != NULL && get_sigint() > 0
-			&& get_sigpipe() > 0 && ((*data_cmd)->errnum == DEFAULT 
+			&& get_sigpipe() > 0 && ((*data_cmd)->errnum == DEFAULT
 			|| (*data_cmd)->errnum == AMBIGUOUS))
 			handle_command(*data_cmd);
 		clean_tokens(data_cmd);

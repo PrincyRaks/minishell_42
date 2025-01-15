@@ -58,7 +58,7 @@ int	handle_token(char **input, t_tokens *node, t_tokens **first)
 	err_token = DEFAULT;
 	if (valid_store(**input))
 	{
-	 	err_token = store_token(node, input);
+		err_token = store_token(node, input);
 		if (err_token != DEFAULT && err_token != AMBIGUOUS)
 		{
 			print_errnum(node->errnum);
