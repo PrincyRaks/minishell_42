@@ -31,7 +31,7 @@ int	valid_char(char c)
 int	valid_token(t_tokens *token, char char_input)
 {
 	return (char_input != ' ' && char_input != '\0' && char_input != '|'
-		&& token->errnum == DEFAULT);
+		&& (token->errnum == DEFAULT || token->errnum == AMBIGUOUS));
 }
 
 int	valid_redir(char c)

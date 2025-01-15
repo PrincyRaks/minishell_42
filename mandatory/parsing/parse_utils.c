@@ -53,11 +53,18 @@ int	parse_pipe(char **input, t_tokens **node, t_tokens **first)
 
 int	handle_token(char **input, t_tokens *node, t_tokens **first)
 {
-	if (valid_store(**input) && store_token(node, input) != DEFAULT)
+	t_errnum	err_token;
+
+	err_token = DEFAULT;
+	if (valid_store(**input))
 	{
-		print_errnum(node->errnum);
-		(*first)->errnum = node->errnum;
-		return (0);
+	 	err_token = store_token(node, input);
+		if (err_token != DEFAULT && err_token != AMBIGUOUS)
+		{
+			print_errnum(node->errnum);
+			(*first)->errnum = node->errnum;
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -93,14 +100,12 @@ t_tokens	**store_instruction(char *input)
 	{
 		while (ft_isspace(*input))
 			input++;
-		if (node->errnum == AMBIGUOUS)
-			print_errnum(node->errnum);
 		if (!handle_token(&input, node, first_node))
 			break ;
 		if (*input == '|' && !handle_inline_pipe(&input, &node, first_node))
 			break ;
 	}
-	if (node->errnum == DEFAULT || node->errnum == AMBIGUOUS)
+	if ((*first_node)->errnum == DEFAULT || (*first_node)->errnum == AMBIGUOUS)
 		parse_heredoc(*first_node);
 	return (first_node);
 }

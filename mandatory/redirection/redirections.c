@@ -19,6 +19,7 @@ int	open_redirection_file(t_flow *redir)
 	fd = -1;
 	if (!redir || !redir->word || redir->word[0] == '\0')
 	{
+
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		set_status(1);
 		return (-1);
@@ -86,6 +87,8 @@ int	apply_redirection(t_tokens *token)
 	if (!token || !token->token_flow)
 		return (0);
 	redir = token->token_flow;
+	if (token->errnum == AMBIGUOUS)
+		print_errnum(AMBIGUOUS);
 	while (redir)
 	{
 		if (apply_single_redirection(redir) == -1)
