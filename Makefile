@@ -77,7 +77,7 @@ libft:
 	make -C libft/
 
 leaks: all
-	valgrind --vgdb=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=ignore_readline.supp -s ./$(NAME)
+	valgrind --vgdb=yes --track-origins=yes --track-fds=yes --leak-check=full --show-leak-kinds=all --suppressions=ignore_readline.supp -s ./$(NAME)
 
 clean:
 	make clean -C libft/

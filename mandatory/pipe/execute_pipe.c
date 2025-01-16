@@ -6,11 +6,25 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:07:28 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/16 10:32:09 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 11:27:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handle_signal_status(int status)
+{
+	if (WTERMSIG(status) == SIGINT)
+	{
+		set_status(130);
+		write(STDOUT_FILENO, "\n", 1);
+	}
+	else if (WTERMSIG(status) == SIGQUIT)
+	{
+		set_status(131);
+		write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
+	}
+}
 
 static void	wait_all_pids(pid_t *pids, int count)
 {
@@ -24,19 +38,14 @@ static void	wait_all_pids(pid_t *pids, int count)
 	while (i < count)
 	{
 		waitpid(pids[i], &status, 0);
+		if (i == count - 1)
+		{
+			if (WIFEXITED(status))
+				set_status(WEXITSTATUS(status));
+			else if (WIFSIGNALED(status))
+				handle_signal_status(status);
+		}
 		i++;
-		if (WIFEXITED(status))
-			set_status(WEXITSTATUS(status));
-		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
-			set_status(130);
-			write(STDOUT_FILENO, "\n", 1);
-		}
-		else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGQUIT)
-		{
-			set_status(131);
-			write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
-		}
 	}
 	set_signals_interactive();
 }
