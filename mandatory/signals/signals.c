@@ -22,7 +22,6 @@ void	set_signals_interactive(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-
 void	signal_print_newline(int signal)
 {
 	(void)signal;
