@@ -68,7 +68,7 @@ static int	handle_command_errors(t_tokens *cmd_token)
 		{
 			ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			set_status(1);
+			set_status(127);
 		}
 		else if (access(cmd_token->token_cmd->cmd_str, X_OK) != 0)
 		{
