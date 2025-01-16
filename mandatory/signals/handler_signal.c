@@ -28,5 +28,6 @@ void	stop_instruction(int signal)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 		set_sigint(0);
+		set_status(130);
 	}
 }

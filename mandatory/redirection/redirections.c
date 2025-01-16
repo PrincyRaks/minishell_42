@@ -15,7 +15,6 @@
 int	open_redirection_file(t_flow *redir)
 {
 	int	fd;
-	struct stat st;
 
 	fd = -1;
 	if (!redir || !redir->word || redir->word[0] == '\0')
@@ -31,20 +30,7 @@ int	open_redirection_file(t_flow *redir)
 	else if (redir->operand == APPEND)
 		fd = open(redir->word, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		if (stat(redir->word, &st) != 0)
-		{
-			ft_putstr_fd(" : No such file or directory\n", 2);
-			set_status(1);
-		}
-		else if (((redir->operand == OUTPUT || redir->operand == APPEND) 
-			&& access(redir->word, W_OK) != 0)
-			|| (redir->operand == INPUT && access(redir->word, R_OK) != 0))
-		{
-			ft_putstr_fd(redir->word, 2);
-			ft_putstr_fd(": Permission denied\n", 2);
-		}
-	}
+		print_error_access(redir);
 	return (fd);
 }
 

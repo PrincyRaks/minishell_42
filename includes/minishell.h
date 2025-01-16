@@ -97,6 +97,7 @@ typedef struct s_tokens
 }						t_tokens;
 
 void					shell_loop(void);
+void					print_error_access(t_flow *redir);
 void					handle_command(t_tokens *data_cmd);
 void					free_array(char **array);
 bool					is_only_dots(const char *command);
