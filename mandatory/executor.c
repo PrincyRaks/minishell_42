@@ -39,6 +39,32 @@ static char	*check_direct_path(char *command)
 	return (NULL);
 }
 
+int	search_working_directory(char *command)
+{
+	char			cwd[PATH_MAX];
+	DIR				*dir_ptr;
+	struct dirent	*read_dir;
+
+	if (!getcwd(cwd, sizeof(cwd)))
+		return (0);
+	dir_ptr = opendir(cwd);
+	if (!dir_ptr)
+	{
+		perror("opendir");
+		return (0);
+	}
+	while ((read_dir = readdir(dir_ptr)) != NULL)
+	{
+		if (!ft_strcmp(read_dir->d_name, command) && !access(read_dir->d_name, X_OK))
+		{
+			closedir(dir_ptr);
+			return (1);
+		}
+	}
+	closedir(dir_ptr);
+	return (0);
+}
+
 static char	*search_in_path(char *command, char **paths)
 {
 	int		i;
@@ -56,6 +82,12 @@ static char	*search_in_path(char *command, char **paths)
 		}
 		free(full_path);
 		i++;
+	}
+	if (search_working_directory(command))
+	{
+		if (paths)
+			free_array(paths);
+		return (ft_strdup(command));
 	}
 	if (paths)
 		free_array(paths);

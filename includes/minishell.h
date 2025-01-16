@@ -186,6 +186,7 @@ t_data_env				*map_env(char *data);
 void					clean_node_env(t_data_env *node);
 void					clear_export_env(void);
 int						count_tab(char **tab);
+int						safe_close_dir(DIR *dir_ptr);
 int						is_onlyspace(char *str);
 t_errnum				check_errnum(t_tokens *token);
 void					print_errnum(t_errnum numerr);
