@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_single_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 16:25:28 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:23:58 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,8 @@ void	execute_single_command(t_tokens *tokens)
 	char	*executable;
 	char	**argv;
 	char	*cmd;
-	char	**tab_env;
 
 	cmd = tokens->token_cmd->cmd_str;
-	if (is_builtin(cmd))
-	{
-		execute_builtin(tokens, is_builtin(cmd));
-		clean_up_exit(get_status());
-	}
 	executable = find_executable(cmd);
 	argv = array_tokens(tokens);
 	if (tokens->token_flow && apply_redirection(tokens) == -1)
@@ -60,8 +54,14 @@ void	execute_single_command(t_tokens *tokens)
 		set_status(1);
 		clean_up_exit(1);
 	}
+	if (is_builtin(cmd))
+	{
+		execute_builtin(tokens, is_builtin(cmd));
+		free(executable);
+		free_array(argv);
+		clean_up_exit(get_status());
+	}
 	if (cmd && cmd[0] == '\0')
 		handle_empty_command(executable, argv);
-	tab_env = get_tabenv();
-	execute_the_command(executable, argv, tab_env);
+	execute_the_command(executable, argv, get_tabenv());
 }

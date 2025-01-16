@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
+/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:25:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/16 09:46:29 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 12:15:47 by rrakotos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ static void	execute_command_type(t_tokens *data_cmd, t_cmd *cmd,
 	nb_builtin = is_builtin(cmd->cmd_str);
 	if (nb_builtin > 0 && !data_cmd->next)
 	{
+		if (apply_redirection(data_cmd) == -1)
+		{
+			set_status(1);
+			restore_stdio(saved_stdin, saved_stdout);
+			return ;
+		}
 		execute_builtin(data_cmd, nb_builtin);
 		restore_stdio(saved_stdin, saved_stdout);
 		return ;
@@ -49,8 +55,8 @@ void	handle_command(t_tokens *data_cmd)
 	int		saved_stdout;
 	t_cmd	*node_cmd;
 
-	saved_stdin = 3;
-	saved_stdout = 4;
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	set_stdin_dup(saved_stdin);
 	set_stdout_dup(saved_stdout);
 	if (!data_cmd)
