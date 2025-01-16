@@ -61,26 +61,18 @@ static int	handle_directory_check(t_tokens *cmd_token)
 
 static int	handle_command_errors(t_tokens *cmd_token)
 {
-	if (cmd_token->token_cmd->cmd_str[0] == '/'
-		|| cmd_token->token_cmd->cmd_str[0] == '.')
-	{
-		if (access(cmd_token->token_cmd->cmd_str, F_OK) != 0)
-		{
-			ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			set_status(127);
-		}
-		else if (access(cmd_token->token_cmd->cmd_str, X_OK) != 0)
-		{
-			ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
-			ft_putstr_fd(": Permission denied\n", 2);
-			set_status(126);
-		}
-	}
+	char	*str_cmd;
+
+	str_cmd = cmd_token->token_cmd->cmd_str;
+	if (str_cmd[0] == '/' || str_cmd[0] == '.')
+		print_error_directory(str_cmd);
 	else
 	{
-		ft_putstr_fd(cmd_token->token_cmd->cmd_str, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		ft_putstr_fd(str_cmd, 2);
+		if (!ft_getenv("PATH"))
+			ft_putstr_fd(": No such file or directory\n", 2);
+		else
+			ft_putstr_fd(": command not found\n", 2);
 		set_status(127);
 	}
 	return (0);

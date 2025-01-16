@@ -205,6 +205,7 @@ t_tokens				*get_prev_token(t_tokens *head, t_tokens *current);
 void					setup_child_process(t_tokens *tokens, t_tokens *current,
 							int prev_fd, int *pipe_fd);
 int						check_command(t_tokens *current);
+void					print_error_directory(char *str);
 void					handle_pipe_fds(t_tokens *tokens, t_tokens *current,
 							int *prev_fd, int *pipe_fd);
 void					execute_command(t_tokens *current,

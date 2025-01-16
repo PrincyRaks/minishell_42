@@ -71,3 +71,19 @@ void	print_error_access(t_flow *redir)
 		ft_putstr_fd(": Permission denied\n", 2);
 	}
 }
+
+void	print_error_directory(char *str)
+{
+	if (access(str, F_OK) != 0)
+	{
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		set_status(127);
+	}
+	else if (access(str, X_OK) != 0)
+	{
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		set_status(126);
+	}
+}
