@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:57:15 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 16:40:07 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:07:11 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	set_signals_interactive(void)
 	sigaction(SIGINT, &act, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
+
 
 void	signal_print_newline(int signal)
 {

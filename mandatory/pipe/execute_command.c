@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 20:58:56 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/15 16:35:16 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:32:17 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ static void	setup_the_pipe(int prev_fd, int pipe_fd[2], t_tokens *current)
 	}
 }
 
-static void	handle_parent_signals(pid_t pid, int status)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	set_signals_interactive();
-	if (WIFEXITED(status))
-		set_status(WEXITSTATUS(status));
-	else if (status & 0x7F)
-	{
-		if ((status & 0x7F) == SIGINT)
-			write(STDOUT_FILENO, "\n", 1);
-		else if ((status & 0x7F) == SIGQUIT)
-			write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
-	}
-}
-
 static void	handle_pipe_cleanup(int *prev_fd, int *pipe_fd, t_tokens *current)
 {
 	if (*prev_fd != -1)
@@ -59,13 +42,12 @@ static void	handle_pipe_cleanup(int *prev_fd, int *pipe_fd, t_tokens *current)
 	}
 }
 
-void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
+void	execute_command(t_tokens *current, int *prev_fd,
+		pid_t *pids, int *index)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
-	int		status;
 
-	status = 0;
 	setup_the_pipe(*prev_fd, pipe_fd, current);
 	pid = fork();
 	if (pid == -1)
@@ -74,8 +56,11 @@ void	execute_command(t_tokens *tokens, t_tokens *current, int *prev_fd)
 		clean_up_exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
-		setup_child_process(tokens, current, *prev_fd, pipe_fd);
+		setup_child_process(current, current, *prev_fd, pipe_fd);
 	else if (pid > 0)
-		handle_parent_signals(pid, status);
+	{
+		pids[*index] = pid;
+		(*index)++;
+	}
 	handle_pipe_cleanup(prev_fd, pipe_fd, current);
 }

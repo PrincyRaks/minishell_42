@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/15 17:05:12 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/16 10:32:34 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,8 +206,8 @@ void					setup_child_process(t_tokens *tokens, t_tokens *current,
 int						check_command(t_tokens *current);
 void					handle_pipe_fds(t_tokens *tokens, t_tokens *current,
 							int *prev_fd, int *pipe_fd);
-void					execute_command(t_tokens *tokens, t_tokens *current,
-							int *prev_fd);
+void					execute_command(t_tokens *current,
+							int *prev_fd, pid_t *pids, int *index);
 void					execute_single_command(t_tokens *token);
 void					execute_pipeline(t_tokens *tokens);
 void					set_signals_pipe(void);
