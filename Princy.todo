@@ -14,7 +14,7 @@ Parsing:
 ✔ Implémenter les redirections : <, >, <<, >> @done(25-01-06 23:57)
 ✔ Implémenter les pipes : | @done(24-12-18 16:36)
 ✔ Manipuler les variables d'environnement ($) @done(24-11-29 11:45)
-☐ Gérer les $? et les états de sortie
+✔ Gérer les $? et les états de sortie @done(25-01-16 13:54)
 ✔ Gérer les signaux : ctrl-C, ctrl-D, ctrl-\ @done(25-01-06 23:58)
 ✔ Gérer des built-ins : @done(25-01-06 23:58)
     ✔ echo (avec -n) @done(24-11-29 10:53)
