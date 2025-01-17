@@ -56,7 +56,8 @@ int	search_working_directory(char *command)
 	read_dir = readdir(dir_ptr);
 	while (read_dir != NULL)
 	{
-		if (!ft_strcmp(read_dir->d_name, command) && !access(read_dir->d_name, X_OK))
+		if (!ft_strcmp(read_dir->d_name, command) && !access(read_dir->d_name,
+				X_OK))
 		{
 			closedir(dir_ptr);
 			return (1);

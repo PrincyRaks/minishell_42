@@ -56,16 +56,16 @@ t_errnum	check_errnum(t_tokens *token)
 
 void	print_error_access(t_flow *redir)
 {
-	struct stat st;
+	struct stat	st;
 
 	if (stat(redir->word, &st) != 0)
 	{
 		ft_putstr_fd(" : No such file or directory\n", 2);
 		set_status(1);
 	}
-	else if (((redir->operand == OUTPUT || redir->operand == APPEND) 
-			&& access(redir->word, W_OK) != 0)
-			|| (redir->operand == INPUT && access(redir->word, R_OK) != 0))
+	else if (((redir->operand == OUTPUT || redir->operand == APPEND)
+			&& access(redir->word, W_OK) != 0) || (redir->operand == INPUT
+			&& access(redir->word, R_OK) != 0))
 	{
 		ft_putstr_fd(redir->word, 2);
 		ft_putstr_fd(": Permission denied\n", 2);
