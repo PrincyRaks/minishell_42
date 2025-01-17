@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 16:41:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/06 14:11:48 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:55:19 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*expand(char **var)
 	int		size;
 	char	*result;
 
-	if (*var == NULL || **var == ' ' || **var == '\0' || **var == '"')
+	if (*var == NULL || ft_isspace(**var) || **var == '\0' || **var == '"')
 		return (ft_strdup("$"));
 	size = 0;
 	result = ft_calloc(sizeof(char), 1);
@@ -75,7 +75,7 @@ char	*expand(char **var)
 	if (**var != '?' && (ft_isalpha(**var) || **var == '_'))
 		return (free(result), get_valuekey(var));
 	result = ft_strjoin(result, "$");
-	while (*var != NULL && **var != ' ' && **var != '$' && **var != '\0'
+	while (*var != NULL && !ft_isspace(**var) && **var != '$' && **var != '\0'
 		&& **var != '\'' && **var != '"')
 	{
 		size++;

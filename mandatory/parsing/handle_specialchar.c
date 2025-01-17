@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 17:58:28 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/15 15:24:53 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:51:45 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	handle_var(char **input, char **res, t_tokens *token, int *mode)
 		return ;
 	}
 	expand = handle_dollar(input);
-	if (!expand && (**input == ' ' || **input == '\0' || **input == '|'))
+	if (!expand && (!ft_isspace(**input) || **input == '\0' || **input == '|'))
 		set_void_operand(token, *mode);
 	if (expand != NULL)
 		*res = concat_str(*res, expand);

@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/08 04:43:20 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:54:44 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	check_operand(char **str, int *is_expand)
 		return (-1);
 	i = 0;
 	nb_op = 0;
-	while (**str == ' ' || **str == '<' || **str == '>')
+	while (ft_isspace(**str) || **str == '<' || **str == '>')
 	{
 		if (**str == '<' || **str == '>')
 			nb_op++;
