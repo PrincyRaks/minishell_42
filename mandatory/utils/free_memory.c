@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 16:42:48 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/16 09:51:27 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:15:56 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	free_array(char **array)
 		i++;
 	}
 	free(array);
+}
+
+void	free_node_tmp(t_data_env *node)
+{
+	free(node->key);
+	free(node);
 }
 
 void	clean_up_exit(int n_exit)

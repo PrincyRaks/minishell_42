@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:49:02 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/16 10:32:34 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:18:24 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,7 @@ void					set_signals_pipe(void);
 void					delete_file_tmp(int last_num);
 void					write_heredoc(char *input, int fd_tmp, int expandable);
 void					parse_heredoc(t_tokens *tokens);
+void					free_node_tmp(t_data_env *node);
 void					print_warning_delimiter(char *str);
 void					set_num_file(int num_file);
 int						get_last_file(void);

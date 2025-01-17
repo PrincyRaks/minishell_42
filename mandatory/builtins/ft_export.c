@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:42:23 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/14 14:52:36 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 15:17:51 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ static void	export_to_env(char *value, int type_argv)
 		env = get_data_env();
 		addback_env(&env, node);
 	}
-	else
+	else if (var && node->value != NULL)
 	{
-		if (type_argv == 1 && var->value && node->value)
+		if (type_argv == 1 && var->value != NULL)
 			var->value = concat_str(var->value, node->value);
-		else if (type_argv == 0 && var->value && node->value)
+		else
 		{
 			free(var->value);
 			var->value = node->value;
 		}
-		free(node->key);
-		free(node);
+		free_node_tmp(node);
 	}
+	else if (var && node->value == NULL)
+		free_node_tmp(node);
 	load_data_export();
 }
 
