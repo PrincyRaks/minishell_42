@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_single_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rrakotos <rrakotos@student.42antananari    +#+  +:+       +#+        */
+/*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:08:18 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/16 12:23:58 by rrakotos         ###   ########.fr       */
+/*   Updated: 2025/01/17 08:41:47 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	execute_single_command(t_tokens *tokens)
 	}
 	if (is_builtin(cmd))
 	{
-		execute_builtin(tokens, is_builtin(cmd));
 		free(executable);
 		free_array(argv);
+		execute_builtin(tokens, is_builtin(cmd));
 		clean_up_exit(get_status());
 	}
 	if (cmd && cmd[0] == '\0')

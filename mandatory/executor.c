@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:25:20 by mrazanad          #+#    #+#             */
-/*   Updated: 2025/01/14 14:08:05 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 08:45:49 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ int	search_working_directory(char *command)
 		perror("opendir");
 		return (0);
 	}
-	while ((read_dir = readdir(dir_ptr)) != NULL)
+	read_dir = readdir(dir_ptr);
+	while (read_dir != NULL)
 	{
 		if (!ft_strcmp(read_dir->d_name, command) && !access(read_dir->d_name, X_OK))
 		{
 			closedir(dir_ptr);
 			return (1);
 		}
+		read_dir = readdir(dir_ptr);
 	}
 	closedir(dir_ptr);
 	return (0);
