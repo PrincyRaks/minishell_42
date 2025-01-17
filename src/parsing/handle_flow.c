@@ -6,7 +6,7 @@
 /*   By: mrazanad <mrazanad@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:53:33 by rrakotos          #+#    #+#             */
-/*   Updated: 2025/01/17 13:54:44 by mrazanad         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:03:47 by mrazanad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	check_operand(char **str, int *is_expand)
 		(*str)++;
 		i++;
 	}
+	if (**str == '|')
+		return (-1);
 	return (valid_operand(*str, nb_op, i, is_expand));
 }
 
